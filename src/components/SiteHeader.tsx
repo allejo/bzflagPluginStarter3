@@ -2,7 +2,7 @@ import React from 'react';
 
 const SiteHeader = () => (
   <section>
-    <h1 className="mb-3">BZFlag Plug-in Starter</h1>
+    <h1 className="my-3">BZFlag Plug-in Starter</h1>
 
     <p>
       This tool generates the skeleton for BZFlag 2.4 compatible plug-ins. The documentation and features used on this
