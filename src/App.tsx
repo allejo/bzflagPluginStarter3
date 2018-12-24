@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
+import { ICodeStyle, IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
 
 import SiteHeader from './components/SiteHeader';
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
 import PluginPreview from './components/PluginPreview';
+import PluginCodeStyle from './components/PluginCodeStyle';
 
 interface State {
   pluginDef: IPlugin;
@@ -29,6 +30,15 @@ class App extends Component<{}, State> {
     def.name = data.pluginName;
     def.license = data.pluginLicense;
 
+    this.updatePluginBuild();
+  };
+
+  handleCodeStyle = (data: ICodeStyle): void => {
+    this.pluginBuilder.definition.codeStyle = data;
+    this.updatePluginBuild();
+  };
+
+  updatePluginBuild = () => {
     this.setState({
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     });
@@ -42,7 +52,13 @@ class App extends Component<{}, State> {
         <SiteHeader />
         <PluginDefinition onUpdate={this.handlePluginDefinition} />
         <div className="row">
-          <div className="col-md-6" />
+          <div className="col-md-6">
+            <PluginCodeStyle
+              isOpen={true}
+              onUpdate={this.handleCodeStyle}
+              settings={this.pluginBuilder.definition.codeStyle}
+            />
+          </div>
           <div className="col-md-6">
             <PluginPreview code={writer.write()} minVersion="2.4.0" filename={writer.getClassName()} />
           </div>
