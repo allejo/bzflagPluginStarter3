@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+/data/events/*.md
+/src/data/*.json
+
 # testing
 /coverage
 
