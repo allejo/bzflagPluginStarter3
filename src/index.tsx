@@ -4,8 +4,11 @@ import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClipboard, faDownload } from '@fortawesome/free-solid-svg-icons';
 
+import 'typeface-bitter';
+import 'typeface-raleway';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './index.scss';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
