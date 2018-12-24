@@ -23,9 +23,7 @@ export default class PluginPreview extends Component<Props> {
 
         <div className={styles.codeContainer}>
           <div className={styles.toolbar}>
-            <div className="btn btn-secondary">
-              {this.props.minVersion}
-            </div>
+            <div className="btn btn-secondary">{this.props.minVersion}</div>
 
             <button className="btn btn-primary ml-1" onClick={this.downloadPluginAsFile}>
               <span className="sr-only">Download as file</span>
