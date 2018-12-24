@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faClipboard, faDownload } from '@fortawesome/free-solid-svg-icons';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+library.add(faClipboard, faDownload);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

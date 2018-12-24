@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { saveAs } from 'file-saver';
 import styles from './PluginPreview.module.css';
 
@@ -18,10 +20,17 @@ export default class PluginPreview extends Component<Props> {
     return (
       <div className={styles.container}>
         <div className={styles.toolbar}>
-          <button onClick={this.downloadPluginAsFile}>
+          <button className="btn btn-primary ml-1" onClick={this.downloadPluginAsFile}>
             <span className="sr-only">Download as file</span>
-            <i className="fa fa-download" aria-hidden="true" />
+            <FontAwesomeIcon icon="download" />
           </button>
+
+          <CopyToClipboard text={this.props.code}>
+            <button className="btn btn-primary ml-1">
+              <span className="sr-only">Copy plug-in to clipboard</span>
+              <FontAwesomeIcon icon="clipboard" />
+            </button>
+          </CopyToClipboard>
         </div>
 
         <pre>
