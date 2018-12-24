@@ -16,7 +16,7 @@ class App extends Component<{}, State> {
 
     this.pluginBuilder = new PluginBuilder();
     this.state = {
-      pluginDef: this.pluginBuilder.definition,
+      pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
 
@@ -29,7 +29,7 @@ class App extends Component<{}, State> {
     def.license = data.pluginLicense;
 
     this.setState({
-      pluginDef: this.pluginBuilder.definition,
+      pluginDef: Object.assign({}, this.pluginBuilder.definition),
     });
   };
 
