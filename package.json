@@ -14,6 +14,7 @@
     "@types/react": "16.7.18",
     "@types/react-copy-to-clipboard": "^4.2.6",
     "@types/react-dom": "16.0.11",
+    "@types/reactstrap": "^6.4.3",
     "bootstrap": "^4.2.1",
     "bzf-plugin-gen": "git+ssh://git@github.com/allejo/bzfPluginGen.git#master",
     "file-saver": "^2.0.0",

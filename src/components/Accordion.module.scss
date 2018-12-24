@@ -1,0 +1,27 @@
+@import '../scss/variables';
+
+.header {
+  border-bottom: 1px solid $color-light-green;
+
+  h2 {
+    font-weight: bold;
+    margin: 0;
+    padding: 10px 0;
+
+    &::before {
+      content: "\F107";
+      font-family: FontAwesome;
+      display: inline-block;
+      text-align: center;
+      width: 1.5em;
+    }
+
+    &[aria-expanded=false]::before {
+      content: "\F105";
+    }
+  }
+}
+
+.body {
+  padding: 15px 10px;
+}
