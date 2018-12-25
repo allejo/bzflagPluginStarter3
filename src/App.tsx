@@ -8,6 +8,8 @@ import PluginPreview from './components/PluginPreview';
 import PluginCodeStyle from './components/PluginCodeStyle';
 
 import styles from './App.module.scss';
+import PluginEventSelector from "./components/PluginEventSelector";
+import {IEvent} from "bzf-plugin-gen/dist";
 
 interface State {
   pluginDef: IPlugin;
@@ -41,6 +43,13 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  handleEvents = (data: IEvent[]): void => {
+    this.pluginBuilder.definition.events = {};
+    data.forEach(value => this.pluginBuilder.addEvent(value));
+
+    this.updatePluginBuild();
+  };
+
   updatePluginBuild = () => {
     this.setState({
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
@@ -62,6 +71,8 @@ export default class App extends Component<{}, State> {
                 onUpdate={this.handleCodeStyle}
                 settings={this.state.pluginDef.codeStyle}
               />
+
+              <PluginEventSelector onUpdate={this.handleEvents} />
 
               <SiteFooter />
             </div>
