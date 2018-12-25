@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ICodeStyle, IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
 
 import SiteHeader from './components/SiteHeader';
+import SiteFooter from "./components/SiteFooter";
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
 import PluginPreview from './components/PluginPreview';
 import PluginCodeStyle from './components/PluginCodeStyle';
@@ -61,6 +62,8 @@ export default class App extends Component<{}, State> {
                 onUpdate={this.handleCodeStyle}
                 settings={this.state.pluginDef.codeStyle}
               />
+
+              <SiteFooter />
             </div>
 
             <div className="col-md-6">
