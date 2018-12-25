@@ -1,8 +1,11 @@
 @import '../scss/variables';
 
-.header {
+.header,
+.body {
   border-bottom: 1px solid $color-light-green;
+}
 
+.header {
   h2 {
     font-weight: bold;
     margin: 0;
