@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { ICodeStyle, IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
+import { ICodeStyle, IEvent, IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
 
 import SiteHeader from './components/SiteHeader';
-import SiteFooter from "./components/SiteFooter";
+import SiteFooter from './components/SiteFooter';
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
 import PluginPreview from './components/PluginPreview';
 import PluginCodeStyle from './components/PluginCodeStyle';
+import PluginEventSelector from './components/PluginEventSelector';
 
 import styles from './App.module.scss';
-import PluginEventSelector from "./components/PluginEventSelector";
-import {IEvent} from "bzf-plugin-gen/dist";
 
 interface State {
   pluginDef: IPlugin;

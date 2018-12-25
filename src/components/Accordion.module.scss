@@ -12,15 +12,15 @@
     padding: 10px 0;
 
     &::before {
-      content: "\F107";
+      content: '\F107';
       font-family: FontAwesome;
       display: inline-block;
       text-align: center;
       width: 1.5em;
     }
 
-    &[aria-expanded=false]::before {
-      content: "\F105";
+    &[aria-expanded='false']::before {
+      content: '\F105';
     }
   }
 }

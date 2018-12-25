@@ -1,6 +1,6 @@
-import React, {Component, SyntheticEvent} from 'react';
+import React, { Component, SyntheticEvent } from 'react';
 import { IEvent } from 'bzf-plugin-gen';
-import Accordion from "./Accordion";
+import Accordion from './Accordion';
 
 import Events from '../data/events.json';
 
@@ -20,7 +20,7 @@ export default class PluginEventSelector extends Component<Props, State> {
 
     this.state = {
       events: [],
-    }
+    };
   }
 
   sendEventArrayUp = () => {
@@ -44,15 +44,18 @@ export default class PluginEventSelector extends Component<Props, State> {
       events.splice(events.indexOf(event.currentTarget.name), 1);
     }
 
-    this.setState({
-      events
-    }, () => {
-      this.sendEventArrayUp();
-    });
+    this.setState(
+      {
+        events,
+      },
+      () => {
+        this.sendEventArrayUp();
+      }
+    );
   };
 
   render() {
-    const eventCheckboxes = Object.keys(Events).map(((value, index) => (
+    const eventCheckboxes = Object.keys(Events).map((value, index) => (
       <div className="col-md-6" key={index}>
         <div className="custom-control custom-checkbox">
           <input
@@ -67,7 +70,7 @@ export default class PluginEventSelector extends Component<Props, State> {
           </label>
         </div>
       </div>
-    )));
+    ));
 
     return (
       <Accordion isOpen={true} heading="Plug-in Events">
@@ -75,9 +78,7 @@ export default class PluginEventSelector extends Component<Props, State> {
           BZFS dispatches events when certain actions happen on the server. Select the events your plug-in will listen
           to.
         </p>
-        <div className="row">
-          {eventCheckboxes}
-        </div>
+        <div className="row">{eventCheckboxes}</div>
       </Accordion>
     );
   }
