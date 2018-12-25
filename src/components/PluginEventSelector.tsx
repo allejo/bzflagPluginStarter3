@@ -5,6 +5,9 @@ import Accordion from './Accordion';
 import Events from '../data/events.json';
 
 interface Props {
+  isOpen: boolean;
+
+  onToggle(isOpen: boolean): void;
   onUpdate(events: IEvent[]): void;
 }
 
@@ -15,6 +18,10 @@ interface State {
 type IEventMap = { [key: string]: IEvent };
 
 export default class PluginEventSelector extends Component<Props, State> {
+  static defaultProps = {
+    isOpen: false,
+  };
+
   constructor(props: Props) {
     super(props);
 
@@ -54,6 +61,10 @@ export default class PluginEventSelector extends Component<Props, State> {
     );
   };
 
+  handleToggle = (isOpen: boolean) => {
+    this.props.onToggle(isOpen);
+  };
+
   render() {
     const eventCheckboxes = Object.keys(Events).map((value, index) => (
       <div className="col-md-6" key={index}>
@@ -73,7 +84,7 @@ export default class PluginEventSelector extends Component<Props, State> {
     ));
 
     return (
-      <Accordion isOpen={true} heading="Plug-in Events">
+      <Accordion isOpen={this.props.isOpen} heading="Plug-in Events" onToggle={this.handleToggle}>
         <p>
           BZFS dispatches events when certain actions happen on the server. Select the events your plug-in will listen
           to.

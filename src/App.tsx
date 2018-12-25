@@ -11,6 +11,7 @@ import PluginEventSelector from './components/PluginEventSelector';
 import styles from './App.module.scss';
 
 interface State {
+  openedAccordion: number;
   pluginDef: IPlugin;
 }
 
@@ -22,6 +23,7 @@ export default class App extends Component<{}, State> {
 
     this.pluginBuilder = new PluginBuilder();
     this.state = {
+      openedAccordion: 1,
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
@@ -49,6 +51,14 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  toggleHandler = (index: number): ((isOpen: boolean) => void) => {
+    return (isOpen: boolean): void => {
+      this.setState({
+        openedAccordion: isOpen ? index : -1,
+      });
+    };
+  };
+
   updatePluginBuild = () => {
     this.setState({
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
@@ -66,12 +76,17 @@ export default class App extends Component<{}, State> {
           <div className="row">
             <div className="col-md-6">
               <PluginCodeStyle
-                isOpen={true}
+                isOpen={this.state.openedAccordion === 1}
+                onToggle={this.toggleHandler(1)}
                 onUpdate={this.handleCodeStyle}
                 settings={this.state.pluginDef.codeStyle}
               />
 
-              <PluginEventSelector onUpdate={this.handleEvents} />
+              <PluginEventSelector
+                isOpen={this.state.openedAccordion === 2}
+                onToggle={this.toggleHandler(2)}
+                onUpdate={this.handleEvents}
+              />
 
               <SiteFooter />
             </div>

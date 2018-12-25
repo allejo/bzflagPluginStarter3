@@ -5,6 +5,8 @@ import Accordion from './Accordion';
 interface Props {
   isOpen: boolean;
   settings: ICodeStyle;
+
+  onToggle(isOpen: boolean): void;
   onUpdate(data: ICodeStyle): void;
 }
 
@@ -13,6 +15,10 @@ interface State {
 }
 
 export default class PluginCodeStyle extends Component<Props, State> {
+  static defaultProps = {
+    isOpen: false,
+  };
+
   constructor(props: Props) {
     super(props);
 
@@ -36,9 +42,13 @@ export default class PluginCodeStyle extends Component<Props, State> {
     this.props.onUpdate(data);
   };
 
+  handleToggle = (isOpen: boolean) => {
+    this.props.onToggle(isOpen);
+  };
+
   render() {
     return (
-      <Accordion isOpen={true} heading="Code Style">
+      <Accordion isOpen={this.props.isOpen} heading="Code Style" onToggle={this.handleToggle}>
         <div className="mb-3">
           <fieldset aria-labelledby="code-preferences">
             <legend id="code-preferences">Code Preferences</legend>

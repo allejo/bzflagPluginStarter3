@@ -6,35 +6,23 @@ interface Props {
   isOpen: boolean;
   heading: string;
   children: ReactNode;
+
+  onToggle(isOpen: boolean): void;
 }
 
-interface State {
-  isOpen: boolean;
-}
-
-export default class Accordion extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      isOpen: props.isOpen,
-    };
-  }
-
+export default class Accordion extends Component<Props> {
   handleClick = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    this.props.onToggle(!this.props.isOpen);
   };
 
   render() {
     return (
       <article>
-        <header className={styles.header} aria-expanded={this.state.isOpen} onClick={this.handleClick}>
+        <header className={styles.header} aria-expanded={this.props.isOpen} onClick={this.handleClick}>
           <h2 tabIndex={0}>{this.props.heading}</h2>
         </header>
 
-        <Collapse isOpen={this.state.isOpen}>
+        <Collapse isOpen={this.props.isOpen}>
           <div className={styles.body}>{this.props.children}</div>
         </Collapse>
       </article>

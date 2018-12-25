@@ -18,8 +18,10 @@
       text-align: center;
       width: 1.5em;
     }
+  }
 
-    &[aria-expanded='false']::before {
+  &[aria-expanded='false'] {
+    h2::before {
       content: '\F105';
     }
   }
