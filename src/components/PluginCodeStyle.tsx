@@ -1,34 +1,15 @@
 import React, { Component, SyntheticEvent } from 'react';
 import { ICodeStyle } from 'bzf-plugin-gen';
-import Accordion from './Accordion';
 
 interface Props {
-  isOpen: boolean;
-  settings: ICodeStyle;
+  data: ICodeStyle;
 
-  onToggle(isOpen: boolean): void;
   onUpdate(data: ICodeStyle): void;
 }
 
-interface State {
-  data: ICodeStyle;
-}
-
-export default class PluginCodeStyle extends Component<Props, State> {
-  static defaultProps = {
-    isOpen: false,
-  };
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      data: props.settings,
-    };
-  }
-
-  handleCoreChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    const data = Object.assign({}, this.state.data);
+export default class PluginCodeStyle extends Component<Props> {
+  handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+    const data = Object.assign({}, this.props.data);
 
     if (event.currentTarget.type === 'checkbox') {
       data[event.currentTarget.name] = event.currentTarget.checked;
@@ -36,19 +17,12 @@ export default class PluginCodeStyle extends Component<Props, State> {
       data[event.currentTarget.name] = event.currentTarget.value;
     }
 
-    this.setState({
-      data,
-    });
     this.props.onUpdate(data);
-  };
-
-  handleToggle = (isOpen: boolean) => {
-    this.props.onToggle(isOpen);
   };
 
   render() {
     return (
-      <Accordion isOpen={this.props.isOpen} heading="Code Style" onToggle={this.handleToggle}>
+      <section>
         <div className="mb-3">
           <fieldset aria-labelledby="code-preferences">
             <legend id="code-preferences">Code Preferences</legend>
@@ -59,8 +33,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                 id="useIfStatement"
                 name="useIfStatement"
                 className="custom-control-input"
-                checked={this.state.data.useIfStatement}
-                onChange={this.handleCoreChange}
+                checked={this.props.data.useIfStatement}
+                onChange={this.handleChange}
               />
               <label className="custom-control-label" htmlFor="useIfStatement">
                 Use an if statement for event handling
@@ -73,8 +47,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                 id="bracesOnNewline"
                 name="bracesOnNewLine"
                 className="custom-control-input"
-                checked={this.state.data.bracesOnNewLine}
-                onChange={this.handleCoreChange}
+                checked={this.props.data.bracesOnNewLine}
+                onChange={this.handleChange}
               />
               <label className="custom-control-label" htmlFor="bracesOnNewline">
                 Put braces on new line
@@ -97,8 +71,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                   name="spacingType"
                   className="custom-control-input"
                   value="twoSpace"
-                  checked={this.state.data.spacingType === 'twoSpace'}
-                  onChange={this.handleCoreChange}
+                  checked={this.props.data.spacingType === 'twoSpace'}
+                  onChange={this.handleChange}
                 />
                 <label className="custom-control-label" htmlFor="twoSpace">
                   2 Spaces
@@ -112,8 +86,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                   name="spacingType"
                   className="custom-control-input"
                   value="fourSpace"
-                  checked={this.state.data.spacingType === 'fourSpace'}
-                  onChange={this.handleCoreChange}
+                  checked={this.props.data.spacingType === 'fourSpace'}
+                  onChange={this.handleChange}
                 />
                 <label className="custom-control-label" htmlFor="fourSpace">
                   4 Spaces
@@ -127,8 +101,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                   name="spacingType"
                   className="custom-control-input"
                   value="tabs"
-                  checked={this.state.data.spacingType === 'tabs'}
-                  onChange={this.handleCoreChange}
+                  checked={this.props.data.spacingType === 'tabs'}
+                  onChange={this.handleChange}
                 />
                 <label className="custom-control-label" htmlFor="tabs">
                   Tabs
@@ -148,8 +122,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                   id="buildEventDocs"
                   name="showDocBlocks"
                   className="custom-control-input"
-                  checked={this.state.data.showDocBlocks}
-                  onChange={this.handleCoreChange}
+                  checked={this.props.data.showDocBlocks}
+                  onChange={this.handleChange}
                 />
                 <label htmlFor="buildEventDocs" className="custom-control-label" aria-describedby="docBlockHelp">
                   Build event doc blocks
@@ -165,8 +139,8 @@ export default class PluginCodeStyle extends Component<Props, State> {
                   id="buildComments"
                   name="showComments"
                   className="custom-control-input"
-                  checked={this.state.data.showComments}
-                  onChange={this.handleCoreChange}
+                  checked={this.props.data.showComments}
+                  onChange={this.handleChange}
                 />
                 <label htmlFor="buildComments" className="custom-control-label" aria-describedby="commentHelp">
                   Add helpful comments
@@ -178,7 +152,7 @@ export default class PluginCodeStyle extends Component<Props, State> {
             </fieldset>
           </div>
         </div>
-      </Accordion>
+      </section>
     );
   }
 }

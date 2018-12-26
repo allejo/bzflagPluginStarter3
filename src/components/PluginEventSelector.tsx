@@ -1,39 +1,31 @@
 import React, { Component, SyntheticEvent } from 'react';
 import { IEvent } from 'bzf-plugin-gen';
-import Accordion from './Accordion';
 
 import Events from '../data/events.json';
 
 interface Props {
-  isOpen: boolean;
-
-  onToggle(isOpen: boolean): void;
   onUpdate(events: IEvent[]): void;
 }
 
 interface State {
-  events: string[];
+  eventNames: string[];
 }
 
 type IEventMap = { [key: string]: IEvent };
 
 export default class PluginEventSelector extends Component<Props, State> {
-  static defaultProps = {
-    isOpen: false,
-  };
-
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      events: [],
+      eventNames: [],
     };
   }
 
   sendEventArrayUp = () => {
     const events: IEvent[] = [];
 
-    this.state.events.forEach(value => {
+    this.state.eventNames.forEach(value => {
       events.push((Events as IEventMap)[value]);
     });
 
@@ -42,8 +34,8 @@ export default class PluginEventSelector extends Component<Props, State> {
     this.props.onUpdate(events);
   };
 
-  handleCoreChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    const events = this.state.events.slice();
+  handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+    const events = this.state.eventNames.slice();
 
     if (event.currentTarget.checked) {
       events.push(event.currentTarget.name);
@@ -53,16 +45,12 @@ export default class PluginEventSelector extends Component<Props, State> {
 
     this.setState(
       {
-        events,
+        eventNames: events,
       },
       () => {
         this.sendEventArrayUp();
       }
     );
-  };
-
-  handleToggle = (isOpen: boolean) => {
-    this.props.onToggle(isOpen);
   };
 
   render() {
@@ -74,7 +62,7 @@ export default class PluginEventSelector extends Component<Props, State> {
             id={value}
             name={value}
             className="custom-control-input"
-            onChange={this.handleCoreChange}
+            onChange={this.handleChange}
           />
           <label className="custom-control-label" htmlFor={value}>
             {value}
@@ -84,13 +72,13 @@ export default class PluginEventSelector extends Component<Props, State> {
     ));
 
     return (
-      <Accordion isOpen={this.props.isOpen} heading="Plug-in Events" onToggle={this.handleToggle}>
+      <section>
         <p>
           BZFS dispatches events when certain actions happen on the server. Select the events your plug-in will listen
           to.
         </p>
         <div className="row">{eventCheckboxes}</div>
-      </Accordion>
+      </section>
     );
   }
 }

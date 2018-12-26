@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ICodeStyle, IEvent, IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
 
+import Accordion from './components/Accordion';
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
@@ -45,7 +46,7 @@ export default class App extends Component<{}, State> {
   };
 
   handleEvents = (data: IEvent[]): void => {
-    this.pluginBuilder.definition.events = {};
+    this.pluginBuilder.definition.eventNames = {};
     data.forEach(value => this.pluginBuilder.addEvent(value));
 
     this.updatePluginBuild();
@@ -75,18 +76,21 @@ export default class App extends Component<{}, State> {
         <div className={styles.pluginSettings}>
           <div className="row">
             <div className="col-md-6">
-              <PluginCodeStyle
+              <Accordion
+                heading="Code Style"
                 isOpen={this.state.openedAccordion === 1}
                 onToggle={this.toggleHandler(1)}
-                onUpdate={this.handleCodeStyle}
-                settings={this.state.pluginDef.codeStyle}
-              />
+              >
+                <PluginCodeStyle onUpdate={this.handleCodeStyle} data={this.state.pluginDef.codeStyle} />
+              </Accordion>
 
-              <PluginEventSelector
+              <Accordion
+                heading="Plug-in Events"
                 isOpen={this.state.openedAccordion === 2}
                 onToggle={this.toggleHandler(2)}
-                onUpdate={this.handleEvents}
-              />
+              >
+                <PluginEventSelector onUpdate={this.handleEvents} />
+              </Accordion>
 
               <SiteFooter />
             </div>
