@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ICodeStyle, IEvent, IPlugin, PluginBuilder, PluginWriter } from 'bzf-plugin-gen';
+import { ICodeStyle, IEvent, IPlugin, PluginBuilder, PluginWriter } from '@allejo/bzf-plugin-gen';
 
 import Accordion from './components/Accordion';
 import SiteHeader from './components/SiteHeader';
@@ -8,6 +8,7 @@ import PluginDefinition, { PluginDefinitionData } from './components/PluginDefin
 import PluginPreview from './components/PluginPreview';
 import PluginCodeStyle from './components/PluginCodeStyle';
 import PluginEventSelector from './components/PluginEventSelector';
+import PluginSlashCommands from './components/PluginSlashCommands';
 
 import styles from './App.module.scss';
 
@@ -24,7 +25,7 @@ export default class App extends Component<{}, State> {
 
     this.pluginBuilder = new PluginBuilder();
     this.state = {
-      openedAccordion: 1,
+      openedAccordion: 3,
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
@@ -90,6 +91,14 @@ export default class App extends Component<{}, State> {
                 onToggle={this.toggleHandler(2)}
               >
                 <PluginEventSelector onUpdate={this.handleEvents} />
+              </Accordion>
+
+              <Accordion
+                heading="Custom Slash Commands"
+                isOpen={this.state.openedAccordion === 3}
+                onToggle={this.toggleHandler(3)}
+              >
+                <PluginSlashCommands />
               </Accordion>
 
               <SiteFooter />

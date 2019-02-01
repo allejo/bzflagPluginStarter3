@@ -1,5 +1,5 @@
 import React, { Component, SyntheticEvent } from 'react';
-import { IEvent } from 'bzf-plugin-gen';
+import { IEvent } from '@allejo/bzf-plugin-gen';
 
 import Events from '../data/events.json';
 

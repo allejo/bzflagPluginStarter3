@@ -1,5 +1,5 @@
 import React, { Component, SyntheticEvent } from 'react';
-import { ICodeStyle } from 'bzf-plugin-gen';
+import { ICodeStyle } from '@allejo/bzf-plugin-gen';
 
 interface Props {
   data: ICodeStyle;

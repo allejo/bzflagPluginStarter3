@@ -1,4 +1,4 @@
-import { ILicense } from 'bzf-plugin-gen';
+import { ILicense } from '@allejo/bzf-plugin-gen';
 
 const path = require('path');
 const fs = require('fs');

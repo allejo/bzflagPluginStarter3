@@ -1,4 +1,4 @@
-import { IEvent, IParameter } from 'bzf-plugin-gen';
+import { IEvent, IParameter } from '@allejo/bzf-plugin-gen';
 
 const yaml = require('js-yaml');
 const path = require('path');
