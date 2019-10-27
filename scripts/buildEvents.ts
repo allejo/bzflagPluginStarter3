@@ -43,9 +43,9 @@ for (let i in events) {
 
     EventDictionary[eventName] = {
         name: eventName,
-        dataType: content.frontMatter.dataType,
+        dataType: content.frontMatter.dataType.current,
         description: content.body,
-        since: content.frontMatter.since,
+        since: content.frontMatter.dataType.since,
         parameters: Parameters,
     };
 }
