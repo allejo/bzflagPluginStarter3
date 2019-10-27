@@ -18,7 +18,7 @@ interface State {
 }
 
 export default class App extends Component<{}, State> {
-  private pluginBuilder: PluginBuilder;
+  private readonly pluginBuilder: PluginBuilder;
 
   constructor(props: any) {
     super(props);
@@ -47,7 +47,10 @@ export default class App extends Component<{}, State> {
   };
 
   handleEvents = (data: IEvent[]): void => {
-    this.pluginBuilder.definition.eventNames = {};
+    for (const definition in this.pluginBuilder.definition) {
+      this.pluginBuilder.removeEvent(definition);
+    }
+
     data.forEach(value => this.pluginBuilder.addEvent(value));
 
     this.updatePluginBuild();
