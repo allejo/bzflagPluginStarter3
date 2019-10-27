@@ -11,6 +11,7 @@ import PluginEventSelector from './components/PluginEventSelector';
 import PluginSlashCommands from './components/PluginSlashCommands';
 
 import styles from './App.module.scss';
+import { ISlashCommand } from '@allejo/bzf-plugin-gen/dist';
 
 interface State {
   openedAccordion: number;
@@ -30,7 +31,7 @@ export default class App extends Component<{}, State> {
     };
   }
 
-  handlePluginDefinition = (data: PluginDefinitionData): void => {
+  public _handlePluginDefinition = (data: PluginDefinitionData): void => {
     const def = this.pluginBuilder.definition;
 
     def.author.copyright = data.pluginAuthor;
@@ -41,13 +42,13 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
-  handleCodeStyle = (data: ICodeStyle): void => {
+  public _handleCodeStyle = (data: ICodeStyle): void => {
     this.pluginBuilder.definition.codeStyle = data;
     this.updatePluginBuild();
   };
 
-  handleEvents = (data: IEvent[]): void => {
-    for (const definition in this.pluginBuilder.definition) {
+  public _handleEvents = (data: IEvent[]): void => {
+    for (const definition in this.pluginBuilder.definition.events) {
       this.pluginBuilder.removeEvent(definition);
     }
 
@@ -56,7 +57,17 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
-  toggleHandler = (index: number): ((isOpen: boolean) => void) => {
+  public _handleSlashCommands = (data: ISlashCommand[]): void => {
+    for (const command in this.pluginBuilder.definition.slashCommands) {
+      this.pluginBuilder.removeSlashCommand(command);
+    }
+
+    data.forEach(value => this.pluginBuilder.addSlashCommand(value));
+
+    this.updatePluginBuild();
+  };
+
+  public _toggleHandler = (index: number): ((isOpen: boolean) => void) => {
     return (isOpen: boolean): void => {
       this.setState({
         openedAccordion: isOpen ? index : -1,
@@ -64,7 +75,7 @@ export default class App extends Component<{}, State> {
     };
   };
 
-  updatePluginBuild = () => {
+  private updatePluginBuild = () => {
     this.setState({
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     });
@@ -76,32 +87,32 @@ export default class App extends Component<{}, State> {
     return (
       <div className="container">
         <SiteHeader />
-        <PluginDefinition onUpdate={this.handlePluginDefinition} />
+        <PluginDefinition onUpdate={this._handlePluginDefinition} />
         <div className={styles.pluginSettings}>
           <div className="row">
             <div className="col-md-6">
               <Accordion
                 heading="Code Style"
                 isOpen={this.state.openedAccordion === 1}
-                onToggle={this.toggleHandler(1)}
+                onToggle={this._toggleHandler(1)}
               >
-                <PluginCodeStyle onUpdate={this.handleCodeStyle} data={this.state.pluginDef.codeStyle} />
+                <PluginCodeStyle onUpdate={this._handleCodeStyle} data={this.state.pluginDef.codeStyle} />
               </Accordion>
 
               <Accordion
                 heading="Plug-in Events"
                 isOpen={this.state.openedAccordion === 2}
-                onToggle={this.toggleHandler(2)}
+                onToggle={this._toggleHandler(2)}
               >
-                <PluginEventSelector onUpdate={this.handleEvents} />
+                <PluginEventSelector onUpdate={this._handleEvents} />
               </Accordion>
 
               <Accordion
                 heading="Custom Slash Commands"
                 isOpen={this.state.openedAccordion === 3}
-                onToggle={this.toggleHandler(3)}
+                onToggle={this._toggleHandler(3)}
               >
-                <PluginSlashCommands />
+                <PluginSlashCommands onChange={this._handleSlashCommands} />
               </Accordion>
 
               <SiteFooter />

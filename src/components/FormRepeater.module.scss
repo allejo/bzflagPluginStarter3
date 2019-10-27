@@ -1,0 +1,31 @@
+@import '../scss/variables';
+
+.form {
+  margin-bottom: 10px;
+  width: 100%;
+
+  label {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.repeaterItems {
+  border-bottom: 1px solid $color-light-green;
+  list-style: none;
+  padding-left: 0;
+}
+
+.repeaterItem {
+  border-top: 1px solid $color-light-green;
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.repeaterContent {
+  flex: 1;
+}
