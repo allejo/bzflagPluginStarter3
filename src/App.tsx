@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ICodeStyle, IEvent, IPlugin, PluginBuilder } from '@allejo/bzf-plugin-gen';
+import { ICodeStyle, IEvent, IPlugin, ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen';
 
 import Accordion from './components/Accordion';
 import SiteHeader from './components/SiteHeader';
@@ -11,7 +11,6 @@ import PluginEventSelector from './components/PluginEventSelector';
 import PluginSlashCommands from './components/PluginSlashCommands';
 
 import styles from './App.module.scss';
-import { ISlashCommand } from '@allejo/bzf-plugin-gen/dist';
 
 interface State {
   openedAccordion: number;
