@@ -77,10 +77,11 @@ export default class FormRepeater extends Component<Props, State> {
 
       if (child.type === 'input') {
         const name: string = child.props.name;
+        const value: string = child.props.value;
 
         return React.cloneElement(child, {
           onChange: this._handleChange,
-          value: this.state.formData[name],
+          value: this.state.formData[name] || value || '',
         });
       }
 
