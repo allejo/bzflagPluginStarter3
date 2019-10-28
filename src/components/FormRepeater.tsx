@@ -85,7 +85,7 @@ export default class FormRepeater extends Component<Props, State> {
         });
       }
 
-      return child
+      return child;
     });
   };
 
@@ -96,9 +96,7 @@ export default class FormRepeater extends Component<Props, State> {
     return (
       <div>
         <form className={styles.form} onSubmit={this._handleSubmit}>
-          <div className="w-100">
-            {this._controlledFormFields(this.props.children)}
-          </div>
+          <div className="w-100">{this._controlledFormFields(this.props.children)}</div>
           <div className={styles.buttonContainer}>
             <button className="btn btn-success">
               <span className="sr-only">Add item</span>
@@ -111,14 +109,9 @@ export default class FormRepeater extends Component<Props, State> {
           <ul className={styles.repeaterItems}>
             {data.map((value: Record<string, string>, i: number) => (
               <li key={i} className={styles.repeaterItem}>
-                <div className={styles.repeaterContent}>
-                  {this.props.itemRendererCallback(value)}
-                </div>
+                <div className={styles.repeaterContent}>{this.props.itemRendererCallback(value)}</div>
 
-                <button
-                  className="btn btn-danger ml-1"
-                  onClick={() => this._handleRemoval(i)}
-                >
+                <button className="btn btn-danger ml-1" onClick={() => this._handleRemoval(i)}>
                   <span className="sr-only" aria-hidden="true">
                     Delete
                   </span>

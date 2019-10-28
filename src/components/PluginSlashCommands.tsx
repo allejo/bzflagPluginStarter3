@@ -16,7 +16,7 @@ export default class PluginSlashCommands extends Component<Props> {
   };
 
   public _handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
-    return <span>/{value['slash_command']}</span>
+    return <span>/{value['slash_command']}</span>;
   };
 
   public render() {
@@ -27,10 +27,7 @@ export default class PluginSlashCommands extends Component<Props> {
           custom slash commands with arbitrary behavior.
         </p>
 
-        <FormRepeater
-          onChange={this._handleChange}
-          itemRendererCallback={this._handleDisplayCallback}
-        >
+        <FormRepeater onChange={this._handleChange} itemRendererCallback={this._handleDisplayCallback}>
           <label>Add New Slash Command</label>
 
           <input
