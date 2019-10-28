@@ -1,16 +1,23 @@
 @import '../scss/variables';
 
 .form {
+  align-items: flex-end;
+  display: flex;
   margin-bottom: 10px;
   width: 100%;
 
   label {
+    margin-bottom: 0;
     width: 100%;
   }
 
   input {
     width: 100%;
   }
+}
+
+.buttonContainer {
+  padding-left: 10px;
 }
 
 .repeaterItems {

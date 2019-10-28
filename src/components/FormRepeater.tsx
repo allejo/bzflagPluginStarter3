@@ -65,8 +65,22 @@ export default class FormRepeater extends Component<Props, State> {
         <form className={styles.form} onSubmit={this._handleSubmit}>
           <label>
             <div>{this.props.label}</div>
-            <input type="text" name="slash-command" onChange={this._handleChange} value={this.state.inputValue} />
+            <input
+              type="text"
+              autoComplete="off"
+              className="form-control mt-1"
+              name="slash-command"
+              placeholder="/slashcommand"
+              onChange={this._handleChange}
+              value={this.state.inputValue}
+            />
           </label>
+          <div className={styles.buttonContainer}>
+            <button className="btn btn-success">
+              <span className="sr-only">Add slash command</span>
+              <FontAwesomeIcon icon="plus" aria-hidden={true} />
+            </button>
+          </div>
         </form>
 
         {hasData && (
