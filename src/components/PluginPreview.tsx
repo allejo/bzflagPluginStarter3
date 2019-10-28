@@ -3,20 +3,53 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { saveAs } from 'file-saver';
 import styles from './PluginPreview.module.scss';
+import { IPlugin, PluginWriter } from '@allejo/bzf-plugin-gen/dist';
+import { CPPComment } from 'aclovis';
 
 interface Props {
-  filename: string;
   minVersion: string;
-  code: string;
+  pluginDef: IPlugin;
 }
 
 export default class PluginPreview extends Component<Props> {
-  downloadPluginAsFile = () => {
-    const blob = new Blob([this.props.code], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, `${this.props.filename}.cpp`);
+  private readonly writer: PluginWriter;
+
+  constructor(props: Props) {
+    super(props);
+
+    this.writer = new PluginWriter(this.props.pluginDef);
+  }
+
+  public _handleDownloadPluginAsFile = (): void => {
+    const blob = new Blob([this._renderCode()], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `${this.writer.getClassName()}.cpp`);
   };
 
-  render() {
+  public _renderCode = (): string => {
+    const licenseRaw: string = this.props.pluginDef.license.body;
+    const licenseBody: string[] = licenseRaw
+      .replace('{name}', this.props.pluginDef.name || 'Sample Plug-in')
+      .replace('{year}', String(new Date().getFullYear()))
+      .replace('{author}', this.props.pluginDef.author.copyright || 'Your Name')
+      .split('\n');
+    const licenseBlock: CPPComment = new CPPComment(licenseBody, true);
+
+    return `
+${licenseBlock.write(this.writer.getFormatter())}
+
+#include "bzfsAPI.h"
+#include "plugin_utils.h"
+
+${this.writer.write().replace(
+  '};',
+  `};
+
+BZ_PLUGIN(${this.writer.getClassName()})`
+)}
+    `.trim();
+  };
+
+  public render(): JSX.Element {
     return (
       <section className={styles.sectionContainer}>
         <h2 className="sr-only">Plug-in Preview</h2>
@@ -25,12 +58,12 @@ export default class PluginPreview extends Component<Props> {
           <div className={styles.toolbar}>
             <div className="btn btn-secondary">{this.props.minVersion}</div>
 
-            <button className="btn btn-primary ml-1" onClick={this.downloadPluginAsFile}>
+            <button className="btn btn-primary ml-1" onClick={this._handleDownloadPluginAsFile}>
               <span className="sr-only">Download as file</span>
               <FontAwesomeIcon icon="download" />
             </button>
 
-            <CopyToClipboard text={this.props.code}>
+            <CopyToClipboard text={this._renderCode()}>
               <button className="btn btn-primary ml-1">
                 <span className="sr-only">Copy plug-in to clipboard</span>
                 <FontAwesomeIcon icon="clipboard" />
@@ -39,7 +72,7 @@ export default class PluginPreview extends Component<Props> {
           </div>
 
           <pre className={styles.codePreview}>
-            <code>{this.props.code}</code>
+            <code>{this._renderCode()}</code>
           </pre>
         </div>
       </section>

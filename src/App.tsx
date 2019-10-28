@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ICodeStyle, IEvent, IPlugin, PluginBuilder, PluginWriter } from '@allejo/bzf-plugin-gen';
+import { ICodeStyle, IEvent, IPlugin, PluginBuilder } from '@allejo/bzf-plugin-gen';
 
 import Accordion from './components/Accordion';
 import SiteHeader from './components/SiteHeader';
@@ -82,8 +82,6 @@ export default class App extends Component<{}, State> {
   };
 
   render() {
-    const writer = new PluginWriter(this.state.pluginDef);
-
     return (
       <div className="container">
         <SiteHeader />
@@ -119,7 +117,7 @@ export default class App extends Component<{}, State> {
             </div>
 
             <div className="col-md-6">
-              <PluginPreview code={writer.write()} minVersion="2.4.0" filename={writer.getClassName()} />
+              <PluginPreview pluginDef={this.state.pluginDef} minVersion="2.4.0" />
             </div>
           </div>
         </div>
