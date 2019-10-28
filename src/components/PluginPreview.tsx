@@ -12,20 +12,20 @@ interface Props {
 }
 
 export default class PluginPreview extends Component<Props> {
-  private readonly writer: PluginWriter;
-
-  constructor(props: Props) {
-    super(props);
-
-    this.writer = new PluginWriter(this.props.pluginDef);
-  }
-
   public _handleDownloadPluginAsFile = (): void => {
     const blob = new Blob([this._renderCode()], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, `${this.writer.getClassName()}.cpp`);
+    saveAs(blob, `${this.getClassName()}.cpp`);
+  };
+
+  private getClassName = (): string => {
+      const writer: PluginWriter = new PluginWriter(this.props.pluginDef);
+
+      return writer.getClassName();
   };
 
   public _renderCode = (): string => {
+    const writer: PluginWriter = new PluginWriter(this.props.pluginDef);
+
     const licenseRaw: string = this.props.pluginDef.license.body;
     const licenseBody: string[] = licenseRaw
       .replace('{name}', this.props.pluginDef.name || 'Sample Plug-in')
@@ -35,16 +35,16 @@ export default class PluginPreview extends Component<Props> {
     const licenseBlock: CPPComment = new CPPComment(licenseBody, true);
 
     return `
-${licenseBlock.write(this.writer.getFormatter())}
+${licenseBlock.write(writer.getFormatter())}
 
 #include "bzfsAPI.h"
 #include "plugin_utils.h"
 
-${this.writer.write().replace(
+${writer.write().replace(
   '};',
   `};
 
-BZ_PLUGIN(${this.writer.getClassName()})`
+BZ_PLUGIN(${writer.getClassName()})`
 )}
     `.trim();
   };
