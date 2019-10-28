@@ -4,25 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './FormRepeater.module.scss';
 
 interface Props {
-  label: string;
-  onChange: (values: string[]) => void;
+  onChange: (values: Record<string, string>[]) => void;
+  itemRendererCallback: (value: Record<string, string>) => JSX.Element;
+  children: React.ReactNode;
 }
 
 interface State {
-  inputValue: string;
-  data: string[];
+  formData: Record<string, string>;
+  data: Record<string, string>[];
 }
 
 export default class FormRepeater extends Component<Props, State> {
-  readonly state = {
-    inputValue: '',
+  readonly state: State = {
+    formData: {},
     data: [],
   };
 
   public _handleChange = (event: SyntheticEvent<HTMLInputElement>): void => {
-    this.setState({
-      inputValue: event.currentTarget.value,
-    });
+    const formData = JSON.parse(JSON.stringify(this.state.formData));
+    formData[event.currentTarget.name] = event.currentTarget.value;
+
+    this.setState({ formData });
   };
 
   public _handleRemoval = (idx: number): void => {
@@ -42,18 +44,48 @@ export default class FormRepeater extends Component<Props, State> {
   public _handleSubmit = (event: SyntheticEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const data: string[] = this.state.data.slice();
-    data.push(this.state.inputValue);
+    const data: Record<string, any>[] = this.state.data.slice();
+    data.push(this.state.formData);
+
+    const formData = JSON.parse(JSON.stringify(this.state.formData));
+    for (const formDatum in formData) {
+      formData[formDatum] = '';
+    }
 
     this.setState(
       {
         data,
-        inputValue: '',
+        formData,
       },
       () => {
         this.props.onChange(this.state.data);
       }
     );
+  };
+
+  public _controlledFormFields = (template: any): React.ReactNode[] => {
+    return React.Children.map(template, child => {
+      const { props } = child;
+
+      if (!props) {
+        return child;
+      }
+
+      if (child.children) {
+        return this._controlledFormFields(child.children);
+      }
+
+      if (child.type === 'input') {
+        const name: string = child.props.name;
+
+        return React.cloneElement(child, {
+          onChange: this._handleChange,
+          value: this.state.formData[name],
+        });
+      }
+
+      return child
+    });
   };
 
   public render(): JSX.Element {
@@ -63,21 +95,12 @@ export default class FormRepeater extends Component<Props, State> {
     return (
       <div>
         <form className={styles.form} onSubmit={this._handleSubmit}>
-          <label>
-            <div>{this.props.label}</div>
-            <input
-              type="text"
-              autoComplete="off"
-              className="form-control mt-1"
-              name="slash-command"
-              placeholder="/slashcommand"
-              onChange={this._handleChange}
-              value={this.state.inputValue}
-            />
-          </label>
+          <div className="w-100">
+            {this._controlledFormFields(this.props.children)}
+          </div>
           <div className={styles.buttonContainer}>
             <button className="btn btn-success">
-              <span className="sr-only">Add slash command</span>
+              <span className="sr-only">Add item</span>
               <FontAwesomeIcon icon="plus" aria-hidden={true} />
             </button>
           </div>
@@ -85,15 +108,18 @@ export default class FormRepeater extends Component<Props, State> {
 
         {hasData && (
           <ul className={styles.repeaterItems}>
-            {data.map((value: any, i: number) => (
+            {data.map((value: Record<string, string>, i: number) => (
               <li key={i} className={styles.repeaterItem}>
                 <div className={styles.repeaterContent}>
-                  <span>{value}</span>
+                  {this.props.itemRendererCallback(value)}
                 </div>
 
-                <button className="btn btn-danger ml-1" onClick={() => this._handleRemoval(i)}>
+                <button
+                  className="btn btn-danger ml-1"
+                  onClick={() => this._handleRemoval(i)}
+                >
                   <span className="sr-only" aria-hidden="true">
-                    Delete {value}
+                    Delete
                   </span>
                   <FontAwesomeIcon icon="trash-alt" />
                 </button>

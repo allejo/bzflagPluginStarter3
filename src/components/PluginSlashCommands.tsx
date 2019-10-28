@@ -7,12 +7,16 @@ interface Props {
 }
 
 export default class PluginSlashCommands extends Component<Props> {
-  public _handleChange = (values: string[]): void => {
-    const slashCommands = values.map<ISlashCommand>((value: string) => ({
-      name: value,
+  public _handleChange = (values: Record<string, string>[]): void => {
+    const slashCommands = values.map<ISlashCommand>((value: Record<string, string>) => ({
+      name: value['slash_command'],
     }));
 
     return this.props.onChange(slashCommands);
+  };
+
+  public _handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
+    return <span>/{value['slash_command']}</span>
   };
 
   public render() {
@@ -23,7 +27,20 @@ export default class PluginSlashCommands extends Component<Props> {
           custom slash commands with arbitrary behavior.
         </p>
 
-        <FormRepeater label="Add New Slash Command" onChange={this._handleChange} />
+        <FormRepeater
+          onChange={this._handleChange}
+          itemRendererCallback={this._handleDisplayCallback}
+        >
+          <label>Add New Slash Command</label>
+
+          <input
+            type="text"
+            autoComplete="off"
+            className="form-control mt-1"
+            name="slash_command"
+            placeholder="/slashcommand"
+          />
+        </FormRepeater>
       </div>
     );
   }
