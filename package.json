@@ -41,7 +41,7 @@
     "data:events": "ts-node scripts/buildEvents.ts",
     "data:licenses": "ts-node scripts/buildLicenses.ts",
     "fetch:events": "ts-node -O '{\"isolatedModules\": false}' scripts/fetchEvents.ts",
-    "prettify": "prettier --write \"src/**/*.{js,ts,jsx,tsx,css,scss}\"",
+    "prettify": "prettier --write \"{src,scripts}/**/*.{js,ts,jsx,tsx,css,scss}\"",
     "deploy": "npm-run-all data build",
     "start": "react-scripts start",
     "build": "react-scripts build",
