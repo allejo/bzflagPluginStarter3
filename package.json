@@ -1,9 +1,9 @@
 {
   "name": "bzflag-plugin-starter-3",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
-    "@allejo/bzf-plugin-gen": "^1.0.0-rc.2",
+    "@allejo/bzf-plugin-gen": "^1.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/free-solid-svg-icons": "^5.6.3",
     "@fortawesome/react-fontawesome": "^0.1.3",
