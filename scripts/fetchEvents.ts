@@ -17,8 +17,14 @@ octokit.repos
       const filename = value.name;
 
       http.get(value.download_url, (res: any) => {
+        const chunks: any[] = [];
+
         res.on('data', (chunk: any) => {
-          fs.writeFile(path.join(eventsFolder, filename), chunk, (err: any) => {
+          chunks.push(chunk);
+        });
+
+        res.on('end', () => {
+          fs.writeFile(path.join(eventsFolder, filename), chunks.join(''), (err: any) => {
             if (err) {
               console.error(err);
             }
