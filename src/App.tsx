@@ -27,7 +27,7 @@ export default class App extends Component<{}, State> {
 
     this.pluginBuilder = new PluginBuilder();
     this.state = {
-      openedAccordion: 3,
+      openedAccordion: 1,
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
