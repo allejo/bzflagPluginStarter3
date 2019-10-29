@@ -18,9 +18,9 @@ export default class PluginPreview extends Component<Props> {
   };
 
   private getClassName = (): string => {
-      const writer: PluginWriter = new PluginWriter(this.props.pluginDef);
+    const writer: PluginWriter = new PluginWriter(this.props.pluginDef);
 
-      return writer.getClassName();
+    return writer.getClassName();
   };
 
   public _renderCode = (): string => {
