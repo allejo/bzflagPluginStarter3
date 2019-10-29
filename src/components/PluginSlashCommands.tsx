@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormRepeater from './FormRepeater';
-import { ISlashCommand } from '@allejo/bzf-plugin-gen/dist';
+import { ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
 
 interface Props {
   onChange: (commands: ISlashCommand[]) => void;
@@ -8,9 +8,15 @@ interface Props {
 
 export default class PluginSlashCommands extends Component<Props> {
   public _handleChange = (values: Record<string, string>[]): void => {
-    const slashCommands = values.map<ISlashCommand>((value: Record<string, string>) => ({
-      name: value['slash_command'],
-    }));
+    const slashCommands = values.map<ISlashCommand>((value: Record<string, string>) => {
+      const slashCommand: ISlashCommand = {
+        name: value['slash_command'],
+      };
+
+      PluginBuilder.normalizeSlashCommand(slashCommand);
+
+      return slashCommand;
+    });
 
     return this.props.onChange(slashCommands);
   };
