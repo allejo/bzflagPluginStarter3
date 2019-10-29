@@ -1,0 +1,9 @@
+[build]
+  publish = "build/"
+  command = "npm run deploy"
+
+[[redirects]]
+  from = "https://bz-plugin-starter.projects.allejo.io/*"
+  to = "https://bzflag-plugin-starter.allejo.org/:splat"
+  status = 301
+  force = true
