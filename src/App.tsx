@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ICodeStyle, IEvent, IPlugin, ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen';
+import { ICodeStyle, IEvent, ICallback, IPlugin, ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
 
 import Accordion from './components/Accordion';
 import SiteHeader from './components/SiteHeader';
@@ -11,6 +11,7 @@ import PluginEventSelector from './components/PluginEventSelector';
 import PluginSlashCommands from './components/PluginSlashCommands';
 
 import styles from './App.module.scss';
+import PluginGenericCallbacks from './components/PluginGenericCallbacks';
 
 interface State {
   openedAccordion: number;
@@ -66,6 +67,16 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  public _handleGenericCallbacks = (data: ICallback[]): void => {
+    for (const callback in this.pluginBuilder.definition.callbacks) {
+      this.pluginBuilder.removeCallback(callback);
+    }
+
+    data.forEach(value => this.pluginBuilder.addCallback(value));
+
+    this.updatePluginBuild();
+  };
+
   public _toggleHandler = (index: number): ((isOpen: boolean) => void) => {
     return (isOpen: boolean): void => {
       this.setState({
@@ -110,6 +121,14 @@ export default class App extends Component<{}, State> {
                 onToggle={this._toggleHandler(3)}
               >
                 <PluginSlashCommands onChange={this._handleSlashCommands} />
+              </Accordion>
+
+              <Accordion
+                heading="Custom Callbacks"
+                isOpen={this.state.openedAccordion === 4}
+                onToggle={this._toggleHandler(4)}
+              >
+                <PluginGenericCallbacks onChange={this._handleGenericCallbacks} />
               </Accordion>
 
               <SiteFooter />
