@@ -28,10 +28,11 @@ export default class PluginSlashCommands extends Component<Props> {
         </p>
 
         <FormRepeater onChange={this._handleChange} itemRendererCallback={this._handleDisplayCallback}>
-          <label>Add New Slash Command</label>
+          <label htmlFor="slashcommands">Add New Slash Command</label>
 
           <input
             type="text"
+            id="slashcommands"
             autoComplete="off"
             className="form-control mt-1"
             name="slash_command"
