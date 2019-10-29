@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ICodeStyle, IEvent, ICallback, IPlugin, ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
+import semver from 'semver';
 
 import Accordion from './components/Accordion';
 import SiteHeader from './components/SiteHeader';
@@ -8,10 +9,10 @@ import PluginDefinition, { PluginDefinitionData } from './components/PluginDefin
 import PluginPreview from './components/PluginPreview';
 import PluginCodeStyle from './components/PluginCodeStyle';
 import PluginEventSelector from './components/PluginEventSelector';
+import PluginGenericCallbacks from './components/PluginGenericCallbacks';
 import PluginSlashCommands from './components/PluginSlashCommands';
 
 import styles from './App.module.scss';
-import PluginGenericCallbacks from './components/PluginGenericCallbacks';
 
 interface State {
   openedAccordion: number;
@@ -30,6 +31,19 @@ export default class App extends Component<{}, State> {
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
+
+  public _getMinimumVersion = (): string => {
+    const events: IEvent[] = Object.values(this.pluginBuilder.definition.events);
+    const versions: IEvent[] = events.sort((a: IEvent, b: IEvent) => {
+      return semver.gt(b.since, a.since) ? 1 : -1;
+    });
+
+    if (versions.length > 0) {
+      return versions[0].since;
+    }
+
+    return '2.4.0';
+  };
 
   public _handlePluginDefinition = (data: PluginDefinitionData): void => {
     const def = this.pluginBuilder.definition;
@@ -91,7 +105,7 @@ export default class App extends Component<{}, State> {
     });
   };
 
-  render() {
+  public render(): React.ReactNode {
     return (
       <div className="container">
         <SiteHeader />
@@ -135,7 +149,7 @@ export default class App extends Component<{}, State> {
             </div>
 
             <div className="col-md-6">
-              <PluginPreview pluginDef={this.state.pluginDef} minVersion="2.4.0" />
+              <PluginPreview pluginDef={this.state.pluginDef} minVersion={this._getMinimumVersion()} />
             </div>
           </div>
         </div>
