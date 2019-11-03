@@ -71,11 +71,13 @@ export default class FormRepeater extends Component<Props, State> {
         return child;
       }
 
-      if (child.children) {
-        return this._controlledFormFields(child.children);
+      if (props.children) {
+        return React.cloneElement(child, {
+          children: this._controlledFormFields(props.children),
+        });
       }
 
-      if (child.type === 'input') {
+      if (child.type === 'input' || child.type === 'select') {
         const name: string = child.props.name;
         const value: string = child.props.value;
 
