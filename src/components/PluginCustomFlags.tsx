@@ -13,7 +13,7 @@ export default class PluginCustomFlags extends Component<Props> {
         name: value['flag_name'],
         abbreviation: value['flag_abbr'],
         helpString: value['flag_desc'],
-        type: value['flag_type'] === 'good' ? FlagType.Good : FlagType.Bad,
+        type: value['flag_type'] as FlagType,
       };
 
       PluginBuilder.normalizeFlag(flag);
@@ -29,7 +29,7 @@ export default class PluginCustomFlags extends Component<Props> {
       <div>
         <p className="m-0">
           <strong>
-            {value['flag_name']} ({value['flag_abbr']}) - {value['flag_type'] === 'good' ? 'Good' : 'Bad'}
+            {value['flag_name']} ({value['flag_abbr']}) - {value['flag_type'] === FlagType.Good ? 'Good' : 'Bad'}
           </strong>
         </p>
         <p className="m-0">{value['flag_desc']}</p>
@@ -76,8 +76,8 @@ export default class PluginCustomFlags extends Component<Props> {
               <label htmlFor="flag_type">Flag Type</label>
               <select name="flag_type" id="flag_type" className="form-control mt-1" required={true}>
                 <option value="" disabled={true} />
-                <option value="good">Good</option>
-                <option value="bad">Bad</option>
+                <option value={FlagType.Good}>Good</option>
+                <option value={FlagType.Bad}>Bad</option>
               </select>
             </div>
           </div>
