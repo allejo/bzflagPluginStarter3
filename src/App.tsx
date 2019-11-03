@@ -140,6 +140,8 @@ export default class App extends Component<{}, State> {
   };
 
   public render(): React.ReactNode {
+    let accordionCount = 0;
+
     return (
       <div className="container">
         <SiteHeader />
@@ -149,48 +151,48 @@ export default class App extends Component<{}, State> {
             <div className="col-md-6">
               <Accordion
                 heading="Code Style"
-                isOpen={this.state.openedAccordion === 1}
-                onToggle={this._toggleHandler(1)}
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
               >
                 <PluginCodeStyle onUpdate={this._handleCodeStyle} data={this.state.pluginDef.codeStyle} />
               </Accordion>
 
               <Accordion
                 heading="Plug-in Events"
-                isOpen={this.state.openedAccordion === 2}
-                onToggle={this._toggleHandler(2)}
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
               >
                 <PluginEventSelector onUpdate={this._handleEvents} />
               </Accordion>
 
               <Accordion
                 heading="Custom Slash Commands"
-                isOpen={this.state.openedAccordion === 3}
-                onToggle={this._toggleHandler(3)}
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
               >
                 <PluginSlashCommands onChange={this._handleSlashCommands} />
               </Accordion>
 
               <Accordion
                 heading="Custom Callbacks"
-                isOpen={this.state.openedAccordion === 4}
-                onToggle={this._toggleHandler(4)}
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
               >
                 <PluginGenericCallbacks onChange={this._handleGenericCallbacks} />
               </Accordion>
 
               <Accordion
                 heading="Custom Flags"
-                isOpen={this.state.openedAccordion === 5}
-                onToggle={this._toggleHandler(5)}
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
               >
                 <PluginCustomFlags onChange={this._handleCustomFlags} />
               </Accordion>
 
               <Accordion
                 heading="Custom BZDB Settings"
-                isOpen={this.state.openedAccordion === 6}
-                onToggle={this._toggleHandler(6)}
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
               >
                 <PluginBZDBSettings onChange={this._handleCustomBZDBSettings} />
               </Accordion>
