@@ -20,7 +20,7 @@ export default class FormRepeater extends Component<Props, State> {
     data: [],
   };
 
-  public _handleChange = (event: SyntheticEvent<HTMLInputElement>): void => {
+  public _handleChange = (event: SyntheticEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const formData = JSON.parse(JSON.stringify(this.state.formData));
     formData[event.currentTarget.name] = event.currentTarget.value;
 
@@ -71,7 +71,7 @@ export default class FormRepeater extends Component<Props, State> {
         return child;
       }
 
-      if (props.children) {
+      if (child.type !== 'select' && props.children) {
         return React.cloneElement(child, {
           children: this._controlledFormFields(props.children),
         });
