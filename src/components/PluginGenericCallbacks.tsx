@@ -30,7 +30,14 @@ export default class PluginGenericCallbacks extends Component<Props> {
         <FormRepeater onChange={this._handleChange} itemRendererCallback={this._handleDisplayCallback}>
           <label htmlFor="callbacks">Add New Callback</label>
 
-          <input type="text" id="callbacks" autoComplete="off" className="form-control mt-1" name="callback" />
+          <input
+            type="text"
+            id="callbacks"
+            autoComplete="off"
+            className="form-control mt-1"
+            name="callback"
+            required={true}
+          />
         </FormRepeater>
       </div>
     );

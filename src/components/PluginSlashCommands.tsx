@@ -43,6 +43,7 @@ export default class PluginSlashCommands extends Component<Props> {
             className="form-control mt-1"
             name="slash_command"
             placeholder="/slashcommand"
+            required={true}
           />
         </FormRepeater>
       </div>
