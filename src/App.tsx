@@ -7,6 +7,7 @@ import {
   ISlashCommand,
   PluginBuilder,
   IFlag,
+  IBZDBSetting,
 } from '@allejo/bzf-plugin-gen/dist';
 import semver from 'semver';
 
@@ -23,6 +24,7 @@ import PluginSlashCommands from './components/PluginSlashCommands';
 import Licenses from './data/licenses.json';
 import styles from './App.module.scss';
 import PluginCustomFlags from './components/PluginCustomFlags';
+import PluginBZDBSettings from './components/PluginBZDBSettings';
 
 interface State {
   openedAccordion: number;
@@ -113,6 +115,16 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  public _handleCustomBZDBSettings = (data: IBZDBSetting[]): void => {
+    for (const bzdbSetting in this.pluginBuilder.definition.bzdbSettings) {
+      this.pluginBuilder.removeBZDBSetting(bzdbSetting);
+    }
+
+    data.forEach(value => this.pluginBuilder.addBZDBSetting(value));
+
+    this.updatePluginBuild();
+  };
+
   public _toggleHandler = (index: number): ((isOpen: boolean) => void) => {
     return (isOpen: boolean): void => {
       this.setState({
@@ -173,6 +185,14 @@ export default class App extends Component<{}, State> {
                 onToggle={this._toggleHandler(5)}
               >
                 <PluginCustomFlags onChange={this._handleCustomFlags} />
+              </Accordion>
+
+              <Accordion
+                heading="Custom BZDB Settings"
+                isOpen={this.state.openedAccordion === 6}
+                onToggle={this._toggleHandler(6)}
+              >
+                <PluginBZDBSettings onChange={this._handleCustomBZDBSettings} />
               </Accordion>
 
               <SiteFooter />
