@@ -8,6 +8,7 @@ import {
   PluginBuilder,
   IFlag,
   IBZDBSetting,
+  IPollType,
 } from '@allejo/bzf-plugin-gen/dist';
 import semver from 'semver';
 
@@ -25,6 +26,7 @@ import Licenses from './data/licenses.json';
 import styles from './App.module.scss';
 import PluginCustomFlags from './components/PluginCustomFlags';
 import PluginBZDBSettings from './components/PluginBZDBSettings';
+// import PluginPollType from "./components/PluginPollType";
 
 interface State {
   openedAccordion: number;
@@ -125,6 +127,16 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  public _handlePollTypes = (data: IPollType[]): void => {
+    for (const pollType in this.pluginBuilder.definition.pollTypes) {
+      this.pluginBuilder.removePollType(pollType);
+    }
+
+    data.forEach(value => this.pluginBuilder.addPollType(value));
+
+    this.updatePluginBuild();
+  };
+
   public _toggleHandler = (index: number): ((isOpen: boolean) => void) => {
     return (isOpen: boolean): void => {
       this.setState({
@@ -188,6 +200,14 @@ export default class App extends Component<{}, State> {
               >
                 <PluginCustomFlags onChange={this._handleCustomFlags} />
               </Accordion>
+
+              {/*<Accordion*/}
+              {/*  heading="Custom Poll Types"*/}
+              {/*  isOpen={this.state.openedAccordion === ++accordionCount}*/}
+              {/*  onToggle={this._toggleHandler(accordionCount)}*/}
+              {/*>*/}
+              {/*  <PluginPollType onChange={this._handlePollTypes} />*/}
+              {/*</Accordion>*/}
 
               <Accordion
                 heading="Custom Slash Commands"
