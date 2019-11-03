@@ -3,7 +3,6 @@
 .form {
   align-items: flex-end;
   display: flex;
-  margin-bottom: 10px;
   width: 100%;
 
   label {
@@ -23,6 +22,7 @@
 .repeaterItems {
   border-bottom: 1px solid $color-light-green;
   list-style: none;
+  margin-top: 1.5rem;
   padding-left: 0;
 }
 
