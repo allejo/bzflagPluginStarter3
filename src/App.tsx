@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { ICodeStyle, IEvent, ICallback, IPlugin, ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
+import {
+  ICodeStyle,
+  IEvent,
+  ICallback,
+  IPlugin,
+  ISlashCommand,
+  PluginBuilder,
+  IFlag,
+} from '@allejo/bzf-plugin-gen/dist';
 import semver from 'semver';
 
 import Accordion from './components/Accordion';
@@ -14,6 +22,7 @@ import PluginSlashCommands from './components/PluginSlashCommands';
 
 import Licenses from './data/licenses.json';
 import styles from './App.module.scss';
+import PluginCustomFlags from './components/PluginCustomFlags';
 
 interface State {
   openedAccordion: number;
@@ -96,6 +105,16 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  public _handleCustomFlags = (data: IFlag[]): void => {
+    for (const flag in this.pluginBuilder.definition.flags) {
+      this.pluginBuilder.removeFlag(flag);
+    }
+
+    data.forEach(value => this.pluginBuilder.addFlag(value));
+
+    this.updatePluginBuild();
+  };
+
   public _toggleHandler = (index: number): ((isOpen: boolean) => void) => {
     return (isOpen: boolean): void => {
       this.setState({
@@ -148,6 +167,14 @@ export default class App extends Component<{}, State> {
                 onToggle={this._toggleHandler(4)}
               >
                 <PluginGenericCallbacks onChange={this._handleGenericCallbacks} />
+              </Accordion>
+
+              <Accordion
+                heading="Custom Flags"
+                isOpen={this.state.openedAccordion === 5}
+                onToggle={this._toggleHandler(5)}
+              >
+                <PluginCustomFlags onChange={this._handleCustomFlags} />
               </Accordion>
 
               <SiteFooter />
