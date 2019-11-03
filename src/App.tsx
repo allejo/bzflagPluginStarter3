@@ -166,11 +166,11 @@ export default class App extends Component<{}, State> {
               </Accordion>
 
               <Accordion
-                heading="Custom Slash Commands"
+                heading="Custom BZDB Settings"
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginSlashCommands onChange={this._handleSlashCommands} />
+                <PluginBZDBSettings onChange={this._handleCustomBZDBSettings} />
               </Accordion>
 
               <Accordion
@@ -190,11 +190,11 @@ export default class App extends Component<{}, State> {
               </Accordion>
 
               <Accordion
-                heading="Custom BZDB Settings"
+                heading="Custom Slash Commands"
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginBZDBSettings onChange={this._handleCustomBZDBSettings} />
+                <PluginSlashCommands onChange={this._handleSlashCommands} />
               </Accordion>
 
               <SiteFooter />
