@@ -12,6 +12,7 @@ import PluginEventSelector from './components/PluginEventSelector';
 import PluginGenericCallbacks from './components/PluginGenericCallbacks';
 import PluginSlashCommands from './components/PluginSlashCommands';
 
+import Licenses from './data/licenses.json';
 import styles from './App.module.scss';
 
 interface State {
@@ -26,9 +27,13 @@ export default class App extends Component<{}, State> {
     super(props);
 
     this.pluginBuilder = new PluginBuilder();
+
+    const pluginDef = Object.assign({}, this.pluginBuilder.definition);
+    pluginDef.license = Licenses.Proprietary;
+
     this.state = {
       openedAccordion: 1,
-      pluginDef: Object.assign({}, this.pluginBuilder.definition),
+      pluginDef: pluginDef,
     };
   }
 
