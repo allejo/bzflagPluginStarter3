@@ -36,13 +36,11 @@ export default class App extends Component<{}, State> {
     super(props);
 
     this.pluginBuilder = new PluginBuilder();
-
-    const pluginDef = Object.assign({}, this.pluginBuilder.definition);
-    pluginDef.license = Licenses.Proprietary;
+    this.pluginBuilder.definition.license = Licenses.Proprietary;
 
     this.state = {
       openedAccordion: 1,
-      pluginDef: pluginDef,
+      pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
 
