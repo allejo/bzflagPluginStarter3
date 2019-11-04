@@ -11,6 +11,7 @@ export default class PluginPollType extends Component<Props> {
     const pollTypes = values.map<IPollType>(value => {
       const pollType = {
         name: value['poll_name'],
+        parameters: value['poll_params'].split(' '),
       };
 
       PluginBuilder.normalizePollType(pollType);
@@ -22,7 +23,17 @@ export default class PluginPollType extends Component<Props> {
   };
 
   public _handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
-    return <span>{value['poll_name']}</span>;
+    return (
+      <p className="m-0">
+        <span>/poll</span>
+        {' '}
+        <span>{value['poll_name']}</span>
+        {' '}
+        {value['poll_params'].split(' ').map(param => (
+          <><code>&lt;{param}&gt;</code>{' '}</>
+        ))}
+      </p>
+    );
   };
 
   public render(): ReactNode {
@@ -30,19 +41,34 @@ export default class PluginPollType extends Component<Props> {
       <div>
         <p>
           Plug-ins can introduce custom poll types that make it possible to introduce custom{' '}
-          <code>/poll &lt;customtype&gt;</code> values.
+          <code>/poll &lt;type&gt; &lt;params&gt;</code> values.
         </p>
 
         <FormRepeater onChange={this._handleChange} itemRendererCallback={this._handleDisplayCallback}>
-          <label htmlFor="poll_type">Poll Type</label>
-          <input
-            type="text"
-            id="poll_type"
-            autoComplete="off"
-            className="form-control mt-1"
-            name="poll_name"
-            required={true}
-          />
+          <div className="row">
+            <div className="col">
+              <label htmlFor="poll_type">Poll Type</label>
+              <input
+                type="text"
+                id="poll_type"
+                autoComplete="off"
+                className="form-control mt-1"
+                name="poll_name"
+                required={true}
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="poll_params">Parameters</label>
+              <input
+                type="text"
+                id="poll_params"
+                autoComplete="off"
+                className="form-control mt-1"
+                name="poll_params"
+                required={true}
+              />
+            </div>
+          </div>
         </FormRepeater>
       </div>
     );

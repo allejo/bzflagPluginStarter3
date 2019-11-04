@@ -26,7 +26,7 @@ import Licenses from './data/licenses.json';
 import styles from './App.module.scss';
 import PluginCustomFlags from './components/PluginCustomFlags';
 import PluginBZDBSettings from './components/PluginBZDBSettings';
-// import PluginPollType from "./components/PluginPollType";
+import PluginPollType from "./components/PluginPollType";
 
 interface State {
   openedAccordion: number;
@@ -201,13 +201,13 @@ export default class App extends Component<{}, State> {
                 <PluginCustomFlags onChange={this._handleCustomFlags} />
               </Accordion>
 
-              {/*<Accordion*/}
-              {/*  heading="Custom Poll Types"*/}
-              {/*  isOpen={this.state.openedAccordion === ++accordionCount}*/}
-              {/*  onToggle={this._toggleHandler(accordionCount)}*/}
-              {/*>*/}
-              {/*  <PluginPollType onChange={this._handlePollTypes} />*/}
-              {/*</Accordion>*/}
+              <Accordion
+                heading="Custom Poll Types"
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
+              >
+                <PluginPollType onChange={this._handlePollTypes} />
+              </Accordion>
 
               <Accordion
                 heading="Custom Slash Commands"
