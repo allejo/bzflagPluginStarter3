@@ -25,12 +25,11 @@ export default class PluginPollType extends Component<Props> {
   public _handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
     return (
       <p className="m-0">
-        <span>/poll</span>
-        {' '}
-        <span>{value['poll_name']}</span>
-        {' '}
+        <span>/poll</span> <span>{value['poll_name']}</span>{' '}
         {value['poll_params'].split(' ').map(param => (
-          <><code>&lt;{param}&gt;</code>{' '}</>
+          <>
+            <code>&lt;{param}&gt;</code>{' '}
+          </>
         ))}
       </p>
     );

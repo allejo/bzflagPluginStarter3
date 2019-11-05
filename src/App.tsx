@@ -26,7 +26,7 @@ import Licenses from './data/licenses.json';
 import styles from './App.module.scss';
 import PluginCustomFlags from './components/PluginCustomFlags';
 import PluginBZDBSettings from './components/PluginBZDBSettings';
-import PluginPollType from "./components/PluginPollType";
+import PluginPollType from './components/PluginPollType';
 
 interface State {
   openedAccordion: number;
