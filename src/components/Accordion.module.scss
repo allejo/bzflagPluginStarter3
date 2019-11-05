@@ -10,21 +10,13 @@
     font-weight: bold;
     margin: 0;
     padding: 10px 0;
-
-    &::before {
-      content: '\F107';
-      font-family: FontAwesome;
-      display: inline-block;
-      text-align: center;
-      width: 1.5em;
-    }
   }
+}
 
-  &[aria-expanded='false'] {
-    h2::before {
-      content: '\F105';
-    }
-  }
+.icon {
+  display: inline-block;
+  text-align: center;
+  width: 1.5em;
 }
 
 .body {

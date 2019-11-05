@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { Collapse } from 'reactstrap';
 import styles from './Accordion.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
   isOpen: boolean;
@@ -19,7 +20,13 @@ export default class Accordion extends Component<Props> {
     return (
       <article>
         <header className={styles.header} aria-expanded={this.props.isOpen} onClick={this.handleClick}>
-          <h2 tabIndex={0}>{this.props.heading}</h2>
+          <h2 tabIndex={0}>
+            <span className={styles.icon} aria-hidden={true}>
+              <FontAwesomeIcon icon={this.props.isOpen ? 'angle-down' : 'angle-right'} />
+            </span>
+
+            {this.props.heading}
+          </h2>
         </header>
 
         <Collapse isOpen={this.props.isOpen}>

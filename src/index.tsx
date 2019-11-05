@@ -2,7 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faClipboard, faDownload, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faAngleRight,
+  faClipboard,
+  faDownload,
+  faPlus,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 import 'typeface-bitter';
 import 'typeface-raleway';
@@ -13,7 +20,7 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-library.add(faClipboard, faDownload, faPlus, faTrashAlt);
+library.add(faAngleDown, faAngleRight, faClipboard, faDownload, faPlus, faTrashAlt);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
