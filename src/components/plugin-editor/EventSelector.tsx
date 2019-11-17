@@ -1,7 +1,7 @@
-import React, { Component, SyntheticEvent } from 'react';
 import { IEvent } from '@allejo/bzf-plugin-gen';
+import React, { Component, SyntheticEvent } from 'react';
 
-import Events from '../data/events.json';
+import Events from '../../data/events.json';
 
 interface Props {
   onUpdate(events: IEvent[]): void;
@@ -13,7 +13,7 @@ interface State {
 
 type IEventMap = { [key: string]: IEvent };
 
-export default class PluginEventSelector extends Component<Props, State> {
+export default class EventSelector extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -49,7 +49,7 @@ export default class PluginEventSelector extends Component<Props, State> {
       },
       () => {
         this.sendEventArrayUp();
-      }
+      },
     );
   };
 

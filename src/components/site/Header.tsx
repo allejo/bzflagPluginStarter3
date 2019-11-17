@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SiteHeader = () => (
+const Header = () => (
   <section>
     <h1 className="my-3">BZFlag Plug-in Starter</h1>
 
@@ -17,4 +17,4 @@ const SiteHeader = () => (
   </section>
 );
 
-export default SiteHeader;
+export default Header;

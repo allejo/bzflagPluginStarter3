@@ -1,6 +1,7 @@
-import React, { Component, ReactNode } from 'react';
 import { BZDBType, IBZDBSetting, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
-import FormRepeater from './FormRepeater';
+import React, { Component, ReactNode } from 'react';
+
+import FormRepeater from '../common/FormRepeater';
 
 interface Props {
   onChange: (settings: IBZDBSetting[]) => void;
@@ -13,7 +14,7 @@ const BZDBTypes: { [key in BZDBType]: string } = {
   [BZDBType.String]: 'String',
 };
 
-export default class PluginBZDBSettings extends Component<Props> {
+export default class BZDBSettings extends Component<Props> {
   private static castSettingType(type: BZDBType, value: string) {
     switch (type) {
       case BZDBType.Bool:
@@ -36,7 +37,7 @@ export default class PluginBZDBSettings extends Component<Props> {
       const setting: IBZDBSetting = {
         name: value['setting_name'],
         type: type,
-        value: PluginBZDBSettings.castSettingType(type, value['setting_value']),
+        value: BZDBSettings.castSettingType(type, value['setting_value']),
       };
 
       PluginBuilder.normalizeBZDBSetting(setting);

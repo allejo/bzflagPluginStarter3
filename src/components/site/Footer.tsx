@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SiteFooter = () => (
+const Footer = () => (
   <footer className="my-4">
     <div className="row">
       <div className="col-md-6">Copyright &copy; {new Date().getFullYear()}</div>
@@ -21,4 +21,4 @@ const SiteFooter = () => (
   </footer>
 );
 
-export default SiteFooter;
+export default Footer;

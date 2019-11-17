@@ -1,5 +1,6 @@
-import React, { Component, SyntheticEvent } from 'react';
 import { ILicense } from '@allejo/bzf-plugin-gen';
+import React, { Component, SyntheticEvent } from 'react';
+
 import Licenses from '../data/licenses.json';
 
 export interface PluginDefinitionData {

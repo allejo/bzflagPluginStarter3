@@ -1,5 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import 'typeface-bitter';
+import 'typeface-raleway';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './index.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -10,12 +13,8 @@ import {
   faPlus,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-
-import 'typeface-bitter';
-import 'typeface-raleway';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';

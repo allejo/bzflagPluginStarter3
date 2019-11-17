@@ -1,32 +1,31 @@
-import React, { Component } from 'react';
 import {
+  IBZDBSetting,
+  ICallback,
   ICodeStyle,
   IEvent,
-  ICallback,
+  IFlag,
   IPlugin,
+  IPollType,
   ISlashCommand,
   PluginBuilder,
-  IFlag,
-  IBZDBSetting,
-  IPollType,
 } from '@allejo/bzf-plugin-gen/dist';
+import React, { Component } from 'react';
 import semver from 'semver';
 
-import Accordion from './components/Accordion';
-import SiteHeader from './components/SiteHeader';
-import SiteFooter from './components/SiteFooter';
+import styles from './App.module.scss';
+import Accordion from './components/common/Accordion';
+import BZDBSettings from './components/plugin-editor/BZDBSettings';
+import CodeStyle from './components/plugin-editor/CodeStyle';
+import CustomFlags from './components/plugin-editor/CustomFlags';
+import EventSelector from './components/plugin-editor/EventSelector';
+import GenericCallbacks from './components/plugin-editor/GenericCallbacks';
+import PollType from './components/plugin-editor/PollType';
+import SlashCommands from './components/plugin-editor/SlashCommands';
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
 import PluginPreview from './components/PluginPreview';
-import PluginCodeStyle from './components/PluginCodeStyle';
-import PluginEventSelector from './components/PluginEventSelector';
-import PluginGenericCallbacks from './components/PluginGenericCallbacks';
-import PluginSlashCommands from './components/PluginSlashCommands';
-
+import Footer from './components/site/Footer';
+import Header from './components/site/Header';
 import Licenses from './data/licenses.json';
-import styles from './App.module.scss';
-import PluginCustomFlags from './components/PluginCustomFlags';
-import PluginBZDBSettings from './components/PluginBZDBSettings';
-import PluginPollType from './components/PluginPollType';
 
 interface State {
   openedAccordion: number;
@@ -156,7 +155,7 @@ export default class App extends Component<{}, State> {
 
     return (
       <div className="container">
-        <SiteHeader />
+        <Header />
         <PluginDefinition onUpdate={this._handlePluginDefinition} />
         <div className={styles.pluginSettings}>
           <div className="row">
@@ -166,7 +165,7 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginCodeStyle onUpdate={this._handleCodeStyle} data={this.state.pluginDef.codeStyle} />
+                <CodeStyle onUpdate={this._handleCodeStyle} data={this.state.pluginDef.codeStyle} />
               </Accordion>
 
               <Accordion
@@ -174,7 +173,7 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginEventSelector onUpdate={this._handleEvents} />
+                <EventSelector onUpdate={this._handleEvents} />
               </Accordion>
 
               <Accordion
@@ -182,7 +181,7 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginBZDBSettings onChange={this._handleCustomBZDBSettings} />
+                <BZDBSettings onChange={this._handleCustomBZDBSettings} />
               </Accordion>
 
               <Accordion
@@ -190,7 +189,7 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginGenericCallbacks onChange={this._handleGenericCallbacks} />
+                <GenericCallbacks onChange={this._handleGenericCallbacks} />
               </Accordion>
 
               <Accordion
@@ -198,7 +197,7 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginCustomFlags onChange={this._handleCustomFlags} />
+                <CustomFlags onChange={this._handleCustomFlags} />
               </Accordion>
 
               <Accordion
@@ -206,7 +205,7 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginPollType onChange={this._handlePollTypes} />
+                <PollType onChange={this._handlePollTypes} />
               </Accordion>
 
               <Accordion
@@ -214,10 +213,10 @@ export default class App extends Component<{}, State> {
                 isOpen={this.state.openedAccordion === ++accordionCount}
                 onToggle={this._toggleHandler(accordionCount)}
               >
-                <PluginSlashCommands onChange={this._handleSlashCommands} />
+                <SlashCommands onChange={this._handleSlashCommands} />
               </Accordion>
 
-              <SiteFooter />
+              <Footer />
             </div>
 
             <div className="col-md-6">

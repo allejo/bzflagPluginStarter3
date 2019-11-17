@@ -1,5 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component, SyntheticEvent } from 'react';
 
 import styles from './FormRepeater.module.scss';
 
@@ -37,7 +37,7 @@ export default class FormRepeater extends Component<Props, State> {
       },
       () => {
         this.props.onChange(this.state.data);
-      }
+      },
     );
   };
 
@@ -59,7 +59,7 @@ export default class FormRepeater extends Component<Props, State> {
       },
       () => {
         this.props.onChange(this.state.data);
-      }
+      },
     );
   };
 

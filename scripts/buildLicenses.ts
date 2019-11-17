@@ -21,5 +21,5 @@ for (const i in licenses) {
 
 fs.writeFileSync(
   path.join(__dirname, '..', 'src', 'data', 'licenses.json'),
-  JSON.stringify(LicenseDictionary, null, '\t')
+  JSON.stringify(LicenseDictionary, null, '\t'),
 );

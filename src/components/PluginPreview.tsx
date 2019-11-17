@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { saveAs } from 'file-saver';
-import styles from './PluginPreview.module.scss';
 import { IPlugin, PluginWriter } from '@allejo/bzf-plugin-gen/dist';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CPPComment } from 'aclovis';
+import { saveAs } from 'file-saver';
+import React, { Component } from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
+
+import styles from './PluginPreview.module.scss';
 
 interface Props {
   minVersion: string;
@@ -44,7 +45,7 @@ ${writer.write().replace(
   '};',
   `};
 
-BZ_PLUGIN(${writer.getClassName()})`
+BZ_PLUGIN(${writer.getClassName()})`,
 )}
     `.trim();
   };

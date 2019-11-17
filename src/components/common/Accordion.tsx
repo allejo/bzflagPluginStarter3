@@ -1,7 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component, ReactNode } from 'react';
 import { Collapse } from 'reactstrap';
+
 import styles from './Accordion.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
   isOpen: boolean;

@@ -1,5 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
 import { ICodeStyle } from '@allejo/bzf-plugin-gen';
+import React, { Component, SyntheticEvent } from 'react';
 
 interface Props {
   data: ICodeStyle;
@@ -7,7 +7,7 @@ interface Props {
   onUpdate(data: ICodeStyle): void;
 }
 
-export default class PluginCodeStyle extends Component<Props> {
+export default class CodeStyle extends Component<Props> {
   handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
     const data = Object.assign({}, this.props.data);
 

@@ -1,12 +1,13 @@
-import React, { Component, ReactNode } from 'react';
 import { FlagType, IFlag, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
-import FormRepeater from './FormRepeater';
+import React, { Component, ReactNode } from 'react';
+
+import FormRepeater from '../common/FormRepeater';
 
 interface Props {
   onChange: (flags: IFlag[]) => void;
 }
 
-export default class PluginCustomFlags extends Component<Props> {
+export default class CustomFlags extends Component<Props> {
   public _handleChange = (values: Record<string, string>[]): void => {
     const flags = values.map<IFlag>((value: Record<string, string>) => {
       const flag: IFlag = {

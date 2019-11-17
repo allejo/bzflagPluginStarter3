@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import FormRepeater from './FormRepeater';
 import { ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
+import React, { Component } from 'react';
+
+import FormRepeater from '../common/FormRepeater';
 
 interface Props {
   onChange: (commands: ISlashCommand[]) => void;
 }
 
-export default class PluginSlashCommands extends Component<Props> {
+export default class SlashCommands extends Component<Props> {
   public _handleChange = (values: Record<string, string>[]): void => {
     const slashCommands = values.map<ISlashCommand>((value: Record<string, string>) => {
       const slashCommand: ISlashCommand = {

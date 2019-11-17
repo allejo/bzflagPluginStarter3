@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import FormRepeater from './FormRepeater';
 import { ICallback } from '@allejo/bzf-plugin-gen/dist';
+import React, { Component } from 'react';
+
+import FormRepeater from '../common/FormRepeater';
 
 interface Props {
   onChange: (callbacks: ICallback[]) => void;
 }
 
-export default class PluginGenericCallbacks extends Component<Props> {
+export default class GenericCallbacks extends Component<Props> {
   public _handleChange = (values: Record<string, string>[]): void => {
     const callbacks = values.map<ICallback>((value: Record<string, string>) => ({
       name: value['callback'],

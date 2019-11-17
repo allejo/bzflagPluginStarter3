@@ -1,12 +1,13 @@
-import React, { Component, ReactNode } from 'react';
 import { IPollType, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
-import FormRepeater from './FormRepeater';
+import React, { Component, ReactNode } from 'react';
+
+import FormRepeater from '../common/FormRepeater';
 
 interface Props {
   onChange: (pollTypes: IPollType[]) => void;
 }
 
-export default class PluginPollType extends Component<Props> {
+export default class PollType extends Component<Props> {
   public _handleChange = (values: Record<string, string>[]): void => {
     const pollTypes = values.map<IPollType>(value => {
       const pollType = {
