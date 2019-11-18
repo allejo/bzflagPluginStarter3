@@ -23,7 +23,7 @@ export default class MapObjectEditor extends Component<Props, State> {
         name: 'ahod',
         properties: [
           {
-            uuid: '',
+            uuid: '1111-pos',
             name: 'position|pos',
             readonly: true,
             arguments: [
@@ -45,7 +45,7 @@ export default class MapObjectEditor extends Component<Props, State> {
             ],
           },
           {
-            uuid: '',
+            uuid: '1111-size',
             name: 'size',
             readonly: true,
             arguments: [
@@ -67,7 +67,7 @@ export default class MapObjectEditor extends Component<Props, State> {
             ],
           },
           {
-            uuid: '',
+            uuid: '1111-rot',
             name: 'rotation|rot',
             readonly: true,
             arguments: [
@@ -79,13 +79,13 @@ export default class MapObjectEditor extends Component<Props, State> {
             ],
           },
           {
-            uuid: '',
+            uuid: '1111-to',
             name: 'teamonly',
             readonly: false,
             arguments: [],
           },
           {
-            uuid: '',
+            uuid: '1111-team',
             name: 'team',
             readonly: false,
             arguments: [
