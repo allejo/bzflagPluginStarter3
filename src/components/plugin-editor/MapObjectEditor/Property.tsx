@@ -49,7 +49,7 @@ export default class Property extends Component<Props> {
           $push: [
             {
               uuid: uuidV4(),
-              name: '',
+              name: 'arg',
               type: MapArgumentType.String,
               readonly: false,
             },
@@ -77,7 +77,7 @@ export default class Property extends Component<Props> {
     return (
       <li className={styles.container}>
         {value.readonly ? (
-          <p>{value.name}</p>
+          <p className="m-0">{value.name}</p>
         ) : (
           <>
             <button className={styles.deleteBtn} onClick={this._handleDeleteRequest}>
@@ -100,7 +100,7 @@ export default class Property extends Component<Props> {
               />
             ))}
 
-            <li>
+            <li className="d-inline">
               <button className={styles.addArgument} onClick={this._handleArgumentCreate}>
                 <FontAwesomeIcon icon="plus" className="mr-2" />
                 Add Argument

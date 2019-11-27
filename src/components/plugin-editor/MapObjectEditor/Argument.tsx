@@ -1,6 +1,7 @@
 import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
+import AutosizeInput from 'react-input-autosize';
 
 import styles from './Argument.module.scss';
 
@@ -40,7 +41,8 @@ export default class Argument extends Component<Props> {
     return (
       <li className={styles.container}>
         <span aria-hidden="true">&#123;</span>
-        <input type="text" className={styles.nameEditor} value={value.name} onChange={this._handleNameChange} />
+
+        <AutosizeInput className={styles.nameEditor} value={value.name} onChange={this._handleNameChange} />
 
         <span aria-hidden="true">:</span>
 

@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  margin-bottom: 0.5rem;
 }
 
 .deleteBtn {
@@ -13,6 +14,7 @@
 .arguments {
   list-style-type: none;
   padding: 0;
+  white-space: nowrap;
 }
 
 .addArgument {

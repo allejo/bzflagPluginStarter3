@@ -1,20 +1,25 @@
 @import '../../../scss/variables';
 
 .container,
-.nameEditor,
+.nameEditor input,
 .typeSelector {
   color: $color-green;
 }
 
 .container {
   background: $color-light-green;
+  border-radius: 5px;
+  font-size: 0.7rem;
   display: inline;
+  margin-right: 0.5rem;
+  padding: 0.25rem;
 }
 
-.nameEditor {
+.nameEditor input {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid $color-green;
+  font-weight: bold;
 }
 
 .typeSelector {
