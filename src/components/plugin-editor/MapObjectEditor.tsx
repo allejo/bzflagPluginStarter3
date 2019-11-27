@@ -5,6 +5,7 @@ import React, { Component, ReactNode } from 'react';
 import { Button } from 'reactstrap';
 
 import MapObject from './MapObjectEditor/MapObject';
+import { uuidV4 } from "../../utilities/common";
 
 interface Props {
   onChange: (objects: IMapObject[]) => void;
@@ -119,7 +120,7 @@ export default class MapObjectEditor extends Component<Props, State> {
   };
 
   public _handleNewMapObject = (): void => {
-    const uuid = this.uuidV4();
+    const uuid = uuidV4();
 
     this.setState(update(this.state, {
       mapObjects: {
@@ -159,16 +160,5 @@ export default class MapObjectEditor extends Component<Props, State> {
         </Button>
       </div>
     );
-  }
-
-  /**
-   * @see https://stackoverflow.com/a/2117523
-   */
-  private uuidV4(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = (Math.random() * 16) | 0,
-        v = c === 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
   }
 }
