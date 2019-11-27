@@ -101,36 +101,36 @@ export default class MapObjectEditor extends Component<Props, State> {
   };
 
   public _handleMapObjectChange = (data: IMapObject): void => {
-    this.setState(({ mapObjects }) => ({
-      mapObjects: update(mapObjects, {
+    this.setState(update(this.state, {
+      mapObjects: {
         [data.uuid]: {
           $set: data,
         },
-      }),
+      }
     }));
   };
 
   public _handleMapObjectDelete = (data: IMapObject): void => {
-    this.setState(({ mapObjects }) => ({
-      mapObjects: update(mapObjects, {
+    this.setState(update(this.state, {
+      mapObjects: {
         $unset: [data.uuid],
-      }),
+      },
     }));
   };
 
   public _handleNewMapObject = (): void => {
     const uuid = this.uuidV4();
 
-    this.setState(({ mapObjects }) => ({
-      mapObjects: update(mapObjects, {
+    this.setState(update(this.state, {
+      mapObjects: {
         [uuid]: {
           $set: {
             uuid: uuid,
             name: 'object',
             properties: [],
           },
-        },
-      }),
+        }
+      }
     }));
   };
 
