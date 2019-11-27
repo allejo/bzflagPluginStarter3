@@ -1,10 +1,9 @@
 import { IMapObject, MapArgumentType } from '@allejo/bzf-plugin-gen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, fromJS } from 'immutable';
+import update from 'immutability-helper';
 import React, { Component, ReactNode } from 'react';
 import { Button } from 'reactstrap';
 
-import { IImmutable } from '../../utilities/IImmutable';
 import MapObject from './MapObjectEditor/MapObject';
 
 interface Props {
@@ -12,12 +11,12 @@ interface Props {
 }
 
 interface State {
-  mapObjects: Map<string, IImmutable<IMapObject>>;
+  mapObjects: Record<string, IMapObject>;
 }
 
 export default class MapObjectEditor extends Component<Props, State> {
   readonly state: State = {
-    mapObjects: fromJS({
+    mapObjects: {
       '1111': {
         uuid: '1111',
         name: 'ahod',
@@ -98,18 +97,24 @@ export default class MapObjectEditor extends Component<Props, State> {
           },
         ],
       },
-    }),
+    },
   };
 
-  public _handleMapObjectChange = (data: IImmutable<IMapObject>): void => {
+  public _handleMapObjectChange = (data: IMapObject): void => {
     this.setState(({ mapObjects }) => ({
-      mapObjects: mapObjects.set(data.get('uuid'), data),
+      mapObjects: update(mapObjects, {
+        [data.uuid]: {
+          $set: data,
+        },
+      }),
     }));
   };
 
-  public _handleMapObjectDelete = (data: IImmutable<IMapObject>): void => {
+  public _handleMapObjectDelete = (data: IMapObject): void => {
     this.setState(({ mapObjects }) => ({
-      mapObjects: mapObjects.delete(data.get('uuid')),
+      mapObjects: update(mapObjects, {
+        $unset: [data.uuid],
+      }),
     }));
   };
 
@@ -117,14 +122,15 @@ export default class MapObjectEditor extends Component<Props, State> {
     const uuid = this.uuidV4();
 
     this.setState(({ mapObjects }) => ({
-      mapObjects: mapObjects.set(
-        uuid,
-        fromJS({
-          uuid: uuid,
-          name: 'object',
-          properties: [],
-        }),
-      ),
+      mapObjects: update(mapObjects, {
+        [uuid]: {
+          $set: {
+            uuid: uuid,
+            name: 'object',
+            properties: [],
+          },
+        },
+      }),
     }));
   };
 
@@ -138,7 +144,7 @@ export default class MapObjectEditor extends Component<Props, State> {
           visible only to the server.
         </p>
 
-        {mapObjects.toArray().map((value: [string, IImmutable<IMapObject>]) => (
+        {Object.entries(mapObjects).map((value: [string, IMapObject]) => (
           <MapObject
             key={value[0]}
             value={value[1]}
