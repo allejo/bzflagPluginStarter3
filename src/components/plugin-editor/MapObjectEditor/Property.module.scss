@@ -1,6 +1,6 @@
 @import '../../../scss/variables';
 
-.property {
+.container {
   display: flex;
 }
 
@@ -8,4 +8,18 @@
   background-color: transparent;
   border: none;
   color: $color-red;
+}
+
+.arguments {
+  list-style-type: none;
+  padding: 0;
+}
+
+.addArgument {
+  background-color: transparent;
+  border: 1px solid $color-light-grey;
+  border-radius: 5px;
+  color: $color-grey;
+  font-size: 0.7rem;
+  padding-top: 0.25rem;
 }

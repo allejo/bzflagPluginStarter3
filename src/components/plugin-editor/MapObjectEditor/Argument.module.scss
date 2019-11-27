@@ -1,0 +1,23 @@
+@import '../../../scss/variables';
+
+.container,
+.nameEditor,
+.typeSelector {
+  color: $color-green;
+}
+
+.container {
+  background: $color-light-green;
+  display: inline;
+}
+
+.nameEditor {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $color-green;
+}
+
+.typeSelector {
+  background: transparent;
+  border: none;
+}

@@ -1,9 +1,10 @@
 import { IMapProperty } from '@allejo/bzf-plugin-gen';
-import { IMapPropertyArgument } from '@allejo/bzf-plugin-gen/dist';
+import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen/dist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
 
+import { uuidV4 } from '../../../utilities/common';
 import Argument from './Argument';
 import styles from './Property.module.scss';
 
@@ -41,6 +42,24 @@ export default class Property extends Component<Props> {
     );
   };
 
+  public _handleArgumentCreate = (): void => {
+    this.props.onChange(
+      update(this.props.value, {
+        arguments: {
+          $push: [
+            {
+              uuid: uuidV4(),
+              name: '',
+              type: MapArgumentType.String,
+              readonly: false,
+            },
+          ],
+        },
+      }),
+      this.props.index,
+    );
+  };
+
   public _handleArgumentDelete = (argument: IMapPropertyArgument, index: number): void => {
     this.props.onChange(
       update(this.props.value, {
@@ -56,7 +75,7 @@ export default class Property extends Component<Props> {
     const { value } = this.props;
 
     return (
-      <li className={styles.property}>
+      <li className={styles.container}>
         {value.readonly ? (
           <p>{value.name}</p>
         ) : (
@@ -69,8 +88,8 @@ export default class Property extends Component<Props> {
           </>
         )}
 
-        {value.arguments.length && (
-          <ul>
+        {value.arguments.length > 0 && (
+          <ul className={styles.arguments}>
             {value.arguments.map((argument: IMapPropertyArgument, index: number) => (
               <Argument
                 key={argument.uuid}
@@ -80,6 +99,13 @@ export default class Property extends Component<Props> {
                 onDelete={this._handleArgumentDelete}
               />
             ))}
+
+            <li>
+              <button className={styles.addArgument} onClick={this._handleArgumentCreate}>
+                <FontAwesomeIcon icon="plus" className="mr-2" />
+                Add Argument
+              </button>
+            </li>
           </ul>
         )}
       </li>

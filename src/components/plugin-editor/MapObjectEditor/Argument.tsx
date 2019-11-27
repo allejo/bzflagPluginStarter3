@@ -2,6 +2,8 @@ import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
 
+import styles from './Argument.module.scss';
+
 interface Props {
   value: IMapPropertyArgument;
   index: number;
@@ -36,15 +38,20 @@ export default class Argument extends Component<Props> {
     const { value } = this.props;
 
     return (
-      <li>
-        <input type="text" value={value.name} onChange={this._handleNameChange} />
-        <select value={value.type} onChange={this._handleTypeChange}>
+      <li className={styles.container}>
+        <span aria-hidden="true">&#123;</span>
+        <input type="text" className={styles.nameEditor} value={value.name} onChange={this._handleNameChange} />
+
+        <span aria-hidden="true">:</span>
+
+        <select className={styles.typeSelector} value={value.type} onChange={this._handleTypeChange}>
           <option>{MapArgumentType.Int}</option>
           <option>{MapArgumentType.Float}</option>
           <option>{MapArgumentType.Double}</option>
           <option>{MapArgumentType.String}</option>
           <option>{MapArgumentType.Team}</option>
         </select>
+        <span aria-hidden="true">&#125;</span>
       </li>
     );
   }
