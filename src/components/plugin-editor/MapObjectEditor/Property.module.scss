@@ -1,0 +1,11 @@
+@import '../../../scss/variables';
+
+.property {
+  display: flex;
+}
+
+.deleteBtn {
+  background-color: transparent;
+  border: none;
+  color: $color-red;
+}

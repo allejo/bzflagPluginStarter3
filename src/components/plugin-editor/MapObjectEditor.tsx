@@ -4,8 +4,8 @@ import update from 'immutability-helper';
 import React, { Component, ReactNode } from 'react';
 import { Button } from 'reactstrap';
 
+import { uuidV4 } from '../../utilities/common';
 import MapObject from './MapObjectEditor/MapObject';
-import { uuidV4 } from "../../utilities/common";
 
 interface Props {
   onChange: (objects: IMapObject[]) => void;
@@ -28,17 +28,17 @@ export default class MapObjectEditor extends Component<Props, State> {
             readonly: true,
             arguments: [
               {
-                uuid: '',
+                uuid: '2222-x_pos',
                 name: 'x_pos',
                 type: MapArgumentType.Float,
               },
               {
-                uuid: '',
+                uuid: '2222-y_pos',
                 name: 'y_pos',
                 type: MapArgumentType.Float,
               },
               {
-                uuid: '',
+                uuid: '2222-z_pos',
                 name: 'z_pos',
                 type: MapArgumentType.Float,
               },
@@ -50,17 +50,17 @@ export default class MapObjectEditor extends Component<Props, State> {
             readonly: true,
             arguments: [
               {
-                uuid: '',
+                uuid: '2222-x_size',
                 name: 'x_size',
                 type: MapArgumentType.Float,
               },
               {
-                uuid: '',
+                uuid: '2222-y_size',
                 name: 'y_size',
                 type: MapArgumentType.Float,
               },
               {
-                uuid: '',
+                uuid: '2222-z_size',
                 name: 'z_size',
                 type: MapArgumentType.Float,
               },
@@ -72,7 +72,7 @@ export default class MapObjectEditor extends Component<Props, State> {
             readonly: true,
             arguments: [
               {
-                uuid: '',
+                uuid: '2222-rotation',
                 name: 'rotation',
                 type: MapArgumentType.Float,
               },
@@ -90,7 +90,7 @@ export default class MapObjectEditor extends Component<Props, State> {
             readonly: false,
             arguments: [
               {
-                uuid: '',
+                uuid: '2222-team',
                 name: 'value',
                 type: MapArgumentType.Team,
               },
@@ -102,37 +102,43 @@ export default class MapObjectEditor extends Component<Props, State> {
   };
 
   public _handleMapObjectChange = (data: IMapObject): void => {
-    this.setState(update(this.state, {
-      mapObjects: {
-        [data.uuid]: {
-          $set: data,
+    this.setState(
+      update(this.state, {
+        mapObjects: {
+          [data.uuid]: {
+            $set: data,
+          },
         },
-      }
-    }));
+      }),
+    );
   };
 
   public _handleMapObjectDelete = (data: IMapObject): void => {
-    this.setState(update(this.state, {
-      mapObjects: {
-        $unset: [data.uuid],
-      },
-    }));
+    this.setState(
+      update(this.state, {
+        mapObjects: {
+          $unset: [data.uuid],
+        },
+      }),
+    );
   };
 
   public _handleNewMapObject = (): void => {
     const uuid = uuidV4();
 
-    this.setState(update(this.state, {
-      mapObjects: {
-        [uuid]: {
-          $set: {
-            uuid: uuid,
-            name: 'object',
-            properties: [],
+    this.setState(
+      update(this.state, {
+        mapObjects: {
+          [uuid]: {
+            $set: {
+              uuid: uuid,
+              name: 'object',
+              properties: [],
+            },
           },
-        }
-      }
-    }));
+        },
+      }),
+    );
   };
 
   public render(): ReactNode {

@@ -1,6 +1,11 @@
 import { IMapProperty } from '@allejo/bzf-plugin-gen';
+import { IMapPropertyArgument } from '@allejo/bzf-plugin-gen/dist';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
+
+import Argument from './Argument';
+import styles from './Property.module.scss';
 
 interface Props {
   index: number;
@@ -21,12 +26,62 @@ export default class Property extends Component<Props> {
     );
   };
 
+  public _handleDeleteRequest = (): void => {
+    this.props.onDelete(this.props.value, this.props.index);
+  };
+
+  public _handleArgumentChange = (argument: IMapPropertyArgument, index: number): void => {
+    this.props.onChange(
+      update(this.props.value, {
+        arguments: {
+          $splice: [[index, 1, argument]],
+        },
+      }),
+      this.props.index,
+    );
+  };
+
+  public _handleArgumentDelete = (argument: IMapPropertyArgument, index: number): void => {
+    this.props.onChange(
+      update(this.props.value, {
+        arguments: {
+          $splice: [[index, 0]],
+        },
+      }),
+      this.props.index,
+    );
+  };
+
   public render(): ReactNode {
     const { value } = this.props;
 
     return (
-      <li>
-        <input type="text" className="form-control" onChange={this._handlePropertyNameChange} value={value.name} />
+      <li className={styles.property}>
+        {value.readonly ? (
+          <p>{value.name}</p>
+        ) : (
+          <>
+            <button className={styles.deleteBtn} onClick={this._handleDeleteRequest}>
+              <FontAwesomeIcon icon="trash-alt" />
+              <span className="sr-only">Delete {value.name} property</span>
+            </button>
+            <input type="text" className="form-control" onChange={this._handlePropertyNameChange} value={value.name} />
+          </>
+        )}
+
+        {value.arguments.length && (
+          <ul>
+            {value.arguments.map((argument: IMapPropertyArgument, index: number) => (
+              <Argument
+                key={argument.uuid}
+                value={argument}
+                index={index}
+                onChange={this._handleArgumentChange}
+                onDelete={this._handleArgumentDelete}
+              />
+            ))}
+          </ul>
+        )}
       </li>
     );
   }

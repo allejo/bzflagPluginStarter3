@@ -1,33 +1,51 @@
 import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
-import React, { Component, ReactNode } from 'react';
+import update from 'immutability-helper';
+import React, { Component, ReactNode, SyntheticEvent } from 'react';
 
 interface Props {
-  name: string;
-  type: MapArgumentType;
-  readonly: boolean;
-
-  onChange: (argument: IMapPropertyArgument) => void;
+  value: IMapPropertyArgument;
+  index: number;
+  onChange: (argument: IMapPropertyArgument, index: number) => void;
+  onDelete: (argument: IMapPropertyArgument, index: number) => void;
 }
 
-interface State {}
+export default class Argument extends Component<Props> {
+  public _handleNameChange = (event: SyntheticEvent<HTMLInputElement>): void => {
+    this.props.onChange(
+      update(this.props.value, {
+        name: {
+          $set: event.currentTarget.value,
+        },
+      }),
+      this.props.index,
+    );
+  };
 
-export default class Argument extends Component<Props, State> {
-  public static defaultProps = {
-    readonly: false,
+  public _handleTypeChange = (event: SyntheticEvent<HTMLSelectElement>): void => {
+    this.props.onChange(
+      update(this.props.value, {
+        type: {
+          $set: event.currentTarget.value as MapArgumentType,
+        },
+      }),
+      this.props.index,
+    );
   };
 
   public render(): ReactNode {
+    const { value } = this.props;
+
     return (
-      <div>
-        <input type="text" name="map_property_argument_name" />
-        <select name="map_property_argument_type">
+      <li>
+        <input type="text" value={value.name} onChange={this._handleNameChange} />
+        <select value={value.type} onChange={this._handleTypeChange}>
           <option>{MapArgumentType.Int}</option>
           <option>{MapArgumentType.Float}</option>
           <option>{MapArgumentType.Double}</option>
           <option>{MapArgumentType.String}</option>
           <option>{MapArgumentType.Team}</option>
         </select>
-      </div>
+      </li>
     );
   }
 }
