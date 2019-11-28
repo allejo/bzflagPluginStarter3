@@ -44,7 +44,7 @@ export default class App extends Component<{}, State> {
     this.pluginBuilder.definition.license = Licenses.Proprietary;
 
     this.state = {
-      openedAccordion: 6,
+      openedAccordion: 1,
       pluginDef: Object.assign({}, this.pluginBuilder.definition),
     };
   }
