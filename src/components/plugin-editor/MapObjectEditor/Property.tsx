@@ -65,7 +65,7 @@ export default class Property extends Component<Props> {
     this.props.onChange(
       update(this.props.value, {
         arguments: {
-          $splice: [[index, 0]],
+          $splice: [[index, 1]],
         },
       }),
       this.props.index,

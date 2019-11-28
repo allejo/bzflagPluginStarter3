@@ -1,4 +1,5 @@
 import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
@@ -37,6 +38,10 @@ export default class Argument extends Component<Props> {
     );
   };
 
+  public _handleDelete = (): void => {
+    this.props.onDelete(this.props.value, this.props.index);
+  };
+
   public render(): ReactNode {
     const { readonly, value } = this.props;
 
@@ -71,6 +76,13 @@ export default class Argument extends Component<Props> {
           <option>{MapArgumentType.Team}</option>
         </select>
         <span aria-hidden="true">&#125;</span>
+
+        {!readonly && (
+          <button className={styles.deleteButton} onClick={this._handleDelete}>
+            <FontAwesomeIcon icon="times-circle" fixedWidth={true} />
+            <span className="sr-only">Delete the {value.name} argument</span>
+          </button>
+        )}
       </li>
     );
   }

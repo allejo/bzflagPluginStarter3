@@ -11,6 +11,7 @@ import {
   faClipboard,
   faDownload,
   faPlus,
+  faTimesCircle,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
@@ -19,7 +20,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-library.add(faAngleDown, faAngleRight, faClipboard, faDownload, faPlus, faTrashAlt);
+library.add(faAngleDown, faAngleRight, faClipboard, faDownload, faPlus, faTimesCircle, faTrashAlt);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
