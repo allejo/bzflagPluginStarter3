@@ -30,19 +30,10 @@ export default class MapObject extends Component<Props> {
   };
 
   public _handleNewProperty = (): void => {
-    const uuid = uuidV4();
-
     this.props.onChange(
       update(this.props.value, {
         properties: {
-          $push: [
-            {
-              uuid,
-              name: '',
-              arguments: [],
-              readonly: false,
-            },
-          ],
+          $push: this.defaultArguments(),
         },
       }),
     );
@@ -52,9 +43,7 @@ export default class MapObject extends Component<Props> {
     this.props.onChange(
       update(this.props.value, {
         properties: {
-          [index]: {
-            $set: data,
-          },
+          $splice: [[index, 1, data]],
         },
       }),
     );
@@ -75,13 +64,9 @@ export default class MapObject extends Component<Props> {
 
     return (
       <div className={styles.container}>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center mb-2">
           <div className="flex-grow-1">
-            <AutosizeInput
-              value={value.name}
-              className={styles.objectName}
-              onChange={this._handleObjectName}
-            />
+            <AutosizeInput value={value.name} className={styles.objectName} onChange={this._handleObjectName} />
           </div>
           <div className="pl-4">
             <button className={styles.deleteObjectButton} onClick={this._handleObjectDelete}>
@@ -114,4 +99,13 @@ export default class MapObject extends Component<Props> {
       </div>
     );
   }
+
+  private defaultArguments = (): IMapProperty[] => [
+    {
+      uuid: uuidV4(),
+      name: 'property',
+      arguments: [],
+      readonly: false,
+    },
+  ];
 }

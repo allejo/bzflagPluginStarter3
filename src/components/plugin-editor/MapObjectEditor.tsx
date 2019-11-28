@@ -1,4 +1,5 @@
 import { IMapObject, MapArgumentType } from '@allejo/bzf-plugin-gen';
+import { IMapProperty } from '@allejo/bzf-plugin-gen/dist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import update from 'immutability-helper';
 import React, { Component, ReactNode } from 'react';
@@ -17,88 +18,7 @@ interface State {
 
 export default class MapObjectEditor extends Component<Props, State> {
   readonly state: State = {
-    mapObjects: {
-      '1111': {
-        uuid: '1111',
-        name: 'ahod',
-        properties: [
-          {
-            uuid: '1111-pos',
-            name: 'position|pos',
-            readonly: true,
-            arguments: [
-              {
-                uuid: '2222-x_pos',
-                name: 'x_pos',
-                type: MapArgumentType.Float,
-              },
-              {
-                uuid: '2222-y_pos',
-                name: 'y_pos',
-                type: MapArgumentType.Float,
-              },
-              {
-                uuid: '2222-z_pos',
-                name: 'z_pos',
-                type: MapArgumentType.Float,
-              },
-            ],
-          },
-          {
-            uuid: '1111-size',
-            name: 'size',
-            readonly: true,
-            arguments: [
-              {
-                uuid: '2222-x_size',
-                name: 'x_size',
-                type: MapArgumentType.Float,
-              },
-              {
-                uuid: '2222-y_size',
-                name: 'y_size',
-                type: MapArgumentType.Float,
-              },
-              {
-                uuid: '2222-z_size',
-                name: 'z_size',
-                type: MapArgumentType.Float,
-              },
-            ],
-          },
-          {
-            uuid: '1111-rot',
-            name: 'rotation|rot',
-            readonly: true,
-            arguments: [
-              {
-                uuid: '2222-rotation',
-                name: 'rotation',
-                type: MapArgumentType.Float,
-              },
-            ],
-          },
-          {
-            uuid: '1111-to',
-            name: 'teamonly',
-            readonly: false,
-            arguments: [],
-          },
-          {
-            uuid: '1111-team',
-            name: 'team',
-            readonly: false,
-            arguments: [
-              {
-                uuid: '2222-team',
-                name: 'value',
-                type: MapArgumentType.Team,
-              },
-            ],
-          },
-        ],
-      },
-    },
+    mapObjects: {},
   };
 
   public _handleMapObjectChange = (data: IMapObject): void => {
@@ -110,6 +30,7 @@ export default class MapObjectEditor extends Component<Props, State> {
           },
         },
       }),
+      this.liftMapObjectInventory,
     );
   };
 
@@ -120,6 +41,7 @@ export default class MapObjectEditor extends Component<Props, State> {
           $unset: [data.uuid],
         },
       }),
+      this.liftMapObjectInventory,
     );
   };
 
@@ -130,14 +52,11 @@ export default class MapObjectEditor extends Component<Props, State> {
       update(this.state, {
         mapObjects: {
           [uuid]: {
-            $set: {
-              uuid: uuid,
-              name: 'object',
-              properties: [],
-            },
+            $set: this.defaultObject(uuid),
           },
         },
       }),
+      this.liftMapObjectInventory,
     );
   };
 
@@ -167,4 +86,73 @@ export default class MapObjectEditor extends Component<Props, State> {
       </div>
     );
   }
+
+  private liftMapObjectInventory = (): void => {
+    this.props.onChange(Object.values(this.state.mapObjects));
+  };
+
+  private defaultObject = (uuid: string): IMapObject => ({
+    uuid: uuid,
+    name: 'object',
+    properties: this.defaultProperties(),
+  });
+
+  private defaultProperties = (): IMapProperty[] => [
+    {
+      uuid: uuidV4(),
+      name: 'position|pos',
+      readonly: true,
+      arguments: [
+        {
+          uuid: uuidV4(),
+          name: 'x_pos',
+          type: MapArgumentType.Float,
+        },
+        {
+          uuid: uuidV4(),
+          name: 'y_pos',
+          type: MapArgumentType.Float,
+        },
+        {
+          uuid: uuidV4(),
+          name: 'z_pos',
+          type: MapArgumentType.Float,
+        },
+      ],
+    },
+    {
+      uuid: uuidV4(),
+      name: 'size',
+      readonly: true,
+      arguments: [
+        {
+          uuid: uuidV4(),
+          name: 'x_size',
+          type: MapArgumentType.Float,
+        },
+        {
+          uuid: uuidV4(),
+          name: 'y_size',
+          type: MapArgumentType.Float,
+        },
+        {
+          uuid: uuidV4(),
+          name: 'z_size',
+          type: MapArgumentType.Float,
+        },
+      ],
+    },
+    {
+      uuid: uuidV4(),
+      name: 'rotation|rot',
+      readonly: true,
+      arguments: [
+        {
+          uuid: uuidV4(),
+          name: 'rotation',
+          type: MapArgumentType.Float,
+        },
+      ],
+    },
+  ];
 }
