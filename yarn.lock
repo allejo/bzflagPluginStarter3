@@ -3,9 +3,9 @@
 
 
 "@allejo/bzf-plugin-gen@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@allejo/bzf-plugin-gen/-/bzf-plugin-gen-1.0.2.tgz#90a4dc2b2cad0e32c81239b297e5e358757da94d"
-  integrity sha512-NwbONLx/GgAwl8xnJakVYp1oTm5S6AL+fpR3siT5F8igLa/0TC2N+hGQ7kfquSZ1QjRZSeYWNcWhK2tnAIO07A==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@allejo/bzf-plugin-gen/-/bzf-plugin-gen-1.0.3.tgz#8b1490f34260cec3cffeab3c46a925877a4eb82c"
+  integrity sha512-JHaxWcP8V+7h3qCKLOqD2CLVEr5k4xichLVcXpTQL62qOLD0fE7m0DlURnma2z26JxHuh/HpWNXminK0nhCOow==
   dependencies:
     aclovis "^0.1.1"
 
