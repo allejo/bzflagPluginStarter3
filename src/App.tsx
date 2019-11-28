@@ -4,6 +4,7 @@ import {
   ICodeStyle,
   IEvent,
   IFlag,
+  IMapObject,
   IPlugin,
   IPollType,
   ISlashCommand,
@@ -19,6 +20,7 @@ import CodeStyle from './components/plugin-editor/CodeStyle';
 import CustomFlags from './components/plugin-editor/CustomFlags';
 import EventSelector from './components/plugin-editor/EventSelector';
 import GenericCallbacks from './components/plugin-editor/GenericCallbacks';
+import MapObjectEditor from './components/plugin-editor/MapObjectEditor';
 import PollType from './components/plugin-editor/PollType';
 import SlashCommands from './components/plugin-editor/SlashCommands';
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
@@ -126,6 +128,16 @@ export default class App extends Component<{}, State> {
     this.updatePluginBuild();
   };
 
+  public _handleCustomMapObjects = (data: IMapObject[]): void => {
+    for (const mapObject in this.pluginBuilder.definition.mapObjects) {
+      this.pluginBuilder.removeMapObject(mapObject);
+    }
+
+    data.forEach(value => this.pluginBuilder.addMapObject(value));
+
+    this.updatePluginBuild();
+  };
+
   public _handlePollTypes = (data: IPollType[]): void => {
     for (const pollType in this.pluginBuilder.definition.pollTypes) {
       this.pluginBuilder.removePollType(pollType);
@@ -198,6 +210,14 @@ export default class App extends Component<{}, State> {
                 onToggle={this._toggleHandler(accordionCount)}
               >
                 <CustomFlags onChange={this._handleCustomFlags} />
+              </Accordion>
+
+              <Accordion
+                heading="Custom Map Objects"
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
+              >
+                <MapObjectEditor onChange={this._handleCustomMapObjects} />
               </Accordion>
 
               <Accordion

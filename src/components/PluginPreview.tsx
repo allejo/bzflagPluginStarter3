@@ -1,6 +1,6 @@
 import { IPlugin, PluginWriter } from '@allejo/bzf-plugin-gen/dist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CPPComment } from 'aclovis';
+import { CPPClass, CPPComment } from 'aclovis';
 import { saveAs } from 'file-saver';
 import React, { Component } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -35,12 +35,21 @@ export default class PluginPreview extends Component<Props> {
       .split('\n');
     const licenseBlock: CPPComment = new CPPComment(licenseBody, true);
 
+    const additionalClasses: string[] = writer
+      .getAdditionalClasses()
+      .map((cls: CPPClass) => cls.write(writer.getFormatter(), 0));
+    let addClassesOutput: string = '';
+
+    if (additionalClasses.length > 0) {
+      addClassesOutput = '\n' + additionalClasses.join('\n\n') + '\n';
+    }
+
     return `
 ${licenseBlock.write(writer.getFormatter())}
 
 #include "bzfsAPI.h"
 #include "plugin_utils.h"
-
+${addClassesOutput}
 ${writer.write().replace(
   '};',
   `};
