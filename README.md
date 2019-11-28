@@ -16,9 +16,26 @@ This website will allow you to generate the skeleton of a plug-in that supports 
 
 This project pulls from the [official bzflag.org documentation](https://github.com/BZFlag-Dev/bzflag.org) and generates JSON files used by this website to generate documentation in the plug-in skeleton.
 
+This data is necessary in order to build the website.
+
+### Fetching Data
+
+To fetch the appropriate data, run the following command.
+
 ```bash
-npm run data
-npm run build
+yarn data
+```
+
+### Development/Development
+
+There are scripts for local development and production builds.
+
+```bash
+# Local development
+yarn start
+
+# Production build
+yarn build
 ```
 
 ## Reporting Issues

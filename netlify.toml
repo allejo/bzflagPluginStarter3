@@ -1,6 +1,6 @@
 [build]
   publish = "build/"
-  command = "npm run deploy"
+  command = "yarn deploy"
 
 [[redirects]]
   from = "https://bz-plugin-starter.projects.allejo.io/*"
