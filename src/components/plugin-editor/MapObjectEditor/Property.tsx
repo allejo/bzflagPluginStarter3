@@ -3,6 +3,7 @@ import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen/di
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
+import AutosizeInput from 'react-input-autosize';
 
 import { uuidV4 } from '../../../utilities/common';
 import Argument from './Argument';
@@ -77,37 +78,43 @@ export default class Property extends Component<Props> {
     return (
       <li className={styles.container}>
         {value.readonly ? (
-          <p className="m-0">{value.name}</p>
+          <span className={styles.propertyName}>{value.name}</span>
         ) : (
           <>
             <button className={styles.deleteBtn} onClick={this._handleDeleteRequest}>
               <FontAwesomeIcon icon="trash-alt" />
               <span className="sr-only">Delete {value.name} property</span>
             </button>
-            <input type="text" className="form-control" onChange={this._handlePropertyNameChange} value={value.name} />
+            <AutosizeInput
+              className={styles.propertyName}
+              onChange={this._handlePropertyNameChange}
+              value={value.name}
+            />
           </>
         )}
 
-        {value.arguments.length > 0 && (
-          <ul className={styles.arguments}>
-            {value.arguments.map((argument: IMapPropertyArgument, index: number) => (
+        <ul className={styles.arguments}>
+          {value.arguments.length > 0 &&
+            value.arguments.map((argument: IMapPropertyArgument, index: number) => (
               <Argument
                 key={argument.uuid}
                 value={argument}
                 index={index}
+                readonly={value.readonly}
                 onChange={this._handleArgumentChange}
                 onDelete={this._handleArgumentDelete}
               />
             ))}
 
+          {!value.readonly && (
             <li className="d-inline">
               <button className={styles.addArgument} onClick={this._handleArgumentCreate}>
                 <FontAwesomeIcon icon="plus" className="mr-2" />
                 Add Argument
               </button>
             </li>
-          </ul>
-        )}
+          )}
+        </ul>
       </li>
     );
   }

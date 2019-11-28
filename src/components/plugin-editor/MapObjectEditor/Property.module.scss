@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  font-size: 0.8rem;
   margin-bottom: 0.5rem;
 }
 
@@ -24,4 +25,23 @@
   color: $color-grey;
   font-size: 0.7rem;
   padding-top: 0.25rem;
+}
+
+.propertyName {
+  margin-right: 0.5rem;
+
+  input {
+    border: 1px dashed $color-grey;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 0 0.25rem;
+  }
+
+  @at-root {
+    span#{&} {
+      color: $color-grey;
+      cursor: not-allowed;
+      margin-left: 30px;
+    }
+  }
 }

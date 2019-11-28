@@ -8,23 +8,32 @@
   padding: 1rem;
 }
 
+.objectName input {
+  border: 1px dashed $color-grey;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 0 0.25rem;
+}
+
 .propertyList {
   list-style: none;
+  margin: 0;
   overflow: auto;
   padding: 0;
 }
 
-.addButton {
+.addPropertyButton {
   background-color: transparent;
   border: 1px dashed $color-light-green;
   color: $color-grey;
   font-size: 0.8rem;
+  margin-left: 25px;
   padding: 0.5rem;
   text-align: center;
-  width: 100%;
+  width: calc(100% - 25px);
 }
 
-.deleteButton {
+.deleteObjectButton {
   background-color: transparent;
   border: none;
   color: $color-red;

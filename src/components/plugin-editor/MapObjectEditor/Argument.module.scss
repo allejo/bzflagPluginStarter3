@@ -4,6 +4,13 @@
 .nameEditor input,
 .typeSelector {
   color: $color-green;
+
+  &.readOnly,
+  &[disabled] {
+    border-bottom: 0;
+    color: rgba($color-grey, 0.8);
+    cursor: not-allowed;
+  }
 }
 
 .container {
@@ -13,6 +20,10 @@
   display: inline;
   margin-right: 0.5rem;
   padding: 0.25rem;
+
+  &.readOnly {
+    background: rgba($color-light-grey, 0.3);
+  }
 }
 
 .nameEditor input {

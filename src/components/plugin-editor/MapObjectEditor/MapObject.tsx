@@ -2,6 +2,7 @@ import { IMapObject, IMapProperty } from '@allejo/bzf-plugin-gen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import update from 'immutability-helper';
 import React, { Component, ReactNode, SyntheticEvent } from 'react';
+import AutosizeInput from 'react-input-autosize';
 
 import { uuidV4 } from '../../../utilities/common';
 import styles from './MapObject.module.scss';
@@ -76,17 +77,21 @@ export default class MapObject extends Component<Props> {
       <div className={styles.container}>
         <div className="d-flex align-items-center">
           <div className="flex-grow-1">
-            <input type="text" value={value.name} className="form-control" onChange={this._handleObjectName} />
+            <AutosizeInput
+              value={value.name}
+              className={styles.objectName}
+              onChange={this._handleObjectName}
+            />
           </div>
           <div className="pl-4">
-            <button className={styles.deleteButton} onClick={this._handleObjectDelete}>
+            <button className={styles.deleteObjectButton} onClick={this._handleObjectDelete}>
               <FontAwesomeIcon icon="trash-alt" />
               <span className="sr-only">Delete the "{value.name}" map object</span>
             </button>
           </div>
         </div>
 
-        <div className="pl-3">
+        <div>
           <ul className={styles.propertyList}>
             {value.properties.map((property: IMapProperty, index: number) => (
               <Property
@@ -99,7 +104,7 @@ export default class MapObject extends Component<Props> {
             ))}
           </ul>
 
-          <button className={styles.addButton} onClick={this._handleNewProperty}>
+          <button className={styles.addPropertyButton} onClick={this._handleNewProperty}>
             <FontAwesomeIcon icon="plus" className="mr-2" />
             Add New Property
           </button>
