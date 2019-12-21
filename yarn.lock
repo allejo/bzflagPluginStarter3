@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@allejo/bzf-plugin-gen@^1.0.2":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@allejo/bzf-plugin-gen/-/bzf-plugin-gen-1.0.3.tgz#8b1490f34260cec3cffeab3c46a925877a4eb82c"
-  integrity sha512-JHaxWcP8V+7h3qCKLOqD2CLVEr5k4xichLVcXpTQL62qOLD0fE7m0DlURnma2z26JxHuh/HpWNXminK0nhCOow==
+"@allejo/bzf-plugin-gen@^1.0.3":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@allejo/bzf-plugin-gen/-/bzf-plugin-gen-1.0.4.tgz#ae9668ab5f4e6d4e13d9aa95f75e235af4129e05"
+  integrity sha512-vdLdFOzZRnsdQ0PH3mYu/Eaoy594ofUicDq67SlwUgN529bAjbvN3TqD1dw3trP5lNBphGUkXLgLsmbcP5epng==
   dependencies:
     aclovis "^0.1.1"
 
