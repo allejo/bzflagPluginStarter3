@@ -12,6 +12,12 @@ const Header = () => (
     </p>
 
     <p>
+      Using the generated plug-in from this website goes well with my{' '}
+      <a href="https://github.com/allejo/bzflagPluginTemplate">BZFlag Plugin Template</a> to standardize and simplify
+      plug-in distribution across different platforms.
+    </p>
+
+    <p>
       Enter the details of your BZFlag plug-in and start inputting information to build the skeleton for your plug-in.
     </p>
   </section>
