@@ -7,8 +7,9 @@ const fs = require('fs');
 const eventsDir = path.join(__dirname, '..', 'data', 'events');
 const events = fs.readdirSync(eventsDir);
 
-const EventDictionary: { [key: string]: IEvent } = {};
-const EventsThatExtend: { [key: string]: Record<string, any> } = {};
+const RawEventDictionary: Record<string, any> = {};
+const EventDictionary: Record<string, IEvent> = {};
+const EventsThatExtend: Record<string, Record<string, any>> = {};
 
 function fmParse(str: string) {
   const fmRegex = /---\n([\s\S]+)---\n([\s\S]+)/g;
@@ -21,12 +22,15 @@ function fmParse(str: string) {
 }
 
 function buildEvent(eventName: string, content: Record<string, any>): void {
+  const { dataType, parameters } = content.frontMatter;
+
+  RawEventDictionary[eventName] = content;
   EventDictionary[eventName] = {
     name: eventName,
-    dataType: content.frontMatter.dataType.current,
+    dataType: dataType.current,
     description: content.body,
-    since: content.frontMatter.dataType.since,
-    parameters: content.frontMatter.parameters.map((parameter: any) => ({
+    since: dataType.since,
+    parameters: parameters.map((parameter: any) => ({
       name: parameter.name,
       dataType: parameter.dataType,
       description: parameter.description,
@@ -60,7 +64,7 @@ for (const eventsThatExtendKey in EventsThatExtend) {
   Object.entries<IEventKey[]>(content.frontMatter._extends).forEach(
     ([eventName, keys]: [string, IEventKey[]]) => {
       keys.forEach(key  => {
-        content.frontMatter[key] = EventDictionary[eventName][key];
+        content.frontMatter[key] = RawEventDictionary[eventName].frontMatter[key];
       });
     }
   );
