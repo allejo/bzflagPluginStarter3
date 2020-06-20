@@ -54,22 +54,24 @@ export default class EventSelector extends Component<Props, State> {
   };
 
   render() {
-    const eventCheckboxes = Object.keys(Events).sort().map((value, index) => (
-      <div className="col-md-6" key={index}>
-        <div className="custom-control custom-checkbox">
-          <input
-            type="checkbox"
-            id={value}
-            name={value}
-            className="custom-control-input"
-            onChange={this.handleChange}
-          />
-          <label className="custom-control-label" htmlFor={value}>
-            {value}
-          </label>
+    const eventCheckboxes = Object.keys(Events)
+      .sort()
+      .map((value, index) => (
+        <div className="col-md-6" key={index}>
+          <div className="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              id={value}
+              name={value}
+              className="custom-control-input"
+              onChange={this.handleChange}
+            />
+            <label className="custom-control-label" htmlFor={value}>
+              {value}
+            </label>
+          </div>
         </div>
-      </div>
-    ));
+      ));
 
     return (
       <section>

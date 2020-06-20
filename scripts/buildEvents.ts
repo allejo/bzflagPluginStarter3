@@ -61,18 +61,13 @@ for (const eventsThatExtendKey in EventsThatExtend) {
   const content = EventsThatExtend[eventsThatExtendKey];
   type IEventKey = keyof IEvent;
 
-  Object.entries<IEventKey[]>(content.frontMatter._extends).forEach(
-    ([eventName, keys]: [string, IEventKey[]]) => {
-      keys.forEach(key  => {
-        content.frontMatter[key] = RawEventDictionary[eventName].frontMatter[key];
-      });
-    }
-  );
+  Object.entries<IEventKey[]>(content.frontMatter._extends).forEach(([eventName, keys]: [string, IEventKey[]]) => {
+    keys.forEach(key => {
+      content.frontMatter[key] = RawEventDictionary[eventName].frontMatter[key];
+    });
+  });
 
   buildEvent(eventsThatExtendKey, content);
 }
 
-fs.writeFileSync(
-  path.join(__dirname, '..', 'src', 'data', 'events.json'),
-  JSON.stringify(EventDictionary, null, '\t')
-);
+fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'events.json'), JSON.stringify(EventDictionary, null, '\t'));
