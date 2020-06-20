@@ -28,7 +28,7 @@ function buildEvent(eventName: string, content: Record<string, any>): void {
   EventDictionary[eventName] = {
     name: eventName,
     dataType: dataType.current,
-    description: content.body,
+    description: content.body.replace(/\[(.+)]\(.+\)/gm, '$1'),
     since: dataType.since,
     parameters: parameters.map((parameter: any) => ({
       name: parameter.name,
