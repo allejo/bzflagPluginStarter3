@@ -1,7 +1,9 @@
-const octokit = require('@octokit/rest')();
 const http = require('https');
 const path = require('path');
 const fs = require('fs');
+
+const { Octokit } = require("@octokit/rest");
+const octokit = new Octokit();
 
 // Location for event docs to go
 const eventsFolder = path.join(__dirname, '..', 'data', 'events');

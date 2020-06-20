@@ -1,8 +1,14 @@
-import { IEvent, IParameter } from '@allejo/bzf-plugin-gen';
+import { IEvent } from '@allejo/bzf-plugin-gen';
 
 const yaml = require('js-yaml');
 const path = require('path');
 const fs = require('fs');
+
+const eventsDir = path.join(__dirname, '..', 'data', 'events');
+const events = fs.readdirSync(eventsDir);
+
+const EventDictionary: { [key: string]: IEvent } = {};
+const EventsThatExtend: { [key: string]: Record<string, any> } = {};
 
 function fmParse(str: string) {
   const fmRegex = /---\n([\s\S]+)---\n([\s\S]+)/g;
@@ -14,10 +20,19 @@ function fmParse(str: string) {
   };
 }
 
-const eventsDir = path.join(__dirname, '..', 'data', 'events');
-const events = fs.readdirSync(eventsDir);
-
-const EventDictionary: { [key: string]: IEvent } = {};
+function buildEvent(eventName: string, content: Record<string, any>): void {
+  EventDictionary[eventName] = {
+    name: eventName,
+    dataType: content.frontMatter.dataType.current,
+    description: content.body,
+    since: content.frontMatter.dataType.since,
+    parameters: content.frontMatter.parameters.map((parameter: any) => ({
+      name: parameter.name,
+      dataType: parameter.dataType,
+      description: parameter.description,
+    })),
+  };
+}
 
 for (let i in events) {
   const eventFilename: string = events[i];
@@ -29,25 +44,31 @@ for (let i in events) {
   }
 
   const content = fmParse(fileRaw);
-  const Parameters: IParameter[] = [];
 
-  for (const name in content.frontMatter.parameters) {
-    const parameter: any = content.frontMatter.parameters[name];
-
-    Parameters.push({
-      name: parameter.name,
-      dataType: parameter.dataType,
-      description: parameter.description,
-    });
+  if (content.frontMatter._extends !== undefined) {
+    EventsThatExtend[eventName] = content;
+    continue;
   }
 
-  EventDictionary[eventName] = {
-    name: eventName,
-    dataType: content.frontMatter.dataType.current,
-    description: content.body,
-    since: content.frontMatter.dataType.since,
-    parameters: Parameters,
-  };
+  buildEvent(eventName, content);
 }
 
-fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'events.json'), JSON.stringify(EventDictionary, null, '\t'));
+for (const eventsThatExtendKey in EventsThatExtend) {
+  const content = EventsThatExtend[eventsThatExtendKey];
+  type IEventKey = keyof IEvent;
+
+  Object.entries<IEventKey[]>(content.frontMatter._extends).forEach(
+    ([eventName, keys]: [string, IEventKey[]]) => {
+      keys.forEach(key  => {
+        content.frontMatter[key] = EventDictionary[eventName][key];
+      });
+    }
+  );
+
+  buildEvent(eventsThatExtendKey, content);
+}
+
+fs.writeFileSync(
+  path.join(__dirname, '..', 'src', 'data', 'events.json'),
+  JSON.stringify(EventDictionary, null, '\t')
+);
