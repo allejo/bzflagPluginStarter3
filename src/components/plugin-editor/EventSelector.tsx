@@ -54,7 +54,7 @@ export default class EventSelector extends Component<Props, State> {
   };
 
   render() {
-    const eventCheckboxes = Object.keys(Events).map((value, index) => (
+    const eventCheckboxes = Object.keys(Events).sort().map((value, index) => (
       <div className="col-md-6" key={index}>
         <div className="custom-control custom-checkbox">
           <input
