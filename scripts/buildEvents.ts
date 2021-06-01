@@ -1,8 +1,7 @@
 import { IEvent } from '@allejo/bzf-plugin-gen';
-
-const yaml = require('js-yaml');
-const path = require('path');
-const fs = require('fs');
+import yaml from 'js-yaml';
+import path from 'path';
+import fs from 'fs';
 
 const eventsDir = path.join(__dirname, '..', 'data', 'events');
 const events = fs.readdirSync(eventsDir);
