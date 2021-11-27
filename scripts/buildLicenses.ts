@@ -1,6 +1,7 @@
-import { ILicense } from '@allejo/bzf-plugin-gen';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+
+import { ILicense } from '@allejo/bzf-plugin-gen';
 
 const licensesDir = path.join(__dirname, '..', 'data', 'licenses');
 const licenses = fs.readdirSync(licensesDir);
