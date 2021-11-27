@@ -11,6 +11,7 @@ import {
   PluginBuilder,
 } from '@allejo/bzf-plugin-gen/dist';
 import React, { Component } from 'react';
+import { initialize as initializeGA, pageview as recordPageViewGA } from 'react-ga';
 import semver from 'semver';
 
 import styles from './App.module.scss';
@@ -32,6 +33,13 @@ import Licenses from './data/licenses.json';
 interface State {
   openedAccordion: number;
   pluginDef: IPlugin;
+}
+
+const GA_ANALYTICS = process.env.REACT_APP_GA_ANALYTICS ?? '';
+
+if (GA_ANALYTICS) {
+  initializeGA(GA_ANALYTICS);
+  recordPageViewGA(window.location.pathname + window.location.search);
 }
 
 export default class App extends Component<{}, State> {
