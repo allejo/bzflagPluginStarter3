@@ -23,7 +23,7 @@ This data is necessary in order to build the website.
 To fetch the appropriate data, run the following command.
 
 ```bash
-yarn data
+npm run data
 ```
 
 ### Development/Development
@@ -32,10 +32,10 @@ There are scripts for local development and production builds.
 
 ```bash
 # Local development
-yarn start
+npm run start
 
 # Production build
-yarn build
+npm run build
 ```
 
 ## Reporting Issues
