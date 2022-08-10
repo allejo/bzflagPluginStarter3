@@ -24,6 +24,7 @@ import GenericCallbacks from './components/plugin-editor/GenericCallbacks';
 import MapObjectEditor from './components/plugin-editor/MapObjectEditor';
 import PollType from './components/plugin-editor/PollType';
 import SlashCommands from './components/plugin-editor/SlashCommands';
+import UrlHandling from './components/plugin-editor/UrlHandling';
 import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
 import PluginPreview from './components/PluginPreview';
 import Footer from './components/site/Footer';
@@ -94,6 +95,11 @@ export default class App extends Component<{}, State> {
     data.forEach(value => this.pluginBuilder.addEvent(value));
 
     this.updatePluginBuild();
+  };
+
+  public _handleUrlJobs = (makesUrlCalls: boolean): void => {
+      this.pluginBuilder.definition.makesUrlCalls = makesUrlCalls;
+      this.updatePluginBuild();
   };
 
   public _handleSlashCommands = (data: ISlashCommand[]): void => {
@@ -194,6 +200,14 @@ export default class App extends Component<{}, State> {
                 onToggle={this._toggleHandler(accordionCount)}
               >
                 <EventSelector onUpdate={this._handleEvents} />
+              </Accordion>
+
+              <Accordion
+                heading="URL Jobs"
+                isOpen={this.state.openedAccordion === ++accordionCount}
+                onToggle={this._toggleHandler(accordionCount)}
+              >
+                <UrlHandling onChange={this._handleUrlJobs} />
               </Accordion>
 
               <Accordion
