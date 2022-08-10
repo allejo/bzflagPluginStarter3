@@ -98,8 +98,8 @@ export default class App extends Component<{}, State> {
   };
 
   public _handleUrlJobs = (makesUrlCalls: boolean): void => {
-      this.pluginBuilder.definition.makesUrlCalls = makesUrlCalls;
-      this.updatePluginBuild();
+    this.pluginBuilder.definition.makesUrlCalls = makesUrlCalls;
+    this.updatePluginBuild();
   };
 
   public _handleSlashCommands = (data: ISlashCommand[]): void => {
