@@ -1,5 +1,5 @@
 import { ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
-import React, { Component } from 'react';
+import React from 'react';
 
 import FormRepeater from '../common/FormRepeater';
 
@@ -7,8 +7,8 @@ interface Props {
   onChange: (commands: ISlashCommand[]) => void;
 }
 
-export default class SlashCommands extends Component<Props> {
-  public _handleChange = (values: Record<string, string>[]): void => {
+const SlashCommands = ({ onChange }: Props) => {
+  const handleChange = (values: Record<string, string>[]): void => {
     const slashCommands = values.map<ISlashCommand>((value: Record<string, string>) => {
       const slashCommand: ISlashCommand = {
         name: value['slash_command'],
@@ -19,35 +19,35 @@ export default class SlashCommands extends Component<Props> {
       return slashCommand;
     });
 
-    return this.props.onChange(slashCommands);
+    return onChange(slashCommands);
   };
 
-  public _handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
+  const handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
     return <span>/{value['slash_command']}</span>;
   };
 
-  public render() {
-    return (
-      <div>
-        <p>
-          Slash commands are the <code>/</code> commands that are used by players and admins. A plug-in can create
-          custom slash commands with arbitrary behavior.
-        </p>
+  return (
+    <div>
+      <p>
+        Slash commands are the <code>/</code> commands that are used by players and admins. A plug-in can create custom
+        slash commands with arbitrary behavior.
+      </p>
 
-        <FormRepeater onChange={this._handleChange} itemRendererCallback={this._handleDisplayCallback}>
-          <label htmlFor="slashcommands">Add New Slash Command</label>
+      <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
+        <label htmlFor="slashcommands">Add New Slash Command</label>
 
-          <input
-            type="text"
-            id="slashcommands"
-            autoComplete="off"
-            className="form-control mt-1"
-            name="slash_command"
-            placeholder="/slashcommand"
-            required={true}
-          />
-        </FormRepeater>
-      </div>
-    );
-  }
-}
+        <input
+          type="text"
+          id="slashcommands"
+          autoComplete="off"
+          className="form-control mt-1"
+          name="slash_command"
+          placeholder="/slashcommand"
+          required={true}
+        />
+      </FormRepeater>
+    </div>
+  );
+};
+
+export default SlashCommands;
