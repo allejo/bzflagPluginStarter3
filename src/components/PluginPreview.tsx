@@ -2,7 +2,7 @@ import { IPlugin, PluginWriter } from '@allejo/bzf-plugin-gen/dist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CPPClass, CPPComment } from 'aclovis';
 import { saveAs } from 'file-saver';
-import React, { Component } from 'react';
+import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import styles from './PluginPreview.module.scss';
