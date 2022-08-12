@@ -1,16 +1,13 @@
-@import '../../scss/variables';
-
-.header,
-.body {
-  border-bottom: 1px solid $color-light-green;
-}
-
 .header {
-  h2 {
-    font-weight: bold;
-    margin: 0;
-    padding: 10px 0;
-  }
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  color: var(--color-green);
+  font-weight: bold;
+  margin: 0;
+  padding: 10px 0;
+  text-align: left;
+  width: 100%;
 }
 
 .icon {
@@ -21,4 +18,9 @@
 
 .body {
   padding: 15px 10px;
+}
+
+.header,
+.body {
+  border-bottom: 1px solid var(--color-light-green);
 }
