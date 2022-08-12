@@ -12,33 +12,21 @@ interface Props {
   pluginDef: IPlugin;
 }
 
-export default class PluginPreview extends Component<Props> {
-  public _handleDownloadPluginAsFile = (): void => {
-    const blob = new Blob([this._renderCode()], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, `${this.getClassName()}.cpp`);
-  };
+const PluginPreview = ({ minVersion, pluginDef }: Props) => {
+  const writer: PluginWriter = new PluginWriter(pluginDef);
 
-  private getClassName = (): string => {
-    const writer: PluginWriter = new PluginWriter(this.props.pluginDef);
-
-    return writer.getClassName();
-  };
-
-  public _renderCode = (): string => {
-    const writer: PluginWriter = new PluginWriter(this.props.pluginDef);
-
-    const licenseRaw: string = this.props.pluginDef.license.body;
-    const licenseBody: string[] = licenseRaw
-      .replace('{name}', this.props.pluginDef.name || 'Sample Plug-in')
+  const renderCode = (): string => {
+    const licenseBody: string[] = pluginDef.license.body
+      .replace('{name}', pluginDef.name || 'Sample Plug-in')
       .replace('{year}', String(new Date().getFullYear()))
-      .replace('{author}', this.props.pluginDef.author.copyright || 'Your Name')
+      .replace('{author}', pluginDef.author.copyright || 'Your Name')
       .split('\n');
     const licenseBlock: CPPComment = new CPPComment(licenseBody, true);
 
+    let addClassesOutput: string = '';
     const additionalClasses: string[] = writer
       .getAdditionalClasses()
       .map((cls: CPPClass) => cls.write(writer.getFormatter(), 0));
-    let addClassesOutput: string = '';
 
     if (additionalClasses.length > 0) {
       addClassesOutput = '\n' + additionalClasses.join('\n\n') + '\n';
@@ -59,33 +47,38 @@ BZ_PLUGIN(${writer.getClassName()})`,
     `.trim();
   };
 
-  public render(): JSX.Element {
-    return (
-      <section className={styles.sectionContainer}>
-        <h2 className="sr-only">Plug-in Preview</h2>
+  const handleDownloadPluginAsFile = (): void => {
+    const blob = new Blob([renderCode()], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `${writer.getClassName()}.cpp`);
+  };
 
-        <div className={styles.codeContainer}>
-          <div className={styles.toolbar}>
-            <div className="btn btn-secondary">{this.props.minVersion}</div>
+  return (
+    <section className={styles.sectionContainer}>
+      <h2 className="sr-only">Plug-in Preview</h2>
 
-            <button className="btn btn-primary ml-1" onClick={this._handleDownloadPluginAsFile}>
-              <span className="sr-only">Download as file</span>
-              <FontAwesomeIcon icon="download" />
+      <div className={styles.codeContainer}>
+        <div className={styles.toolbar}>
+          <div className="btn btn-secondary">{minVersion}</div>
+
+          <button className="btn btn-primary ml-1" onClick={handleDownloadPluginAsFile}>
+            <span className="sr-only">Download as file</span>
+            <FontAwesomeIcon icon="download" />
+          </button>
+
+          <CopyToClipboard text={renderCode()}>
+            <button className="btn btn-primary ml-1">
+              <span className="sr-only">Copy plug-in to clipboard</span>
+              <FontAwesomeIcon icon="clipboard" />
             </button>
-
-            <CopyToClipboard text={this._renderCode()}>
-              <button className="btn btn-primary ml-1">
-                <span className="sr-only">Copy plug-in to clipboard</span>
-                <FontAwesomeIcon icon="clipboard" />
-              </button>
-            </CopyToClipboard>
-          </div>
-
-          <pre className={styles.codePreview}>
-            <code>{this._renderCode()}</code>
-          </pre>
+          </CopyToClipboard>
         </div>
-      </section>
-    );
-  }
-}
+
+        <pre className={styles.codePreview}>
+          <code>{renderCode()}</code>
+        </pre>
+      </div>
+    </section>
+  );
+};
+
+export default PluginPreview;
