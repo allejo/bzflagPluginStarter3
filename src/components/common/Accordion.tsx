@@ -14,7 +14,7 @@ interface Props {
 const Accordion = ({ heading, isOpen, children, onToggle }: Props) => {
   const handleClick = () => {
     onToggle(!isOpen);
-  }
+  };
 
   return (
     <section>
