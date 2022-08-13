@@ -1,5 +1,5 @@
 import { FlagType, IFlag, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
-import React, { Component, ReactNode } from 'react';
+import React from 'react';
 
 import FormRepeater from '../common/FormRepeater';
 
@@ -7,8 +7,8 @@ interface Props {
   onChange: (flags: IFlag[]) => void;
 }
 
-export default class CustomFlags extends Component<Props> {
-  public _handleChange = (values: Record<string, string>[]): void => {
+const CustomFlags = ({ onChange }: Props) => {
+  const handleChange = (values: Record<string, string>[]): void => {
     const flags = values.map<IFlag>((value: Record<string, string>) => {
       const flag: IFlag = {
         name: value['flag_name'],
@@ -22,10 +22,10 @@ export default class CustomFlags extends Component<Props> {
       return flag;
     });
 
-    return this.props.onChange(flags);
+    return onChange(flags);
   };
 
-  public _handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
+  const handleDisplayCallback = (value: Record<string, string>): JSX.Element => {
     return (
       <div>
         <p className="m-0">
@@ -38,63 +38,63 @@ export default class CustomFlags extends Component<Props> {
     );
   };
 
-  public render(): ReactNode {
-    return (
-      <div>
-        <p>
-          Plug-ins allow developers to create custom flags. Functionally, these custom flags are the same Useless flags,
-          it is up to the plug-in to give these flags special behavior.
-        </p>
+  return (
+    <div>
+      <p>
+        Plug-ins allow developers to create custom flags. Functionally, these custom flags are the same Useless flags,
+        it is up to the plug-in to give these flags special behavior.
+      </p>
 
-        <FormRepeater onChange={this._handleChange} itemRendererCallback={this._handleDisplayCallback}>
-          <div className="row">
-            <div className="col">
-              <label htmlFor="flag_name">Flag Name</label>
-              <input
-                type="text"
-                id="flag_name"
-                autoComplete="off"
-                className="form-control mt-1"
-                name="flag_name"
-                required={true}
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="flag_abbr">
-                Flag <abbr title="Abbreviation">Abbr</abbr>
-              </label>
-              <input
-                type="text"
-                id="flag_abbr"
-                autoComplete="off"
-                className="form-control mt-1"
-                name="flag_abbr"
-                maxLength={2}
-                required={true}
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="flag_type">Flag Type</label>
-              <select name="flag_type" id="flag_type" className="form-control mt-1" required={true}>
-                <option value="" disabled={true} />
-                <option value={FlagType.Good}>Good</option>
-                <option value={FlagType.Bad}>Bad</option>
-              </select>
-            </div>
-          </div>
-          <div className="mt-1">
-            <label htmlFor="flag_desc">Flag Description</label>
+      <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
+        <div className="row">
+          <div className="col">
+            <label htmlFor="flag_name">Flag Name</label>
             <input
               type="text"
-              id="flag_desc"
+              id="flag_name"
               autoComplete="off"
               className="form-control mt-1"
-              name="flag_desc"
+              name="flag_name"
               required={true}
             />
           </div>
-        </FormRepeater>
-      </div>
-    );
-  }
-}
+          <div className="col">
+            <label htmlFor="flag_abbr">
+              Flag <abbr title="Abbreviation">Abbr</abbr>
+            </label>
+            <input
+              type="text"
+              id="flag_abbr"
+              autoComplete="off"
+              className="form-control mt-1"
+              name="flag_abbr"
+              maxLength={2}
+              required={true}
+            />
+          </div>
+          <div className="col">
+            <label htmlFor="flag_type">Flag Type</label>
+            <select name="flag_type" id="flag_type" className="form-control mt-1" required={true}>
+              <option value="" disabled={true} />
+              <option value={FlagType.Good}>Good</option>
+              <option value={FlagType.Bad}>Bad</option>
+            </select>
+          </div>
+        </div>
+        <div className="mt-1">
+          <label htmlFor="flag_desc">Flag Description</label>
+          <input
+            type="text"
+            id="flag_desc"
+            autoComplete="off"
+            className="form-control mt-1"
+            name="flag_desc"
+            required={true}
+          />
+        </div>
+      </FormRepeater>
+    </div>
+  );
+};
+
+export default CustomFlags;
