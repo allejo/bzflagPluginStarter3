@@ -1,7 +1,7 @@
 import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import update from 'immutability-helper';
+import produce from 'immer';
 import React, { SyntheticEvent } from 'react';
 import AutosizeInput from 'react-input-autosize';
 
@@ -17,25 +17,19 @@ interface Props {
 
 const Argument = ({ index, value, onChange, onDelete, readonly }: Props) => {
   const handleNameChange = (event: SyntheticEvent<HTMLInputElement>): void => {
-    onChange(
-      update(value, {
-        name: {
-          $set: event.currentTarget.value,
-        },
-      }),
-      index,
-    );
+    const updated = produce(value, draft => {
+      draft.name = event.currentTarget.value;
+    });
+
+    onChange(updated, index);
   };
 
   const handleTypeChange = (event: SyntheticEvent<HTMLSelectElement>): void => {
-    onChange(
-      update(value, {
-        type: {
-          $set: event.currentTarget.value as MapArgumentType,
-        },
-      }),
-      index,
-    );
+    const updated = produce(value, draft => {
+      draft.type = event.currentTarget.value as MapArgumentType;
+    });
+
+    onChange(updated, index);
   };
 
   const handleDelete = (): void => {

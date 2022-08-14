@@ -1,6 +1,6 @@
 import { IMapObject, IMapProperty } from '@allejo/bzf-plugin-gen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import update from 'immutability-helper';
+import produce from 'immer';
 import React, { SyntheticEvent } from 'react';
 import AutosizeInput from 'react-input-autosize';
 
@@ -16,13 +16,11 @@ interface Props {
 
 const MapObject = ({ onChange, onDelete, value }: Props) => {
   const handleObjectName = (data: SyntheticEvent<HTMLInputElement>): void => {
-    onChange(
-      update(value, {
-        name: {
-          $set: data.currentTarget.value,
-        },
-      }),
-    );
+    const updated = produce(value, draft => {
+      draft.name = data.currentTarget.value;
+    });
+
+    onChange(updated);
   };
 
   const handleObjectDelete = (): void => {
@@ -30,40 +28,32 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
   };
 
   const handleNewProperty = (): void => {
-    onChange(
-      update(value, {
-        properties: {
-          $push: [
-            {
-              uuid: uuidV4(),
-              name: 'property',
-              arguments: [],
-              readonly: false,
-            },
-          ],
-        },
-      }),
-    );
+    const updated = produce(value, draft => {
+      draft.properties.push({
+        uuid: uuidV4(),
+        name: 'property',
+        arguments: [],
+        readonly: false,
+      });
+    });
+
+    onChange(updated);
   };
 
   const handlePropertyChange = (data: IMapProperty, index: number): void => {
-    onChange(
-      update(value, {
-        properties: {
-          $splice: [[index, 1, data]],
-        },
-      }),
-    );
+    const updated = produce(value, draft => {
+      draft.properties[index] = data;
+    });
+
+    onChange(updated);
   };
 
   const handlePropertyDelete = (data: IMapProperty, index: number): void => {
-    onChange(
-      update(value, {
-        properties: {
-          $splice: [[index, 1]],
-        },
-      }),
-    );
+    const updated = produce(value, draft => {
+      delete draft.properties[index];
+    });
+
+    onChange(updated);
   };
 
   return (

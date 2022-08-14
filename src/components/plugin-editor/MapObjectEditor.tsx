@@ -1,6 +1,6 @@
 import { IMapObject, MapArgumentType } from '@allejo/bzf-plugin-gen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import update from 'immutability-helper';
+import produce from 'immer';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
 
@@ -15,94 +15,89 @@ const MapObjectEditor = ({ onChange }: Props) => {
   const [mapObjects, setMapObjects] = useState<Record<string, IMapObject>>({});
 
   const handleMapObjectChange = (data: IMapObject): void => {
-    setMapObjects(
-      update(mapObjects, {
-        [data.uuid]: {
-          $set: data,
-        },
-      }),
-    );
+    const updated = produce(mapObjects, draft => {
+      draft[data.uuid] = data;
+    });
+
+    setMapObjects(updated);
   };
 
   const handleMapObjectDelete = (data: IMapObject): void => {
-    setMapObjects(
-      update(mapObjects, {
-        $unset: [data.uuid],
-      }),
-    );
+    const updated = produce(mapObjects, draft => {
+      delete draft[data.uuid];
+    });
+
+    setMapObjects(updated);
   };
 
   const handleNewMapObject = (): void => {
     const uuid = uuidV4();
-
-    setMapObjects(
-      update(mapObjects, {
-        [uuid]: {
-          $set: {
-            uuid: uuid,
-            name: 'object',
-            properties: [
+    const updated = produce(mapObjects, draft => {
+      draft[uuid] = {
+        uuid: uuid,
+        name: 'object',
+        properties: [
+          {
+            uuid: uuidV4(),
+            name: 'position|pos',
+            readonly: true,
+            arguments: [
               {
                 uuid: uuidV4(),
-                name: 'position|pos',
-                readonly: true,
-                arguments: [
-                  {
-                    uuid: uuidV4(),
-                    name: 'x_pos',
-                    type: MapArgumentType.Float,
-                  },
-                  {
-                    uuid: uuidV4(),
-                    name: 'y_pos',
-                    type: MapArgumentType.Float,
-                  },
-                  {
-                    uuid: uuidV4(),
-                    name: 'z_pos',
-                    type: MapArgumentType.Float,
-                  },
-                ],
+                name: 'x_pos',
+                type: MapArgumentType.Float,
               },
               {
                 uuid: uuidV4(),
-                name: 'size',
-                readonly: true,
-                arguments: [
-                  {
-                    uuid: uuidV4(),
-                    name: 'x_size',
-                    type: MapArgumentType.Float,
-                  },
-                  {
-                    uuid: uuidV4(),
-                    name: 'y_size',
-                    type: MapArgumentType.Float,
-                  },
-                  {
-                    uuid: uuidV4(),
-                    name: 'z_size',
-                    type: MapArgumentType.Float,
-                  },
-                ],
+                name: 'y_pos',
+                type: MapArgumentType.Float,
               },
               {
                 uuid: uuidV4(),
-                name: 'rotation|rot',
-                readonly: true,
-                arguments: [
-                  {
-                    uuid: uuidV4(),
-                    name: 'rotation',
-                    type: MapArgumentType.Float,
-                  },
-                ],
+                name: 'z_pos',
+                type: MapArgumentType.Float,
               },
             ],
           },
-        },
-      }),
-    );
+          {
+            uuid: uuidV4(),
+            name: 'size',
+            readonly: true,
+            arguments: [
+              {
+                uuid: uuidV4(),
+                name: 'x_size',
+                type: MapArgumentType.Float,
+              },
+              {
+                uuid: uuidV4(),
+                name: 'y_size',
+                type: MapArgumentType.Float,
+              },
+              {
+                uuid: uuidV4(),
+                name: 'z_size',
+                type: MapArgumentType.Float,
+              },
+            ],
+          },
+          {
+            uuid: uuidV4(),
+            name: 'rotation|rot',
+            readonly: true,
+            arguments: [
+              {
+                uuid: uuidV4(),
+                name: 'rotation',
+                type: MapArgumentType.Float,
+              },
+            ],
+          },
+        ],
+      };
+    });
+
+    setMapObjects(updated);
   };
 
   useEffect(() => {
