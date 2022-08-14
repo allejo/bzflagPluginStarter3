@@ -1,12 +1,14 @@
 import { IMapObject, IMapProperty } from '@allejo/bzf-plugin-gen';
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import React, { SyntheticEvent } from 'react';
 import AutosizeInput from 'react-input-autosize';
 
 import { uuidV4 } from '../../../utilities/common';
-import styles from './MapObject.module.scss';
 import Property from './Property';
+
+import styles from './MapObject.module.scss';
 
 interface Props {
   onChange: (data: IMapObject) => void;
@@ -16,7 +18,7 @@ interface Props {
 
 const MapObject = ({ onChange, onDelete, value }: Props) => {
   const handleObjectName = (data: SyntheticEvent<HTMLInputElement>): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.name = data.currentTarget.value;
     });
 
@@ -28,7 +30,7 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
   };
 
   const handleNewProperty = (): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.properties.push({
         uuid: uuidV4(),
         name: 'property',
@@ -41,7 +43,7 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
   };
 
   const handlePropertyChange = (data: IMapProperty, index: number): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.properties[index] = data;
     });
 
@@ -49,7 +51,7 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
   };
 
   const handlePropertyDelete = (data: IMapProperty, index: number): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       delete draft.properties[index];
     });
 
@@ -64,7 +66,7 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
         </div>
         <div className="pl-4">
           <button className={styles.deleteObjectButton} onClick={handleObjectDelete}>
-            <FontAwesomeIcon icon="trash-alt" />
+            <FontAwesomeIcon icon={faTrashAlt} />
             <span className="sr-only">Delete the "{value.name}" map object</span>
           </button>
         </div>
@@ -84,7 +86,7 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
         </ul>
 
         <button className={styles.addPropertyButton} onClick={handleNewProperty}>
-          <FontAwesomeIcon icon="plus" className="mr-2" />
+          <FontAwesomeIcon icon={faPlus} className="mr-2" />
           Add New Property
         </button>
       </div>

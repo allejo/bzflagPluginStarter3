@@ -1,5 +1,5 @@
-import { IMapProperty } from '@allejo/bzf-plugin-gen';
-import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen/dist';
+import { IMapProperty, IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import React, { SyntheticEvent } from 'react';
@@ -7,6 +7,7 @@ import AutosizeInput from 'react-input-autosize';
 
 import { uuidV4 } from '../../../utilities/common';
 import Argument from './Argument';
+
 import styles from './Property.module.scss';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 
 const Property = ({ index, onChange, onDelete, value }: Props) => {
   const handlePropertyNameChange = (event: SyntheticEvent<HTMLInputElement>): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.name = event.currentTarget.value;
     });
 
@@ -30,7 +31,7 @@ const Property = ({ index, onChange, onDelete, value }: Props) => {
   };
 
   const handleArgumentChange = (argument: IMapPropertyArgument, idx: number): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.arguments[idx] = argument;
     });
 
@@ -38,7 +39,7 @@ const Property = ({ index, onChange, onDelete, value }: Props) => {
   };
 
   const handleArgumentCreate = (): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.arguments.push({
         uuid: uuidV4(),
         name: 'arg',
@@ -51,7 +52,7 @@ const Property = ({ index, onChange, onDelete, value }: Props) => {
   };
 
   const handleArgumentDelete = (argument: IMapPropertyArgument, idx: number): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.arguments.splice(idx, 1);
     });
 
@@ -65,7 +66,7 @@ const Property = ({ index, onChange, onDelete, value }: Props) => {
       ) : (
         <>
           <button className={styles.deleteBtn} onClick={handleDeleteRequest}>
-            <FontAwesomeIcon icon="trash-alt" />
+            <FontAwesomeIcon icon={faTrashAlt} />
             <span className="sr-only">Delete {value.name} property</span>
           </button>
           <AutosizeInput className={styles.propertyName} onChange={handlePropertyNameChange} value={value.name} />
@@ -88,7 +89,7 @@ const Property = ({ index, onChange, onDelete, value }: Props) => {
         {!value.readonly && (
           <li className="d-inline">
             <button className={styles.addArgument} onClick={handleArgumentCreate}>
-              <FontAwesomeIcon icon="plus" className="mr-2" />
+              <FontAwesomeIcon icon={faPlus} className="mr-2" />
               Add Argument
             </button>
           </li>

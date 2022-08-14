@@ -1,4 +1,5 @@
-import { IPlugin, PluginWriter } from '@allejo/bzf-plugin-gen/dist';
+import { IPlugin, PluginWriter } from '@allejo/bzf-plugin-gen';
+import { faClipboard, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CPPClass, CPPComment } from 'aclovis';
 import { saveAs } from 'file-saver';
@@ -62,13 +63,13 @@ BZ_PLUGIN(${writer.getClassName()})`,
 
           <button className="btn btn-primary ml-1" onClick={handleDownloadPluginAsFile}>
             <span className="sr-only">Download as file</span>
-            <FontAwesomeIcon icon="download" />
+            <FontAwesomeIcon icon={faDownload} />
           </button>
 
           <CopyToClipboard text={renderCode()}>
             <button className="btn btn-primary ml-1">
               <span className="sr-only">Copy plug-in to clipboard</span>
-              <FontAwesomeIcon icon="clipboard" />
+              <FontAwesomeIcon icon={faClipboard} />
             </button>
           </CopyToClipboard>
         </div>

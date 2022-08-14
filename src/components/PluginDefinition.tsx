@@ -30,7 +30,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
           {license.name}
         </option>
       )),
-    [Licenses],
+    [],
   );
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
       pluginLicense,
       playerCallsign,
     });
-  }, [pluginName, pluginAuthor, pluginLicense, playerCallsign]);
+  }, [onUpdate, pluginName, pluginAuthor, pluginLicense, playerCallsign]);
 
   return (
     <section className="row">
@@ -54,7 +54,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="form-control"
             placeholder="Sample Plug-in"
             value={pluginName}
-            onChange={e => setPluginName(e.currentTarget.value)}
+            onChange={(e) => setPluginName(e.currentTarget.value)}
           />
         </div>
 
@@ -67,7 +67,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="form-control"
             placeholder="Jane Doe"
             value={pluginAuthor}
-            onChange={e => setPluginAuthor(e.currentTarget.value)}
+            onChange={(e) => setPluginAuthor(e.currentTarget.value)}
           />
         </div>
       </div>
@@ -79,7 +79,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="custom-select"
             id="plugin-license"
             value={pluginLicense.name}
-            onChange={e => setPluginLicense(Licenses[e.currentTarget.value as LicenseName])}
+            onChange={(e) => setPluginLicense(Licenses[e.currentTarget.value as LicenseName])}
           >
             {licenses}
           </select>
@@ -94,7 +94,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="form-control"
             placeholder="allejo"
             value={playerCallsign}
-            onChange={e => setPlayerCallsign(e.currentTarget.value)}
+            onChange={(e) => setPlayerCallsign(e.currentTarget.value)}
           />
         </div>
       </div>

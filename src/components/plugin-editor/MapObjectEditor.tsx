@@ -1,4 +1,5 @@
 import { IMapObject, MapArgumentType } from '@allejo/bzf-plugin-gen';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import React, { useEffect, useState } from 'react';
@@ -15,7 +16,7 @@ const MapObjectEditor = ({ onChange }: Props) => {
   const [mapObjects, setMapObjects] = useState<Record<string, IMapObject>>({});
 
   const handleMapObjectChange = (data: IMapObject): void => {
-    const updated = produce(mapObjects, draft => {
+    const updated = produce(mapObjects, (draft) => {
       draft[data.uuid] = data;
     });
 
@@ -23,7 +24,7 @@ const MapObjectEditor = ({ onChange }: Props) => {
   };
 
   const handleMapObjectDelete = (data: IMapObject): void => {
-    const updated = produce(mapObjects, draft => {
+    const updated = produce(mapObjects, (draft) => {
       delete draft[data.uuid];
     });
 
@@ -32,7 +33,7 @@ const MapObjectEditor = ({ onChange }: Props) => {
 
   const handleNewMapObject = (): void => {
     const uuid = uuidV4();
-    const updated = produce(mapObjects, draft => {
+    const updated = produce(mapObjects, (draft) => {
       draft[uuid] = {
         uuid: uuid,
         name: 'object',
@@ -102,7 +103,7 @@ const MapObjectEditor = ({ onChange }: Props) => {
 
   useEffect(() => {
     onChange(Object.values(mapObjects));
-  }, [mapObjects]);
+  }, [onChange, mapObjects]);
 
   return (
     <div>
@@ -116,7 +117,7 @@ const MapObjectEditor = ({ onChange }: Props) => {
       ))}
 
       <Button color="primary" onClick={handleNewMapObject}>
-        <FontAwesomeIcon icon="plus" className="mr-2" />
+        <FontAwesomeIcon icon={faPlus} className="mr-2" />
         Add Map Object
       </Button>
     </div>

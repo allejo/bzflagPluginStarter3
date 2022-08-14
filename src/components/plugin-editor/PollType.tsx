@@ -1,4 +1,4 @@
-import { IPollType, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
+import { IPollType, PluginBuilder } from '@allejo/bzf-plugin-gen';
 import React from 'react';
 
 import FormRepeater from '../common/FormRepeater';
@@ -9,7 +9,7 @@ interface Props {
 
 const PollType = ({ onChange }: Props) => {
   const handleChange = (values: Record<string, string>[]): void => {
-    const pollTypes = values.map<IPollType>(value => {
+    const pollTypes = values.map<IPollType>((value) => {
       const pollType = {
         name: value['poll_name'],
         parameters: value['poll_params'].split(' '),
@@ -27,7 +27,7 @@ const PollType = ({ onChange }: Props) => {
     return (
       <p className="m-0">
         <span>/poll</span> <span>{value['poll_name']}</span>{' '}
-        {value['poll_params'].split(' ').map(param => (
+        {value['poll_params'].split(' ').map((param) => (
           <>
             <code>&lt;{param}&gt;</code>{' '}
           </>

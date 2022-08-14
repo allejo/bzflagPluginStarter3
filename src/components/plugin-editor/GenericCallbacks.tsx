@@ -1,4 +1,4 @@
-import { ICallback } from '@allejo/bzf-plugin-gen/dist';
+import { ICallback } from '@allejo/bzf-plugin-gen';
 import React from 'react';
 
 import FormRepeater from '../common/FormRepeater';

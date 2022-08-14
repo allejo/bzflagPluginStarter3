@@ -24,7 +24,7 @@ const EventSelector = ({ onUpdate }: Props) => {
 
     newEventNames.sort((a, b) => a.localeCompare(b));
     setEventNames(newEventNames);
-    onUpdate(newEventNames.map(eventName => Events[eventName]));
+    onUpdate(newEventNames.map((eventName) => Events[eventName]));
   };
 
   return (

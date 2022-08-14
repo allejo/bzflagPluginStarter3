@@ -1,3 +1,4 @@
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component, SyntheticEvent } from 'react';
 
@@ -64,7 +65,7 @@ export default class FormRepeater extends Component<Props, State> {
   };
 
   public _controlledFormFields = (template: any): React.ReactNode[] => {
-    return React.Children.map(template, child => {
+    return React.Children.map(template, (child) => {
       const { props } = child;
 
       if (!props) {
@@ -102,7 +103,7 @@ export default class FormRepeater extends Component<Props, State> {
           <div className={styles.buttonContainer}>
             <button className="btn btn-success">
               <span className="sr-only">Add item</span>
-              <FontAwesomeIcon icon="plus" aria-hidden={true} />
+              <FontAwesomeIcon icon={faPlus} aria-hidden={true} />
             </button>
           </div>
         </form>
@@ -117,7 +118,7 @@ export default class FormRepeater extends Component<Props, State> {
                   <span className="sr-only" aria-hidden="true">
                     Delete
                   </span>
-                  <FontAwesomeIcon icon="trash-alt" />
+                  <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
               </li>
             ))}

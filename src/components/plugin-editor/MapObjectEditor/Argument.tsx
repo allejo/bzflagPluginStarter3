@@ -1,6 +1,6 @@
 import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
 import produce from 'immer';
 import React, { SyntheticEvent } from 'react';
 import AutosizeInput from 'react-input-autosize';
@@ -17,7 +17,7 @@ interface Props {
 
 const Argument = ({ index, value, onChange, onDelete, readonly }: Props) => {
   const handleNameChange = (event: SyntheticEvent<HTMLInputElement>): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.name = event.currentTarget.value;
     });
 
@@ -25,7 +25,7 @@ const Argument = ({ index, value, onChange, onDelete, readonly }: Props) => {
   };
 
   const handleTypeChange = (event: SyntheticEvent<HTMLSelectElement>): void => {
-    const updated = produce(value, draft => {
+    const updated = produce(value, (draft) => {
       draft.type = event.currentTarget.value as MapArgumentType;
     });
 
@@ -36,13 +36,10 @@ const Argument = ({ index, value, onChange, onDelete, readonly }: Props) => {
     onDelete(value, index);
   };
 
+  const classes = [styles.container, ...(readonly ? [styles.readOnly] : [])];
+
   return (
-    <li
-      className={classNames({
-        [styles.container]: true,
-        [styles.readOnly]: readonly,
-      })}
-    >
+    <li className={classes.join(' ')}>
       <span aria-hidden="true">&#123;</span>
 
       <AutosizeInput className={styles.nameEditor} value={value.name} onChange={handleNameChange} disabled={readonly} />
@@ -60,7 +57,7 @@ const Argument = ({ index, value, onChange, onDelete, readonly }: Props) => {
 
       {!readonly && (
         <button className={styles.deleteButton} onClick={handleDelete}>
-          <FontAwesomeIcon icon="times-circle" fixedWidth={true} />
+          <FontAwesomeIcon icon={faTimesCircle} fixedWidth={true} />
           <span className="sr-only">Delete the {value.name} argument</span>
         </button>
       )}

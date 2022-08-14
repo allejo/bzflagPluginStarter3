@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-
 import { IEvent } from '@allejo/bzf-plugin-gen';
+import fs from 'fs';
 import yaml from 'js-yaml';
+import path from 'path';
 
 const eventsDir = path.join(__dirname, '..', 'data', 'events');
 const events = fs.readdirSync(eventsDir);
@@ -62,7 +61,7 @@ for (const eventsThatExtendKey in EventsThatExtend) {
   type IEventKey = keyof IEvent;
 
   Object.entries<IEventKey[]>(content.frontMatter._extends).forEach(([eventName, keys]: [string, IEventKey[]]) => {
-    keys.forEach(key => {
+    keys.forEach((key) => {
       content.frontMatter[key] = RawEventDictionary[eventName].frontMatter[key];
     });
   });

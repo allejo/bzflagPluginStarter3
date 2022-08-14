@@ -1,3 +1,4 @@
+import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ReactNode } from 'react';
 import { Collapse } from 'reactstrap';
@@ -20,7 +21,7 @@ const Accordion = ({ heading, isOpen, children, onToggle }: Props) => {
     <section>
       <button className={styles.header} aria-expanded={isOpen} onClick={handleClick}>
         <span className={styles.icon} aria-hidden={true}>
-          <FontAwesomeIcon icon={isOpen ? 'angle-down' : 'angle-right'} />
+          <FontAwesomeIcon icon={isOpen ? faAngleDown : faAngleRight} />
         </span>
 
         {heading}

@@ -1,14 +1,3 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faAngleDown,
-  faAngleRight,
-  faClipboard,
-  faDownload,
-  faPlus,
-  faTimesCircle,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import 'typeface-bitter';
@@ -17,9 +6,9 @@ import 'typeface-raleway';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import './index.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-library.add(faAngleDown, faAngleRight, faClipboard, faDownload, faPlus, faTimesCircle, faTrashAlt);
+import './index.scss';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);

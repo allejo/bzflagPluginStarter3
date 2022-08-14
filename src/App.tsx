@@ -9,12 +9,13 @@ import {
   IPollType,
   ISlashCommand,
   PluginBuilder,
-} from '@allejo/bzf-plugin-gen/dist';
+} from '@allejo/bzf-plugin-gen';
 import React, { Component } from 'react';
 import { initialize as initializeGA, pageview as recordPageViewGA } from 'react-ga';
 import semver from 'semver';
 
-import styles from './App.module.scss';
+import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
+import PluginPreview from './components/PluginPreview';
 import Accordion from './components/common/Accordion';
 import BZDBSettings from './components/plugin-editor/BZDBSettings';
 import CodeStyle from './components/plugin-editor/CodeStyle';
@@ -25,10 +26,10 @@ import MapObjectEditor from './components/plugin-editor/MapObjectEditor';
 import PollType from './components/plugin-editor/PollType';
 import SlashCommands from './components/plugin-editor/SlashCommands';
 import UrlHandling from './components/plugin-editor/UrlHandling';
-import PluginDefinition, { PluginDefinitionData } from './components/PluginDefinition';
-import PluginPreview from './components/PluginPreview';
 import Footer from './components/site/Footer';
 import Header from './components/site/Header';
+
+import styles from './App.module.scss';
 import Licenses from './data/licenses.json';
 
 interface State {
@@ -54,7 +55,7 @@ export default class App extends Component<{}, State> {
 
     this.state = {
       openedAccordion: 1,
-      pluginDef: Object.assign({}, this.pluginBuilder.definition),
+      pluginDef: { ...this.pluginBuilder.definition },
     };
   }
 
@@ -92,7 +93,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removeEvent(definition);
     }
 
-    data.forEach(value => this.pluginBuilder.addEvent(value));
+    data.forEach((value) => this.pluginBuilder.addEvent(value));
 
     this.updatePluginBuild();
   };
@@ -107,7 +108,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removeSlashCommand(command);
     }
 
-    data.forEach(value => this.pluginBuilder.addSlashCommand(value));
+    data.forEach((value) => this.pluginBuilder.addSlashCommand(value));
 
     this.updatePluginBuild();
   };
@@ -117,7 +118,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removeCallback(callback);
     }
 
-    data.forEach(value => this.pluginBuilder.addCallback(value));
+    data.forEach((value) => this.pluginBuilder.addCallback(value));
 
     this.updatePluginBuild();
   };
@@ -127,7 +128,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removeFlag(flag);
     }
 
-    data.forEach(value => this.pluginBuilder.addFlag(value));
+    data.forEach((value) => this.pluginBuilder.addFlag(value));
 
     this.updatePluginBuild();
   };
@@ -137,7 +138,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removeBZDBSetting(bzdbSetting);
     }
 
-    data.forEach(value => this.pluginBuilder.addBZDBSetting(value));
+    data.forEach((value) => this.pluginBuilder.addBZDBSetting(value));
 
     this.updatePluginBuild();
   };
@@ -147,7 +148,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removeMapObject(mapObject);
     }
 
-    data.forEach(value => this.pluginBuilder.addMapObject(value));
+    data.forEach((value) => this.pluginBuilder.addMapObject(value));
 
     this.updatePluginBuild();
   };
@@ -157,7 +158,7 @@ export default class App extends Component<{}, State> {
       this.pluginBuilder.removePollType(pollType);
     }
 
-    data.forEach(value => this.pluginBuilder.addPollType(value));
+    data.forEach((value) => this.pluginBuilder.addPollType(value));
 
     this.updatePluginBuild();
   };
@@ -172,7 +173,7 @@ export default class App extends Component<{}, State> {
 
   private updatePluginBuild = () => {
     this.setState({
-      pluginDef: Object.assign({}, this.pluginBuilder.definition),
+      pluginDef: { ...this.pluginBuilder.definition },
     });
   };
 

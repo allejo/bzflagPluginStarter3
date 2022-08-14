@@ -1,4 +1,4 @@
-import { ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
+import { ISlashCommand, PluginBuilder } from '@allejo/bzf-plugin-gen';
 import React from 'react';
 
 import FormRepeater from '../common/FormRepeater';

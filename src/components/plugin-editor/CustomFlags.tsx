@@ -1,4 +1,4 @@
-import { FlagType, IFlag, PluginBuilder } from '@allejo/bzf-plugin-gen/dist';
+import { FlagType, IFlag, PluginBuilder } from '@allejo/bzf-plugin-gen';
 import React from 'react';
 
 import FormRepeater from '../common/FormRepeater';
