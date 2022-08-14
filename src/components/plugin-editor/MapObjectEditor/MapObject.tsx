@@ -86,7 +86,7 @@ const MapObject = ({ onChange, onDelete, value }: Props) => {
         </ul>
 
         <button className={styles.addPropertyButton} onClick={handleNewProperty}>
-          <FontAwesomeIcon icon={faPlus} className="mr-2" />
+          <FontAwesomeIcon icon={faPlus} className="me-2" />
           Add New Property
         </button>
       </div>

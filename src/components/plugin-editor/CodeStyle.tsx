@@ -26,30 +26,30 @@ const CodeStyle = ({ data, onUpdate }: Props) => {
         <fieldset aria-labelledby="code-preferences">
           <legend id="code-preferences">Code Preferences</legend>
 
-          <div className="custom-control custom-checkbox">
+          <div className="form-check">
             <input
               type="checkbox"
               id="useIfStatement"
               name="useIfStatement"
-              className="custom-control-input"
+              className="form-check-input"
               checked={data.useIfStatement}
               onChange={handleChange}
             />
-            <label className="custom-control-label" htmlFor="useIfStatement">
+            <label className="form-check-label" htmlFor="useIfStatement">
               Use an if statement for event handling
             </label>
           </div>
 
-          <div className="custom-control custom-checkbox">
+          <div className="form-check">
             <input
               type="checkbox"
               id="bracesOnNewline"
               name="bracesOnNewLine"
-              className="custom-control-input"
+              className="form-check-input"
               checked={data.bracesOnNewLine}
               onChange={handleChange}
             />
-            <label className="custom-control-label" htmlFor="bracesOnNewline">
+            <label className="form-check-label" htmlFor="bracesOnNewline">
               Put braces on new line
             </label>
           </div>
@@ -58,95 +58,95 @@ const CodeStyle = ({ data, onUpdate }: Props) => {
 
       <div className="row">
         <div className="col-md-5">
-          <fieldset aria-labelledby="spacing-preferences" className="form-group">
+          <fieldset aria-labelledby="spacing-preferences">
             <legend className="col-form-label" id="spacing-preferences">
               Spacing Preferences
             </legend>
 
-            <div className="custom-control custom-radio">
+            <div className="form-check">
               <input
                 type="radio"
                 id="twoSpace"
                 name="spacingType"
-                className="custom-control-input"
+                className="form-check-input"
                 value="twoSpace"
                 checked={data.spacingType === 'twoSpace'}
                 onChange={handleChange}
               />
-              <label className="custom-control-label" htmlFor="twoSpace">
+              <label className="form-check-label" htmlFor="twoSpace">
                 2 Spaces
               </label>
             </div>
 
-            <div className="custom-control custom-radio">
+            <div className="form-check">
               <input
                 type="radio"
                 id="fourSpace"
                 name="spacingType"
-                className="custom-control-input"
+                className="form-check-input"
                 value="fourSpace"
                 checked={data.spacingType === 'fourSpace'}
                 onChange={handleChange}
               />
-              <label className="custom-control-label" htmlFor="fourSpace">
+              <label className="form-check-label" htmlFor="fourSpace">
                 4 Spaces
               </label>
             </div>
 
-            <div className="custom-control custom-radio">
+            <div className="form-check">
               <input
                 type="radio"
                 id="tabs"
                 name="spacingType"
-                className="custom-control-input"
+                className="form-check-input"
                 value="tabs"
                 checked={data.spacingType === 'tabs'}
                 onChange={handleChange}
               />
-              <label className="custom-control-label" htmlFor="tabs">
+              <label className="form-check-label" htmlFor="tabs">
                 Tabs
               </label>
             </div>
           </fieldset>
         </div>
         <div className="col-md-7">
-          <fieldset aria-labelledby="documentation-setting" className="form-group">
+          <fieldset aria-labelledby="documentation-setting">
             <legend className="col-form-label" id="documentation-setting">
               Documentation
             </legend>
 
-            <div className="custom-control custom-checkbox mb-2">
+            <div className="form-check mb-2">
               <input
                 type="checkbox"
                 id="buildEventDocs"
                 name="showDocBlocks"
-                className="custom-control-input"
+                className="form-check-input"
                 checked={data.showDocBlocks}
                 onChange={handleChange}
               />
-              <label htmlFor="buildEventDocs" className="custom-control-label" aria-describedby="docBlockHelp">
+              <label htmlFor="buildEventDocs" className="form-check-label" aria-describedby="docBlockHelp">
                 Build event doc blocks
               </label>
-              <small id="docBlockHelp" className="form-text text-muted">
+              <div id="docBlockHelp" className="form-text">
                 A block of documentation containing information about each event's data
-              </small>
+              </div>
             </div>
 
-            <div className="custom-control custom-checkbox">
+            <div className="form-check">
               <input
                 type="checkbox"
                 id="buildComments"
                 name="showComments"
-                className="custom-control-input"
+                className="form-check-input"
                 checked={data.showComments}
                 onChange={handleChange}
               />
-              <label htmlFor="buildComments" className="custom-control-label" aria-describedby="commentHelp">
+              <label htmlFor="buildComments" className="form-check-label" aria-describedby="commentHelp">
                 Add helpful comments
               </label>
-              <small id="commentHelp" className="form-text text-muted">
+              <div id="commentHelp" className="form-text">
                 Add miscellaneous comments explaining pieces of code
-              </small>
+              </div>
             </div>
           </fieldset>
         </div>

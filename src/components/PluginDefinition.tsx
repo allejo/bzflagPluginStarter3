@@ -45,8 +45,10 @@ const PluginDefinition = ({ onUpdate }: Props) => {
   return (
     <section className="row">
       <div className="col-md-6">
-        <div className="form-group">
-          <label htmlFor="plugin-name">Plug-in Name</label>
+        <div className="mb-3">
+          <label htmlFor="plugin-name" className="form-label">
+            Plug-in Name
+          </label>
           <input
             type="text"
             id="plugin-name"
@@ -54,12 +56,14 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="form-control"
             placeholder="Sample Plug-in"
             value={pluginName}
-            onChange={(e) => setPluginName(e.currentTarget.value)}
+            onChange={e => setPluginName(e.currentTarget.value)}
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="plugin-author">Plug-in Author</label>
+        <div className="mb-3">
+          <label htmlFor="plugin-author" className="form-label">
+            Plug-in Author
+          </label>
           <input
             type="text"
             id="plugin-author"
@@ -67,26 +71,30 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="form-control"
             placeholder="Jane Doe"
             value={pluginAuthor}
-            onChange={(e) => setPluginAuthor(e.currentTarget.value)}
+            onChange={e => setPluginAuthor(e.currentTarget.value)}
           />
         </div>
       </div>
 
       <div className="col-md-6">
-        <div className="form-group">
-          <label htmlFor="plugin-license">Plug-in License</label>
+        <div className="mb-3">
+          <label htmlFor="plugin-license" className="form-label">
+            Plug-in License
+          </label>
           <select
-            className="custom-select"
+            className="form-select"
             id="plugin-license"
             value={pluginLicense.name}
-            onChange={(e) => setPluginLicense(Licenses[e.currentTarget.value as LicenseName])}
+            onChange={e => setPluginLicense(Licenses[e.currentTarget.value as LicenseName])}
           >
             {licenses}
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="player-callsign">Player Callsign</label>
+        <div className="mb-3">
+          <label htmlFor="player-callsign" className="form-label">
+            Player Callsign
+          </label>
           <input
             type="text"
             id="player-callsign"
@@ -94,7 +102,7 @@ const PluginDefinition = ({ onUpdate }: Props) => {
             className="form-control"
             placeholder="allejo"
             value={playerCallsign}
-            onChange={(e) => setPlayerCallsign(e.currentTarget.value)}
+            onChange={e => setPlayerCallsign(e.currentTarget.value)}
           />
         </div>
       </div>

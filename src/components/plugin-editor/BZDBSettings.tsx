@@ -65,20 +65,24 @@ const BZDBSettings = ({ onChange }: Props) => {
       <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
         <div className="row">
           <div className="col">
-            <label htmlFor="setting_name">Setting Name</label>
+            <label htmlFor="setting_name" className="form-label">
+              Setting Name
+            </label>
             <input
               type="text"
               id="setting_name"
               autoComplete="off"
-              className="form-control mt-1"
+              className="form-control"
               name="setting_name"
               required={true}
             />
           </div>
 
           <div className="col">
-            <label htmlFor="setting_type">Type</label>
-            <select name="setting_type" id="setting_Type" className="form-control mt-1">
+            <label htmlFor="setting_type" className="form-label">
+              Type
+            </label>
+            <select name="setting_type" id="setting_Type" className="form-select">
               <option value="" disabled={true} />
               <option value={BZDBType.Bool}>Boolean</option>
               <option value={BZDBType.Double}>Double</option>
@@ -88,12 +92,14 @@ const BZDBSettings = ({ onChange }: Props) => {
           </div>
 
           <div className="col">
-            <label htmlFor="setting_value">Default Value</label>
+            <label htmlFor="setting_value" className="form-label">
+              Default Value
+            </label>
             <input
               type="text"
               id="setting_value"
               autoComplete="off"
-              className="form-control mt-1"
+              className="form-control"
               name="setting_value"
               required={true}
             />

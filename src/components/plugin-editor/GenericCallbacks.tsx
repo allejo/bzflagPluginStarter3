@@ -28,16 +28,11 @@ const GenericCallbacks = ({ onChange }: Props) => {
       </p>
 
       <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
-        <label htmlFor="callbacks">Add New Callback</label>
+        <label htmlFor="callbacks" className="form-label">
+          Add New Callback
+        </label>
 
-        <input
-          type="text"
-          id="callbacks"
-          autoComplete="off"
-          className="form-control mt-1"
-          name="callback"
-          required={true}
-        />
+        <input type="text" id="callbacks" autoComplete="off" className="form-control" name="callback" required={true} />
       </FormRepeater>
     </div>
   );

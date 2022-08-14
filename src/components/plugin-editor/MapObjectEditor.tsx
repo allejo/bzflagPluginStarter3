@@ -117,7 +117,7 @@ const MapObjectEditor = ({ onChange }: Props) => {
       ))}
 
       <Button color="primary" onClick={handleNewMapObject}>
-        <FontAwesomeIcon icon={faPlus} className="mr-2" />
+        <FontAwesomeIcon icon={faPlus} className="me-2" />
         Add Map Object
       </Button>
     </div>

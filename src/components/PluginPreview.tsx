@@ -61,13 +61,13 @@ BZ_PLUGIN(${writer.getClassName()})`,
         <div className={styles.toolbar}>
           <div className="btn btn-secondary">{minVersion}</div>
 
-          <button className="btn btn-primary ml-1" onClick={handleDownloadPluginAsFile}>
+          <button className="btn btn-primary ms-1" onClick={handleDownloadPluginAsFile}>
             <span className="sr-only">Download as file</span>
             <FontAwesomeIcon icon={faDownload} />
           </button>
 
           <CopyToClipboard text={renderCode()}>
-            <button className="btn btn-primary ml-1">
+            <button className="btn btn-primary ms-1">
               <span className="sr-only">Copy plug-in to clipboard</span>
               <FontAwesomeIcon icon={faClipboard} />
             </button>

@@ -24,7 +24,7 @@ const EventSelector = ({ onUpdate }: Props) => {
 
     newEventNames.sort((a, b) => a.localeCompare(b));
     setEventNames(newEventNames);
-    onUpdate(newEventNames.map((eventName) => Events[eventName]));
+    onUpdate(newEventNames.map(eventName => Events[eventName]));
   };
 
   return (
@@ -37,15 +37,9 @@ const EventSelector = ({ onUpdate }: Props) => {
           .sort()
           .map((value, index) => (
             <div className="col-md-6" key={index}>
-              <div className="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  id={value}
-                  name={value}
-                  className="custom-control-input"
-                  onChange={handleChange}
-                />
-                <label className="custom-control-label" htmlFor={value}>
+              <div className="form-check">
+                <input type="checkbox" id={value} name={value} className="form-check-input" onChange={handleChange} />
+                <label className="form-check-label" htmlFor={value}>
                   {value}
                 </label>
               </div>

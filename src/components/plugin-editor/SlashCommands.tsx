@@ -34,13 +34,15 @@ const SlashCommands = ({ onChange }: Props) => {
       </p>
 
       <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
-        <label htmlFor="slashcommands">Add New Slash Command</label>
+        <label htmlFor="slashcommands" className="form-label">
+          Add New Slash Command
+        </label>
 
         <input
           type="text"
           id="slashcommands"
           autoComplete="off"
-          className="form-control mt-1"
+          className="form-control"
           name="slash_command"
           placeholder="/slashcommand"
           required={true}

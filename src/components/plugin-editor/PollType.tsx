@@ -9,7 +9,7 @@ interface Props {
 
 const PollType = ({ onChange }: Props) => {
   const handleChange = (values: Record<string, string>[]): void => {
-    const pollTypes = values.map<IPollType>((value) => {
+    const pollTypes = values.map<IPollType>(value => {
       const pollType = {
         name: value['poll_name'],
         parameters: value['poll_params'].split(' '),
@@ -27,7 +27,7 @@ const PollType = ({ onChange }: Props) => {
     return (
       <p className="m-0">
         <span>/poll</span> <span>{value['poll_name']}</span>{' '}
-        {value['poll_params'].split(' ').map((param) => (
+        {value['poll_params'].split(' ').map(param => (
           <>
             <code>&lt;{param}&gt;</code>{' '}
           </>
@@ -46,23 +46,27 @@ const PollType = ({ onChange }: Props) => {
       <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
         <div className="row">
           <div className="col">
-            <label htmlFor="poll_type">Poll Type</label>
+            <label htmlFor="poll_type" className="form-label">
+              Poll Type
+            </label>
             <input
               type="text"
               id="poll_type"
               autoComplete="off"
-              className="form-control mt-1"
+              className="form-control"
               name="poll_name"
               required={true}
             />
           </div>
           <div className="col">
-            <label htmlFor="poll_params">Parameters</label>
+            <label htmlFor="poll_params" className="form-label">
+              Parameters
+            </label>
             <input
               type="text"
               id="poll_params"
               autoComplete="off"
-              className="form-control mt-1"
+              className="form-control"
               name="poll_params"
               required={true}
             />

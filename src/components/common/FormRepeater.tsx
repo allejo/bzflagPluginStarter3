@@ -114,7 +114,7 @@ export default class FormRepeater extends Component<Props, State> {
               <li key={i} className={styles.repeaterItem}>
                 <div className={styles.repeaterContent}>{this.props.itemRendererCallback(value)}</div>
 
-                <button className="btn btn-danger ml-1" onClick={() => this._handleRemoval(i)}>
+                <button className="btn btn-danger ms-1" onClick={() => this._handleRemoval(i)}>
                   <span className="sr-only" aria-hidden="true">
                     Delete
                   </span>

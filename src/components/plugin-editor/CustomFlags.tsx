@@ -48,46 +48,52 @@ const CustomFlags = ({ onChange }: Props) => {
       <FormRepeater onChange={handleChange} itemRendererCallback={handleDisplayCallback}>
         <div className="row">
           <div className="col">
-            <label htmlFor="flag_name">Flag Name</label>
+            <label htmlFor="flag_name" className="form-label">
+              Flag Name
+            </label>
             <input
               type="text"
               id="flag_name"
               autoComplete="off"
-              className="form-control mt-1"
+              className="form-control"
               name="flag_name"
               required={true}
             />
           </div>
           <div className="col">
-            <label htmlFor="flag_abbr">
+            <label htmlFor="flag_abbr" className="form-label">
               Flag <abbr title="Abbreviation">Abbr</abbr>
             </label>
             <input
               type="text"
               id="flag_abbr"
               autoComplete="off"
-              className="form-control mt-1"
+              className="form-control"
               name="flag_abbr"
               maxLength={2}
               required={true}
             />
           </div>
           <div className="col">
-            <label htmlFor="flag_type">Flag Type</label>
-            <select name="flag_type" id="flag_type" className="form-control mt-1" required={true}>
+            <label htmlFor="flag_type" className="form-label">
+              Flag Type
+            </label>
+            <select name="flag_type" id="flag_type" className="form-control" required={true}>
               <option value="" disabled={true} />
               <option value={FlagType.Good}>Good</option>
               <option value={FlagType.Bad}>Bad</option>
             </select>
           </div>
         </div>
-        <div className="mt-1">
-          <label htmlFor="flag_desc">Flag Description</label>
+        <div className="mt-2">
+          <label htmlFor="flag_desc" className="form-label">
+            Flag Description
+          </label>
           <input
             type="text"
             id="flag_desc"
             autoComplete="off"
-            className="form-control mt-1"
+            className="form-control"
             name="flag_desc"
             required={true}
           />

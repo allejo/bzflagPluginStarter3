@@ -89,7 +89,7 @@ const Property = ({ index, onChange, onDelete, value }: Props) => {
         {!value.readonly && (
           <li className="d-inline">
             <button className={styles.addArgument} onClick={handleArgumentCreate}>
-              <FontAwesomeIcon icon={faPlus} className="mr-2" />
+              <FontAwesomeIcon icon={faPlus} className="me-2" />
               Add Argument
             </button>
           </li>
