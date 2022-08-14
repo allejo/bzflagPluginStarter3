@@ -1,8 +1,8 @@
 import { IMapProperty } from '@allejo/bzf-plugin-gen';
 import { IMapPropertyArgument, MapArgumentType } from '@allejo/bzf-plugin-gen/dist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import update from 'immutability-helper';
-import React, { Component, ReactNode, SyntheticEvent } from 'react';
+import produce from 'immer';
+import React, { SyntheticEvent } from 'react';
 import AutosizeInput from 'react-input-autosize';
 
 import { uuidV4 } from '../../../utilities/common';
@@ -11,111 +11,91 @@ import styles from './Property.module.scss';
 
 interface Props {
   index: number;
-  value: IMapProperty;
   onChange: (data: IMapProperty, index: number) => void;
   onDelete: (data: IMapProperty, index: number) => void;
+  value: IMapProperty;
 }
 
-export default class Property extends Component<Props> {
-  public _handlePropertyNameChange = (event: SyntheticEvent<HTMLInputElement>): void => {
-    this.props.onChange(
-      update(this.props.value, {
-        name: {
-          $set: event.currentTarget.value,
-        },
-      }),
-      this.props.index,
-    );
+const Property = ({ index, onChange, onDelete, value }: Props) => {
+  const handlePropertyNameChange = (event: SyntheticEvent<HTMLInputElement>): void => {
+    const updated = produce(value, draft => {
+      draft.name = event.currentTarget.value;
+    });
+
+    onChange(updated, index);
   };
 
-  public _handleDeleteRequest = (): void => {
-    this.props.onDelete(this.props.value, this.props.index);
+  const handleDeleteRequest = (): void => {
+    onDelete(value, index);
   };
 
-  public _handleArgumentChange = (argument: IMapPropertyArgument, index: number): void => {
-    this.props.onChange(
-      update(this.props.value, {
-        arguments: {
-          $splice: [[index, 1, argument]],
-        },
-      }),
-      this.props.index,
-    );
+  const handleArgumentChange = (argument: IMapPropertyArgument, idx: number): void => {
+    const updated = produce(value, draft => {
+      draft.arguments[idx] = argument;
+    });
+
+    onChange(updated, index);
   };
 
-  public _handleArgumentCreate = (): void => {
-    this.props.onChange(
-      update(this.props.value, {
-        arguments: {
-          $push: [
-            {
-              uuid: uuidV4(),
-              name: 'arg',
-              type: MapArgumentType.String,
-              readonly: false,
-            },
-          ],
-        },
-      }),
-      this.props.index,
-    );
+  const handleArgumentCreate = (): void => {
+    const updated = produce(value, draft => {
+      draft.arguments.push({
+        uuid: uuidV4(),
+        name: 'arg',
+        type: MapArgumentType.String,
+        readonly: false,
+      });
+    });
+
+    onChange(updated, index);
   };
 
-  public _handleArgumentDelete = (argument: IMapPropertyArgument, index: number): void => {
-    this.props.onChange(
-      update(this.props.value, {
-        arguments: {
-          $splice: [[index, 1]],
-        },
-      }),
-      this.props.index,
-    );
+  const handleArgumentDelete = (argument: IMapPropertyArgument, idx: number): void => {
+    const updated = produce(value, draft => {
+      draft.arguments.splice(idx, 1);
+    });
+
+    onChange(updated, index);
   };
 
-  public render(): ReactNode {
-    const { value } = this.props;
+  return (
+    <li className={styles.container}>
+      {value.readonly ? (
+        <span className={styles.propertyName}>{value.name}</span>
+      ) : (
+        <>
+          <button className={styles.deleteBtn} onClick={handleDeleteRequest}>
+            <FontAwesomeIcon icon="trash-alt" />
+            <span className="sr-only">Delete {value.name} property</span>
+          </button>
+          <AutosizeInput className={styles.propertyName} onChange={handlePropertyNameChange} value={value.name} />
+        </>
+      )}
 
-    return (
-      <li className={styles.container}>
-        {value.readonly ? (
-          <span className={styles.propertyName}>{value.name}</span>
-        ) : (
-          <>
-            <button className={styles.deleteBtn} onClick={this._handleDeleteRequest}>
-              <FontAwesomeIcon icon="trash-alt" />
-              <span className="sr-only">Delete {value.name} property</span>
-            </button>
-            <AutosizeInput
-              className={styles.propertyName}
-              onChange={this._handlePropertyNameChange}
-              value={value.name}
+      <ul className={styles.arguments}>
+        {value.arguments.length > 0 &&
+          value.arguments.map((argument: IMapPropertyArgument, index: number) => (
+            <Argument
+              key={argument.uuid}
+              value={argument}
+              index={index}
+              readonly={value.readonly}
+              onChange={handleArgumentChange}
+              onDelete={handleArgumentDelete}
             />
-          </>
+          ))}
+
+        {!value.readonly && (
+          <li className="d-inline">
+            <button className={styles.addArgument} onClick={handleArgumentCreate}>
+              <FontAwesomeIcon icon="plus" className="mr-2" />
+              Add Argument
+            </button>
+          </li>
         )}
+      </ul>
+    </li>
+  );
+};
 
-        <ul className={styles.arguments}>
-          {value.arguments.length > 0 &&
-            value.arguments.map((argument: IMapPropertyArgument, index: number) => (
-              <Argument
-                key={argument.uuid}
-                value={argument}
-                index={index}
-                readonly={value.readonly}
-                onChange={this._handleArgumentChange}
-                onDelete={this._handleArgumentDelete}
-              />
-            ))}
-
-          {!value.readonly && (
-            <li className="d-inline">
-              <button className={styles.addArgument} onClick={this._handleArgumentCreate}>
-                <FontAwesomeIcon icon="plus" className="mr-2" />
-                Add Argument
-              </button>
-            </li>
-          )}
-        </ul>
-      </li>
-    );
-  }
-}
+export default Property;
