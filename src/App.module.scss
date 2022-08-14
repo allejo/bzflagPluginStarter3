@@ -1,6 +1,4 @@
-@import 'scss/variables';
-
 .pluginSettings {
-  border-top: 1px solid $color-light-green;
+  border-top: 1px solid var(--color-light-green);
   margin-top: 0.5em;
 }

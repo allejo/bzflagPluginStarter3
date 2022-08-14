@@ -1,8 +1,15 @@
-@import 'scss/variables';
-
 :root {
-  --color-grey: #747d85;
-  --color-light-grey: #c7c7c7;
+  --color-grey-r: 116;
+  --color-grey-g: 125;
+  --color-grey-b: 133;
+
+  --color-light-grey-r: 199;
+  --color-light-grey-g: 199;
+  --color-light-grey-b: 199;
+
+  --color-grey: rgb(var(--color-grey-r), var(--color-grey-g), var(--color-grey-b));
+  --color-light-grey: rgb(var(--color-light-grey-r), var(--color-light-grey-g), var(--color-light-grey-b));
+
   --color-green: #326b5a;
   --color-light-green: #cfe6e3;
   --color-red: #b03329;
@@ -26,7 +33,7 @@ code {
 
 label,
 legend {
-  color: $color-green;
+  color: var(--color-green);
   font-size: 1rem;
   font-weight: bold;
 }
@@ -43,7 +50,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: $color-green;
+  color: var(--color-green);
 }
 
 h1 {

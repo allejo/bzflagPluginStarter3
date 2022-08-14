@@ -1,15 +1,13 @@
-@import '../../../scss/variables';
-
 .container {
-  border: 1px dashed $color-light-grey;
-  font-family: $font-family-monospace;
+  border: 1px dashed var(--color-light-grey);
+  font-family: var(--font-family-monospace);
   font-size: 0.9rem;
   margin-bottom: 1rem;
   padding: 1rem;
 }
 
 .objectName input {
-  border: 1px dashed $color-grey;
+  border: 1px dashed var(--color-grey);
   border-radius: 5px;
   font-weight: bold;
   padding: 0 0.25rem;
@@ -24,8 +22,8 @@
 
 .addPropertyButton {
   background-color: transparent;
-  border: 1px dashed $color-light-grey;
-  color: $color-grey;
+  border: 1px dashed var(--color-light-grey);
+  color: var(--color-grey);
   font-size: 0.8rem;
   margin-left: 25px;
   padding: 0.5rem;
@@ -36,5 +34,5 @@
 .deleteObjectButton {
   background-color: transparent;
   border: none;
-  color: $color-red;
+  color: var(--color-red);
 }

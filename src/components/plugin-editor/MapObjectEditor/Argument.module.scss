@@ -1,20 +1,18 @@
-@import '../../../scss/variables';
-
 .container,
 .nameEditor input,
 .typeSelector {
-  color: $color-green;
+  color: var(--color-green);
 
   &.readOnly,
   &[disabled] {
     border-bottom: 0;
-    color: rgba($color-grey, 0.8);
+    color: rgba(var(--color-grey-r), var(--color-grey-g), var(--color-grey-b), 0.8);
     cursor: not-allowed;
   }
 }
 
 .container {
-  background: $color-light-green;
+  background: var(--color-light-green);
   border-radius: 5px;
   font-size: 0.7rem;
   display: inline;
@@ -23,7 +21,7 @@
   position: relative;
 
   &.readOnly {
-    background: rgba($color-light-grey, 0.3);
+    background: rgba(var(--color-light-grey-r), var(--color-light-grey-g), var(--color-light-grey-b), 0.3);
   }
 
   &:hover,
@@ -46,7 +44,7 @@
 .nameEditor input {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid $color-green;
+  border-bottom: 1px solid var(--color-green);
   font-weight: bold;
 }
 
@@ -56,10 +54,10 @@
 }
 
 .deleteButton {
-  background: $color-white;
-  border: 1px solid $color-grey;
+  background: var(--color-white);
+  border: 1px solid var(--color-grey);
   border-radius: 5px;
-  color: $color-red;
+  color: var(--color-red);
   display: none;
   line-height: 1;
   padding: 3px;
