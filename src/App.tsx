@@ -32,6 +32,10 @@ import Header from './components/site/Header';
 import styles from './App.module.scss';
 import Licenses from './data/licenses.json';
 
+interface IVersionable {
+  since: string;
+}
+
 interface State {
   openedAccordion: number;
   pluginDef: IPlugin;
@@ -60,8 +64,21 @@ export default class App extends Component<{}, State> {
   }
 
   public _getMinimumVersion = (): string => {
-    const events: IEvent[] = Object.values(this.pluginBuilder.definition.events);
-    const versions: IEvent[] = events.sort((a: IEvent, b: IEvent) => {
+    const versionableFeatures: IVersionable[] = Object.values(this.pluginBuilder.definition.events);
+
+    if (Object.keys(this.pluginBuilder.definition.mapObjects).length > 0) {
+      versionableFeatures.push({ since: '2.4.4' });
+    }
+
+    if (Object.keys(this.pluginBuilder.definition.pollTypes).length > 0) {
+      versionableFeatures.push({ since: '2.4.10' });
+    }
+
+    if (Object.keys(this.pluginBuilder.definition.bzdbSettings).length > 0) {
+      versionableFeatures.push({ since: '2.4.14' });
+    }
+
+    const versions: IVersionable[] = versionableFeatures.sort((a: IVersionable, b: IVersionable) => {
       return semver.gt(b.since, a.since) ? 1 : -1;
     });
 
