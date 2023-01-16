@@ -14,17 +14,17 @@ const EventSelector = ({ onUpdate }: Props) => {
 
   const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
     const currEventName = event.currentTarget.name as EventName;
-    let newEventNames: EventName[] = [];
+    let newEventNames: EventName[] = [...eventNames];
 
     if (event.currentTarget.checked) {
-      newEventNames = [...eventNames, currEventName];
+      newEventNames.push(currEventName);
     } else {
       newEventNames.splice(eventNames.indexOf(currEventName), 1);
     }
 
     newEventNames.sort((a, b) => a.localeCompare(b));
     setEventNames(newEventNames);
-    onUpdate(newEventNames.map(eventName => Events[eventName]));
+    onUpdate(newEventNames.map((eventName) => Events[eventName]));
   };
 
   return (
